@@ -1,0 +1,29 @@
+{pp}
+
+Write an abstract of strict {wc} words for the research report.
+
+Structure the content in this order:
+1. Begin with the problem being addressed in the research domain.
+2. State the role of machine learning in resolving this problem.
+3. Name the selected dataset and its source.
+4. Describe the proposed methodology and preprocessing steps used.
+5. Name the models trained and evaluated.
+6. State the best model and its accuracy score only — do not mention other metric scores.
+7. Mention whether the benchmark was surpassed and name the benchmark reference.
+8. Describe the web application developed, naming the framework.
+9. Mention XAI only if it was used in the project — do not mention it otherwise.
+
+Do not use phrases like "In Conclusion" or "In Summary".
+Do not mention future work.
+Keep it technical and concise.
+
+Then, on a new line after the abstract paragraph, write:
+Keywords: followed by exactly 12 comma-separated keywords in title case
+(not all caps). Keywords should reflect the most important techniques,
+model names, and domain terms used in the research.
+
+Note: Abstract must be exactly 1 continuous paragraph of not less than
+{wc} words. Keywords must be on a separate line in title case.
+
+Use Code Summary Value Specific, Web App Summary, and Data Details from:
+{a} {b} {c}

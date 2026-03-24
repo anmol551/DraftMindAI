@@ -1,0 +1,7 @@
+Keep it same. Do not add figure placeholders in this section.
+
+{common}
+    10. Strictly approximately {wc} words.
+
+Use novelty from:
+{novelty}

@@ -1,0 +1,303 @@
+{
+  "libraries_used": [
+    "pandas",
+    "numpy",
+    "seaborn",
+    "matplotlib",
+    "scikit-learn: LabelEncoder, OneHotEncoder, StandardScaler, RandomForestRegressor, RFE, ElasticNet, RandomizedSearchCV, train_test_split, accuracy_score, precision_score, recall_score, f1_score, roc_auc_score, confusion_matrix, classification_report, mean_absolute_error, mean_squared_error, r2_score, explained_variance_score",
+    "imbalanced-learn: SMOTE (imported but commented out)",
+    "tensorflow/keras: Sequential, Conv1D, Dense, Flatten, BatchNormalization, Dropout, Adam",
+    "pytorch-tabnet: TabNetRegressor",
+    "torch",
+    "joblib",
+    "openai",
+    "streamlit",
+    "base64"
+  ],
+  "statistical_analysis": [
+    {
+      "function": "loan_data.describe()",
+      "purpose": "Generates descriptive statistics including mean, std, min, max and quartiles for all numerical columns",
+      "outcome": "Summary statistics table across 20,000 records and 36 features"
+    },
+    {
+      "function": "loan_data.isna().sum().sum()",
+      "purpose": "Counts total missing values in the dataset",
+      "outcome": "Confirmed zero missing values"
+    },
+    {
+      "function": "loan_data.duplicated().sum()",
+      "purpose": "Detects duplicate rows",
+      "outcome": "Confirmed no duplicate records"
+    },
+    {
+      "function": "loan_data.info()",
+      "purpose": "Provides data types, non-null counts and memory usage",
+      "outcome": "Column-wise data type overview and null check"
+    },
+    {
+      "function": "groupby + size + unstack",
+      "purpose": "Calculates approval rates segmented by categorical variables such as BankruptcyHistory, LoanPurpose, and NumberOfCreditInquiries",
+      "outcome": "Grouped approval rate tables used for bivariate visualisations"
+    }
+  ],
+  "eda": [
+    {
+      "plot_type": "Pie Charts (5 subplots)",
+      "title": "Categorical Feature Distributions \u2014 EmploymentStatus, MaritalStatus, HomeOwnershipStatus, LoanPurpose",
+      "x_variable": "Category labels",
+      "y_variable": "Percentage share",
+      "insights": "Employed applicants dominate employment status. Married applicants form the largest marital group. Renting is the most common home ownership status. Personal and auto are the top loan purposes, suggesting the applicant pool is diverse but skewed toward mid-income working individuals."
+    },
+    {
+      "plot_type": "Histogram",
+      "title": "Histogram of Age",
+      "x_variable": "Age (bins=30)",
+      "y_variable": "Frequency",
+      "insights": "Right-skewed distribution indicating a significant proportion of younger applicants. Taller bars appear in younger age ranges with frequency declining for older groups, reflecting a workforce-age-dominant applicant pool."
+    },
+    {
+      "plot_type": "Histograms \u2014 Group 1 (5 subplots)",
+      "title": "Distribution of MonthlyDebtPayments, CreditCardUtilizationRate, PaymentHistory, TotalAssets, TotalLiabilities",
+      "x_variable": "Feature value",
+      "y_variable": "Frequency",
+      "insights": "MonthlyDebtPayments and TotalAssets show right skew, meaning most applicants carry lower debt and asset values. PaymentHistory is left-skewed, indicating most applicants have strong repayment records with a small minority showing poor history."
+    },
+    {
+      "plot_type": "Histograms \u2014 Group 2 (5 subplots)",
+      "title": "Distribution of UtilityBillsPaymentHistory, NetWorth, InterestRate, MonthlyIncome, additional features",
+      "x_variable": "Feature value",
+      "y_variable": "Frequency",
+      "insights": "NetWorth and MonthlyIncome display wide variance. InterestRate is relatively narrowly distributed, suggesting bounded lending rate policies. UtilityBillsPaymentHistory is left-skewed, confirming generally reliable payment behaviour."
+    },
+    {
+      "plot_type": "Grouped Bar Chart",
+      "title": "Loan Approvals by Bankruptcy History",
+      "x_variable": "BankruptcyHistory (0 or 1)",
+      "y_variable": "Approval Rate (%)",
+      "insights": "Applicants with no bankruptcy history (0) show substantially higher approval rates. Those with a bankruptcy record (1) are denied at a significantly elevated rate, confirming BankruptcyHistory as a dominant risk signal."
+    },
+    {
+      "plot_type": "Heatmap",
+      "title": "Loan Approval Rate by Loan Purpose",
+      "x_variable": "LoanPurpose categories",
+      "y_variable": "LoanApproved (0 or 1)",
+      "insights": "Denial dominates across all purposes. Auto loans show 75.7% denied and 24.3% approved. Debt consolidation records 76.5% denied and 23.5% approved, reflecting cautious underwriting across all loan types. Annotated with exact percentage values."
+    },
+    {
+      "plot_type": "Grouped Bar Chart",
+      "title": "Loan Approval Rate by Number of Credit Inquiries",
+      "x_variable": "NumberOfCreditInquiries",
+      "y_variable": "Approval Rate (%)",
+      "insights": "Clear declining trend: as the number of credit inquiries increases, approval rates decrease. High inquiry counts signal risky financial behaviour and correlate strongly with denial outcomes."
+    },
+    {
+      "plot_type": "Joint Scatter Plot with Marginal Histograms",
+      "title": "Loan Amount vs Annual Income",
+      "x_variable": "AnnualIncome",
+      "y_variable": "LoanAmount",
+      "insights": "Positive correlation between income and requested loan amount. Higher income applicants tend to request larger loans. Notable outliers exist where lower-income applicants request disproportionately high loan amounts, indicating potential risk."
+    },
+    {
+      "plot_type": "Vertical Bar Chart",
+      "title": "Loan Approval Status Distribution",
+      "x_variable": "Approved / Denied",
+      "y_variable": "Count",
+      "insights": "Dataset reveals significant class imbalance: 4,780 approved records versus 15,220 denied records. The 76%/24% imbalance informs the need for weighted evaluation metrics and careful threshold selection during classification."
+    },
+    {
+      "plot_type": "Horizontal Bar Chart",
+      "title": "Feature Importance of RFE-Selected Features",
+      "x_variable": "Importance score",
+      "y_variable": "Feature name",
+      "insights": "TotalDebtToIncomeRatio ranks highest, confirming overall obligation level as the strongest predictor. BankruptcyHistory and PreviousLoanDefaults rank highly as risk flags. AnnualIncome, MonthlyIncome, and NetWorth reflect repayment capacity and also rank among top features."
+    },
+    {
+      "plot_type": "Correlation Heatmap",
+      "title": "Feature Correlation Matrix (RFE-selected features)",
+      "x_variable": "Feature names",
+      "y_variable": "Feature names",
+      "insights": "Strong multicollinearity detected: AnnualIncome and MonthlyIncome correlation = 0.99; TotalAssets and NetWorth correlation = 0.98. RiskScore shows moderate positive correlation with DebtToIncomeRatio and InterestRate, confirming feature relevance to the target."
+    }
+  ],
+  "data_preprocessing": [
+    {
+      "function": "loan_data.drop(columns=['ApplicationDate'])",
+      "purpose": "Remove non-informative date column prior to modelling",
+      "parameters": "columns=['ApplicationDate'], inplace=True"
+    },
+    {
+      "function": "OneHotEncoder(sparse_output=False)",
+      "applied_to": "EmploymentStatus, HomeOwnershipStatus, MaritalStatus, LoanPurpose",
+      "parameters": "sparse_output=False \u2014 produces dense array output"
+    },
+    {
+      "function": "encoder.fit_transform(X[categorical_columns])",
+      "purpose": "Fit and transform categorical columns into binary indicator features",
+      "outcome": "Expanded feature matrix with binary columns per category"
+    },
+    {
+      "function": "LabelEncoder()",
+      "applied_to": "EducationLevel",
+      "parameters": "Default parameters \u2014 assigns integer per unique category"
+    },
+    {
+      "function": "label_encoder.fit_transform(X[column])",
+      "purpose": "Convert ordinal education levels to integer codes",
+      "outcome": "Single integer column replacing text labels"
+    }
+  ],
+  "feature_engineering": {
+    "feature_selection_method": "Recursive Feature Elimination (RFE) with RandomForestRegressor, n_features_to_select=10",
+    "rfe_selected_features": [
+      "AnnualIncome",
+      "LoanAmount",
+      "LoanDuration",
+      "DebtToIncomeRatio",
+      "TotalAssets",
+      "MonthlyIncome",
+      "NetWorth",
+      "InterestRate",
+      "TotalDebtToIncomeRatio",
+      "RiskScore"
+    ],
+    "engineered_features": [
+      "Income_Stability_Ratio = (MonthlyIncome * 12) / (AnnualIncome + 1)",
+      "NetWorth_to_Income = NetWorth / (AnnualIncome + 1)",
+      "Debt_Stress_Index = DebtToIncomeRatio * InterestRate",
+      "Credit_Experience_Score = CreditScore * log1p(LengthOfCreditHistory)",
+      "Historical_Risk_Flag = BankruptcyHistory + PreviousLoanDefaults",
+      "Composite_Risk_Index = 0.4*(1 - CreditScore/850) + 0.3*DebtToIncomeRatio + 0.2*InterestRate + 0.1*Historical_Risk_Flag"
+    ],
+    "columns_scaled": [
+      "AnnualIncome",
+      "CreditScore",
+      "DebtToIncomeRatio",
+      "LengthOfCreditHistory",
+      "MonthlyIncome",
+      "NetWorth",
+      "InterestRate",
+      "TotalDebtToIncomeRatio",
+      "Income_Stability_Ratio",
+      "NetWorth_to_Income",
+      "Debt_Stress_Index",
+      "Credit_Experience_Score",
+      "Composite_Risk_Index"
+    ],
+    "scaling_method": "StandardScaler \u2014 zero mean, unit variance; saved as scaler.pkl"
+  },
+  "train_split": "train_test_split \u2014 test_size=0.2, random_state=42 \u2192 16,000 training samples, 4,000 test samples",
+  "model_details": [
+    {
+      "model": "ElasticNet Regressor",
+      "tuning_method": "RandomizedSearchCV (n_iter=50, cv=5, scoring=r2, n_jobs=-1, random_state=42)",
+      "base_parameters": "ElasticNet(max_iter=10000, random_state=42)",
+      "tuned_parameters": "alpha=0.0005336699231206312, l1_ratio=0.9387755102040816",
+      "best_cv_r2": 0.7537,
+      "layers": "Not applicable \u2014 linear model"
+    },
+    {
+      "model": "CNN Regressor (1D Convolutional Neural Network)",
+      "tuning_method": "Manual architecture design \u2014 no automated hyperparameter search",
+      "layers": [
+        "Conv1D(filters=32, kernel_size=2, activation=relu, input_shape=(16, 1))",
+        "BatchNormalization()",
+        "Conv1D(filters=64, kernel_size=2, activation=relu)",
+        "BatchNormalization()",
+        "Flatten()",
+        "Dense(64, activation=relu)",
+        "Dropout(rate=0.3)",
+        "Dense(1) \u2014 linear output for regression"
+      ],
+      "training_parameters": "epochs=50, batch_size=32, validation_split=0.2, optimizer=Adam, loss=mse, metrics=[mae]"
+    },
+    {
+      "model": "TabNet Regressor",
+      "tuning_method": "Manual hyperparameter specification",
+      "parameters": {
+        "n_d": 32,
+        "n_a": 32,
+        "n_steps": 5,
+        "gamma": 1.5,
+        "lambda_sparse": 0.0001,
+        "optimizer_fn": "torch.optim.Adam",
+        "lr": 0.02,
+        "mask_type": "entmax",
+        "max_epochs": 100,
+        "patience": 20,
+        "batch_size": 512,
+        "virtual_batch_size": 128,
+        "eval_metric": "mae"
+      },
+      "layers": "Sequential attention steps using entmax sparse masking across n_steps=5 decision steps with shared and step-specific fully connected layers"
+    }
+  ],
+  "model_results": {
+    "metrics_used_regression": [
+      "MAE",
+      "MSE",
+      "RMSE",
+      "R2 Score",
+      "Explained Variance"
+    ],
+    "metrics_used_classification": [
+      "Accuracy",
+      "Precision (weighted)",
+      "Recall (weighted)",
+      "F1 Score (weighted)",
+      "ROC-AUC"
+    ],
+    "regression_performance_table": [
+      {
+        "Model": "ElasticNet",
+        "MAE": 3.0955,
+        "MSE": 16.2191,
+        "RMSE": 4.0273,
+        "R2_Score": 0.7388,
+        "Explained_Variance": 0.7388
+      },
+      {
+        "Model": "CNN",
+        "MAE": 2.2253,
+        "MSE": 8.9632,
+        "RMSE": 2.9939,
+        "R2_Score": 0.8556,
+        "Explained_Variance": 0.8569
+      },
+      {
+        "Model": "TabNet [BEST]",
+        "MAE": 1.8953,
+        "MSE": 7.2074,
+        "RMSE": 2.6847,
+        "R2_Score": 0.8839,
+        "Explained_Variance": 0.8841
+      }
+    ],
+    "classification_performance_table": [
+      {
+        "Model": "ElasticNet",
+        "Accuracy": 0.8273,
+        "Precision": 0.8412,
+        "Recall": 0.8273,
+        "F1_Score": 0.8275,
+        "ROC_AUC": 0.9297
+      },
+      {
+        "Model": "CNN",
+        "Accuracy": 0.868,
+        "Precision": 0.8813,
+        "Recall": 0.868,
+        "F1_Score": 0.8682,
+        "ROC_AUC": 0.9582
+      },
+      {
+        "Model": "TabNet [BEST]",
+        "Accuracy": 0.891,
+        "Precision": 0.8933,
+        "Recall": 0.891,
+        "F1_Score": 0.8913,
+        "ROC_AUC": 0.9598
+      }
+    ]
+  }
+}

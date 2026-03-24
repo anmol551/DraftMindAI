@@ -1,0 +1,264 @@
+BASE_PAPER_CITATION: "Anand, R., Singh, H., Sardana, K., Gupta, D.N., Sindhwani, N.\
+  \ and Mittal, M. (2024) 'Loan Approval Prediction Using Machine Learning', in Abraham,\
+  \ A., Bajaj, A. and Hanne, T. (eds) Intelligent Systems Design and Applications.\
+  \ ISDA 2023. Lecture Notes in Networks and Systems, vol. 1052. Cham: Springer, pp.\
+  \ 357\u2013366. Available at: https://doi.org/10.1007/978-3-031-64776-5_34 (Accessed:\
+  \ 20 March 2026)."
+BASE_PAPER_SUMMARY_PATH: InputFiles/bps.txt
+CODE_SUMMARY_PATH: InputFiles/cs.txt
+CODE_SUMMARY_VAL_SPECIFIC_PATH: InputFiles/csvs.txt
+DATA_DETAILS_PATH: InputFiles/dd.txt
+FAILED_ATTEMPT_PATH: InputFiles/fa.txt
+FORMAT: '1'
+KEYWORD_FILE: InputFiles/keywords.txt
+LITERATURE_REVIEW_SUMMARY_PATH: InputFiles/lrs.txt
+METHODOLOGY: OutputFiles/methodology.txt
+NOVELTY_PATH: InputFiles/novelty.txt
+PAPER_CITATION: InputFiles/papers_result.csv
+PIPELINE: InputFiles/pipeline.txt
+PROMPT: ed.txt
+RESEARCH_GAPS: InputFiles/rg.txt
+RESEARCH_OBJECTIVES: 'To review existing financial risk assessment approaches with
+  emphasis on interpretable machine learning and hybrid predictive systems.
+
+  To examine the effectiveness of structured data preparation and feature construction
+  in improving predictive reliability on financial datasets.
+
+  To develop a unified predictive framework capable of supporting both continuous
+  risk scoring and binary approval decisions using available learning techniques.
+
+  To evaluate the comparative performance of traditional and advanced machine learning
+  approaches for financial risk prediction.
+
+  To integrate explanation-driven components that generate clear and meaningful interpretations
+  of predictive outcomes for decision support.
+
+  To deploy the validated predictive system through a web application interface to
+  demonstrate practical usability and decision support capability.'
+RESEARCH_QUESTION: How can a unified and interpretable predictive framework combining
+  machine learning and explanation systems improve financial risk score estimation
+  and loan approval decisions on structured financial datasets?
+RESEARCH_QUESTION_OBJECTIVES: InputFiles/rqo.txt
+RESULT_SUMMARY_PATH: InputFiles/rs.txt
+TITLE: 'From Risk Scores to Human-Centric Decisions: Integrating Tabular Deep Learning
+  and Large Language Models for Loan Approval Systems'
+WEB_APP_DEVELOPMENT: InputFiles/wad.txt
+WEB_APP_SUMMARY_PATH: InputFiles/ws.txt
+WEB_APP_TESTING_RESULTS: InputFiles/wat.txt
+WORD_COUNTS:
+  '1':
+    ABSTRACT:
+      MAIN: 230
+    IMPLEMENTATION:
+      CHALLENGES: 150
+      DYNAMIC_PRE: 150
+      EDA: 600
+      LLM_INTEGRATION: 180
+      MODEL_TRAINING: 150-180
+      PREPROCESSING: 100
+      STATISTICAL_ANALYSIS: 100
+      WEB_APP_DEVELOPMENT: 200
+      XAI_IMPLEMENTATION: 150
+    INTRODUCTION:
+      BACKGROUND: 150
+      BACKGROUND_SUMMARY: 80
+      PROBLEM_STATEMENT: 150
+      SCOPE_LIMITATIONS: 250
+      SIGNIFICANCE: 200
+      STRUCTURE: 100
+    METHODOLOGY:
+      DATASET_DESC: 150
+      DYNAMIC_PRE: 150
+      ETHICS: 200
+      EVALUATION_METRICS: 200
+      LLM_INTEGRATION: 180
+      MODEL_BUILDING: 200
+      MODEL_LAYERS: 120
+      PREPROCESSING: 130
+      RESEARCH_DESIGN: 150
+      WEB_APP_FRAMEWORK: 180
+      XAI_FRAMEWORK: 150
+    RESULTS:
+      COMPARATIVE_PLOT: 30 to 40
+      COMPARISON_WITH_BASE: '150'
+      CONCLUSION: 300
+      FAILED_ATTEMPTS_INSIGHT: 30 to 40
+      FAILED_ATTEMPTS_INTRO: 25 to 35
+      FAILED_ATTEMPTS_TOTAL: 100
+      FUTURE_WORK: 300
+      INTRO: 30 to 50
+      NO_BASE_PAPER: 300
+      RESEARCH_NOVELTY: 300
+      SIGNIFICANCE_SUB1: 100
+      SIGNIFICANCE_SUB2: 200
+      SIGNIFICANCE_TOTAL: 300
+      VISUAL_COMPARISON_LEARNING: 30 to 40
+      VISUAL_COMPARISON_XAI: 80 to 90
+      WEB_APP_TESTING_INSIGHT: 30 to 40
+      WEB_APP_TESTING_INTRO: 25 to 35
+      WEB_APP_TESTING_TOTAL: 200
+  '2':
+    ABSTRACT:
+      MAIN: 230
+    IMPLEMENTATION:
+      CHALLENGES: 150
+      DYNAMIC_PRE: 150
+      EDA: 600
+      LLM_INTEGRATION: 180
+      MODEL_TRAINING: 150-180
+      PREPROCESSING: 100
+      STATISTICAL_ANALYSIS: 100
+      WEB_APP_DEVELOPMENT: 200
+      XAI_IMPLEMENTATION: 150
+    INTRODUCTION:
+      BACKGROUND: 150
+      BACKGROUND_SUMMARY: 80
+      GAPS: 130
+      GAPS_MIN: 100
+      PROBLEM_STATEMENT: 150
+      SCOPE_LIMITATIONS: 200
+      SIGNIFICANCE: 200
+      STRUCTURE: 100
+    METHODOLOGY:
+      DATASET_DESC: 150
+      DYNAMIC_PRE: 150
+      ETHICS: 200
+      EVALUATION_METRICS: 200
+      LLM_INTEGRATION: 180
+      MODEL_BUILDING: 200
+      MODEL_LAYERS: 120
+      PREPROCESSING: 130
+      RESEARCH_DESIGN: 150
+      WEB_APP_FRAMEWORK: 180
+      XAI_FRAMEWORK: 150
+    RESULTS:
+      COMPARATIVE_PLOT: 30 to 40
+      COMPARISON_WITH_BASE: '150'
+      CONCLUSION: 300
+      FAILED_ATTEMPTS_INSIGHT: 30 to 40
+      FAILED_ATTEMPTS_INTRO: 25 to 35
+      FAILED_ATTEMPTS_TOTAL: 100
+      FUTURE_WORK: 300
+      INTRO: 30 to 50
+      NO_BASE_PAPER: 300
+      RESEARCH_NOVELTY: 300
+      SIGNIFICANCE_SUB1: 100
+      SIGNIFICANCE_SUB2: 200
+      SIGNIFICANCE_TOTAL: 300
+      VISUAL_COMPARISON_GROUPED: 120 to 130
+      VISUAL_COMPARISON_LEARNING: 30 to 40
+      VISUAL_COMPARISON_OTHER: 40 to 50
+      VISUAL_COMPARISON_XAI: 40 to 50
+      WEB_APP_TESTING_INSIGHT: 30 to 40
+      WEB_APP_TESTING_INTRO: 25 to 35
+      WEB_APP_TESTING_TOTAL: 200
+  '3':
+    ABSTRACT:
+      MAIN: 230
+    IMPLEMENTATION:
+      CHALLENGES: 150
+      DYNAMIC_PRE: 150
+      EDA: 600
+      LLM_INTEGRATION: 180
+      MODEL_TRAINING: 150-180
+      PREPROCESSING: 100
+      STATISTICAL_ANALYSIS: 100
+      WEB_APP_DEVELOPMENT: 200
+      XAI_IMPLEMENTATION: 150
+    INTRODUCTION:
+      BACKGROUND: 150
+      BACKGROUND_SUMMARY: 80
+      GAPS: 130
+      GAPS_MIN: 100
+      PROBLEM_STATEMENT: 150
+      SCOPE_LIMITATIONS: 250
+      SIGNIFICANCE: 250
+      STRUCTURE: 100
+    METHODOLOGY:
+      DATASET_DESC: 150
+      DYNAMIC_PRE: 150
+      ETHICS: 200
+      EVALUATION_METRICS: 200
+      LLM_INTEGRATION: 180
+      MODEL_BUILDING: 200
+      MODEL_LAYERS: 120
+      PREPROCESSING: 130
+      RESEARCH_DESIGN: 150
+      WEB_APP_FRAMEWORK: 180
+      XAI_FRAMEWORK: 150
+    RESULTS:
+      COMPARATIVE_PLOT: 30 to 40
+      COMPARISON_WITH_BASE: '150'
+      CONCLUSION: 300
+      FAILED_ATTEMPTS_INSIGHT: 30 to 40
+      FAILED_ATTEMPTS_INTRO: 25 to 35
+      FAILED_ATTEMPTS_TOTAL: 100
+      FUTURE_WORK: 300
+      INTRO: 30 to 50
+      NO_BASE_PAPER: 300
+      RESEARCH_NOVELTY: 300
+      SIGNIFICANCE_SUB1: 100
+      SIGNIFICANCE_SUB2: 200
+      SIGNIFICANCE_TOTAL: 300
+      TOTAL: 900
+      VISUAL_COMPARISON_GROUPED: 120 to 130
+      VISUAL_COMPARISON_LEARNING: 30 to 40
+      VISUAL_COMPARISON_XAI: 40 to 50
+      WEB_APP_TESTING_INSIGHT: 30 to 40
+      WEB_APP_TESTING_INTRO: 25 to 35
+      WEB_APP_TESTING_TOTAL: 200
+  '4':
+    ABSTRACT:
+      MAIN: 230
+    IMPLEMENTATION:
+      CHALLENGES: 150
+      DYNAMIC_PRE: 150
+      EDA: 600
+      LLM_INTEGRATION: 180
+      MODEL_TRAINING: 150-180
+      PREPROCESSING: 100
+      STATISTICAL_ANALYSIS: 100
+      WEB_APP_DEVELOPMENT: 200
+      XAI_IMPLEMENTATION: 150
+    INTRODUCTION:
+      BACKGROUND: 250
+      BACKGROUND_SUMMARY: 80
+      GAPS: 130
+      GAPS_MIN: 100
+      PROBLEM_STATEMENT: 250
+      SCOPE_LIMITATIONS: 250
+      SIGNIFICANCE: 250
+      STRUCTURE: 100
+    METHODOLOGY:
+      DATASET_DESC: 150
+      DYNAMIC_PRE: 150
+      ETHICS: 200
+      EVALUATION_METRICS: 200
+      LLM_INTEGRATION: 180
+      MODEL_BUILDING: 200
+      MODEL_LAYERS: 120
+      PREPROCESSING: 130
+      RESEARCH_DESIGN: 150
+      WEB_APP_FRAMEWORK: 180
+      XAI_FRAMEWORK: 150
+    RESULTS:
+      COMPARATIVE_PLOT: 30 to 40
+      COMPARISON_WITH_BASE: 200
+      CONCLUSION: 300
+      FAILED_ATTEMPTS_INSIGHT: 30 to 40
+      FAILED_ATTEMPTS_INTRO: 25 to 35
+      FAILED_ATTEMPTS_TOTAL: 100
+      FUTURE_WORK: 300
+      INTRO: 30 to 50
+      LIMITATIONS: 60
+      NO_BASE_PAPER: 300
+      RESEARCH_NOVELTY: 300
+      SIGNIFICANCE_SUB1: 100
+      SIGNIFICANCE_SUB2: 200
+      SIGNIFICANCE_TOTAL: 300
+      TOTAL: 900
+      VISUAL_COMPARISON_INDIVIDUAL: 50 to 60
+      VISUAL_COMPARISON_XAI: 40 to 50
+      WEB_APP_TESTING_INSIGHT: 30 to 40
+      WEB_APP_TESTING_INTRO: 25 to 35
+      WEB_APP_TESTING_TOTAL: 200

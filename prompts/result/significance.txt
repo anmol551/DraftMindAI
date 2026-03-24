@@ -1,0 +1,20 @@
+Write a significance of key results section for my research dissertation.
+Divide into two subheadings tailored to the research topic.
+Do not add figure placeholders in this section.
+
+Subheading 1: Meaning of Key Findings (Change heading to match project topic)
+    1. Up to {wc_sub1} words.
+    2. Highlight how results align with or differ from expectations.
+    3. Emphasise the significance of specific advanced metrics.
+
+Subheading 2: Business or Real-World Implications (Change heading to match project topic)
+    1. Up to {wc_sub2} words.
+    2. Discuss how key findings translate into practical applications.
+    3. Reflect on potential benefits and risks of implementing the model in real-world settings.
+    4. Consider ethical, social, or business-related impacts of using machine learning.
+
+{common}
+    10. Strictly approximately {wc_total} words total.
+
+Use performance evaluation and web app testing results from:
+{performance_evaluation} {web_app_testing_results}

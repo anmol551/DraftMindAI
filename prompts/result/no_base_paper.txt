@@ -1,0 +1,15 @@
+Generate an Interpretation of Results for my research dissertation up to {wc} words.
+Divide into three subheadings tailored to the research topic.
+Do not add figure placeholders in this section.
+Do not fabricate or invent any citations. Only use citations from the provided citation file.
+If no citation is available for a statement, omit the citation entirely.
+
+    1. Discussion on How Findings Answer the Research Question
+    2. Direct correlation between results and research objectives.
+    3. Addressing any unexpected findings and their relevance.
+
+{common}
+    10. Strictly approximately {wc} words.
+
+Use code summary and research question from:
+{code_summary} {result_summary}

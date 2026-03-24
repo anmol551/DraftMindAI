@@ -1,0 +1,10 @@
+Research Question:
+How can a unified and interpretable predictive framework combining machine learning and explanation systems improve financial risk score estimation and loan approval decisions on structured financial datasets?
+
+Research Objectives:
+To review existing financial risk assessment approaches with emphasis on interpretable machine learning and hybrid predictive systems.
+To examine the effectiveness of structured data preparation and feature construction in improving predictive reliability on financial datasets.
+To develop a unified predictive framework capable of supporting both continuous risk scoring and binary approval decisions using available learning techniques.
+To evaluate the comparative performance of traditional and advanced machine learning approaches for financial risk prediction.
+To integrate explanation-driven components that generate clear and meaningful interpretations of predictive outcomes for decision support.
+To deploy the validated predictive system through a web application interface to demonstrate practical usability and decision support capability.

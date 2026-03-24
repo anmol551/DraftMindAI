@@ -1,0 +1,22 @@
+Write about web application testing for my research dissertation.
+Begin with a short introduction of {wc_intro} words.
+Modify subheadings to suit the research topic. Use clear, meaningful titles.
+Target approximately {wc_total} words total.
+
+{figure_rule}
+
+Instructions:
+    1. Describe how web app testing was carried out and what results were received
+       for each test sample.
+    2. Explain how the system handles errors or unexpected inputs if applicable.
+    3. Do not mention the best model name.
+    4. For each test sample, apply the FIGURE PLACEHOLDERS RULE — place the full
+       3-block structure inline immediately after describing that test case.
+       The insight for each test sample figure must be {wc_insight} words describing
+       the input used, the output received, and whether it matched expectations.
+    5. Do not use parentheses for metric values.
+
+{common}
+
+Use Web App Development and Web App Testing Results from:
+{web_app_development} {web_app_testing_results}

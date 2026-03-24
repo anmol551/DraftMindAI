@@ -1,0 +1,170 @@
+- Format 1
+
+Introduction
+    Background Study
+    Problem Statement
+    Research Question
+    Research Objective 
+    Significance of this Research 
+    Research Scope and Limitations 
+    Structure of the Report
+Literature Review
+    All Heading 
+Methodology 
+    Research Design 
+    Data Description 
+    Data Preprocessing 
+    Model Building
+    Model Evaluation Metrics
+    Web Application Framework
+    Professional, Legal and Ethical Concerns
+Implementation
+    Statistical Analysis 
+    EDA
+    Data Preprocessing 
+    Model Training
+    Web Application Development
+    Challenges and its Solution 
+Results and Discussion
+    All Results Sections
+Conclusion and Future Work
+References
+
+
+------------------------------------------------------------------------------
+
+- Format 2
+
+Introduction
+    Background Study
+    Problem Statement
+    Research Question & Objectives
+    Significance of this Research 
+    Research Scope and Limitations 
+    Organisation of the Report
+Literature Review
+    All Heading and subheading
+Methodology 
+    Research Design 
+    Data Description 
+    Data Preprocessing 
+        Sub Heading
+    Feature Engineering/Selection
+    Model Selection - bullet point for parameter
+    Model Evaluation Metrics
+    XAI Method Information
+    Web Application Framework
+    Professional, Legal and Ethical Concerns
+Implementation
+    Statistical Analysis & EDA
+    Data Preprocessing 
+        Sub Heading
+    Feature Engineering 
+    Model Building & Training
+    Web Application Development
+Results and Discussion
+    All Results Sections 
+    Challenges and its Solution 
+Conclusion and Future Work
+References
+
+------------------------------------------------------------------------------
+
+
+- Format 3
+
+Introduction
+    Background Study
+        Historical Context
+        Current Developments
+        Gaps in Literature
+    Problem Statement
+    Research Question & Objectives
+        Primary Question
+        Secondary Question
+        Research Objectives 
+    Significance of this Research 
+         Academic Significance
+         Practical Implications
+         Societal Value
+    Research Scope and Limitations 
+        Scope
+        Limitations
+    Organisation of the Report
+Literature Review
+    No Heading or Subheading will be present.
+Methodology 
+    Research Design 
+    Data Information
+    Data Preprocessing 
+    Model Selection
+        Sub Heading
+    Web Application Framework
+        Sub Heading
+    Model Evaluation Metrics
+    Professional, Legal and Ethical Concerns
+        Sub Heading
+Implementation
+    Statistical Analysis 
+    EDA
+    Data Preprocessing 
+    Model Building & Training
+        Sub Heading and bullet point
+    XAI Implementation
+    Web Application Development
+        Sub Heading
+    Challenges and its Solution 
+Results and Discussion
+    All Results Sections 
+Conclusion and Future Work
+References
+
+------------------------------------------------------------------------------
+
+
+- Format 4
+
+Introduction
+    Background
+    Problem Statement
+    Research Question
+    Research Objective
+        Main Objective
+        Other Objectives
+    Significance of this Research 
+         Academic Significance
+         Practical Implications
+         Societal Value
+    Research Scope and Limitations 
+        Scope
+        Limitations
+    Organisation of the Report
+Literature Review
+    All Heading 
+Methodology 
+    Research Design 
+        Sub Heading
+    Data Information
+        Sub Heading
+    Data Preprocessing
+        Sub Heading 
+    Model Selection
+        Sub Heading
+    XAI Method
+    Web Application Framework
+    Model Evaluation Metrics       
+        Sub Heading
+    Professional, Legal and Ethical Concerns
+    Implementation
+    Statistical Analysis & EDA
+    Data Preprocessing 
+        Sub Heading
+    Model Building & Training
+        Sub Heading and bullet point
+    Web Application Development
+        Sub Heading
+    Challenges and its Solution 
+Results and Discussion
+    All Results Sections 
+Conclusion and Future Work
+References

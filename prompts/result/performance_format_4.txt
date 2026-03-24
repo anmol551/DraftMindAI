@@ -1,0 +1,42 @@
+Write a technical performance evaluation section for my research dissertation.
+Target approximately 750 words total. Begin with a short introduction of {wc_intro} words.
+Divide into five subheadings tailored to the research topic.
+
+{{figure_rule}}
+
+Subheading 1: Individual Model Performance (Change heading to match project topic)
+    1. Present a results table for all models with a relevant table name.
+    2. Write two paragraphs on findings from the table — no plot insights here.
+    3. Mention only a few key metric values, clearly explained.
+    4. Do not use parentheses for metric values.
+
+Subheading 2: Visual Comparison of Model Predictions and Trade-offs
+               (Change heading to match project topic)
+    Only describe plots actually present in the result summary — do not assume others.
+    1. Treat each of the following separately per model if available:
+       Confusion Matrix, AUC-ROC Curve, PR Curve, Actual vs Predicted.
+       - Apply the FIGURE PLACEHOLDERS RULE — place each 3-block group inline.
+       - Insight must be {wc_vis_ind} words per plot covering key metric values,
+         model-specific trade-offs, and interpretation of the plot's significance.
+       - Do not combine plot insights — each must be discussed separately.
+    2. For each XAI plot provide {wc_vis_xai} words per model per plot.
+       Do not merge insights across models or plot types.
+    3. For additional evaluation plots follow the same format and assign next figure number.
+    4. Do not use asterisk (*) or parentheses for metric values anywhere.
+
+Subheading 3: Comparative Analysis (Change heading to match project topic)
+    1. Discuss remaining comparative plots separately — at least {wc_cmp} words each.
+    2. Apply the FIGURE PLACEHOLDERS RULE for every comparative plot inline.
+    3. All metric values must be mentioned. No parentheses.
+    4. Write a paragraph on strengths and weaknesses of each model.
+    5. Write a paragraph justifying why the best model performed best.
+    6. Add a paragraph clearly ranking best, acceptable, and worst models.
+
+Subheading 4: Comparison with Benchmark Research Paper
+               (Change heading to match project topic)
+    1. Compare pipeline and results of benchmark paper with this research up to {wc_base} words.
+    2. Do not use parentheses for metric values.
+
+Subheading 5: Limitations of this Research Work
+               (Change heading to match project topic)
+    1. Write limitations of this research work in approximately {wc_lim} words.

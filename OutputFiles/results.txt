@@ -1,0 +1,148 @@
+RESULTS
+------------------------
+1. PERFORMANCE EVALUATION
+----------------------------------------
+Technical Performance Evaluation
+
+This section comes after the stages of data collection, exploratory data analysis, preprocessing, and model training. It now shifts focus to the results obtained from the models, evaluating their performance in predicting loan approval risk scores and classification outcomes.
+
+Individual Model Performance for Loan Approval Prediction
+
+The performance of three models—ElasticNet, CNN, and TabNet—is summarised in the Regression and Classification Metrics Table. This table captures key measures for regression and classification tasks across the test set of 4000 samples. TabNet stands out with the best scores in most metrics. For regression, it achieves an R2 score of 0.8839 and MAE of 1.8953. In classification, its accuracy reaches 89.10%.
+
+CNN shows strong results too with an R2 score of 0.8556 in regression and classification accuracy of 86.80%. ElasticNet performs moderately with an R2 score of 0.7388 and accuracy of 82.73%. These values suggest that while all models predict reasonably well, TabNet captures patterns more effectively across both tasks.
+
+Some limitations exist in these outcomes. Model performance may vary with different data distributions or smaller sample sizes. External factors like changing financial conditions could also affect prediction reliability over time.
+
+Visual Comparison of Loan Approval Predictions and Trade-offs
+
+The scatter plot for ElasticNet shows predicted risk scores against actual values. [Figure 5.1: ElasticNet Risk Score Prediction]
+Caption: Figure 5.1 — Actual vs Predicted Risk Score for ElasticNet Model
+Description: The plot reveals a positive linear trend between predicted and actual risk scores for ElasticNet. Points cluster around the regression line but show noticeable spread, indicating moderate accuracy. The MAE of 1.8953 and R2 score of 0.7388 align with the visible deviation from the ideal diagonal line. A regression trend line and a perfect prediction reference are included, highlighting areas where predictions diverge from true values, especially at higher risk scores.
+
+The Confusion Matrix for ElasticNet displays classification results. [Figure 5.2: ElasticNet Confusion Matrix]
+Caption: Figure 5.2 — Confusion Matrix for ElasticNet Derived Classification
+Description: This heatmap shows true negatives at 1627 and true positives at 1682 for ElasticNet. False positives are at 165 while false negatives reach 526. The accuracy stands at 82.73%. These numbers indicate balanced performance across both classes, though a higher false negative count suggests some denied applicants are misclassified as approved. This could pose risks in practical loan approval settings where identifying denials is critical.
+
+The scatter plot for CNN presents its prediction accuracy. [Figure 5.3: CNN Risk Score Prediction]
+Caption: Figure 5.3 — Actual vs Predicted Risk Score for CNN Model
+Description: The CNN scatter plot displays tighter clustering around the perfect prediction diagonal compared to ElasticNet. With an R2 score of 0.8556, the reduced scatter reflects better alignment between predicted and actual risk scores. The MAE is 2.2253, showing improved precision. The regression trend line nearly matches the ideal diagonal, with fewer outliers, suggesting CNN captures risk patterns more effectively than the linear approach of ElasticNet.
+
+The Confusion Matrix for CNN highlights classification outcomes. [Figure 5.4: CNN Confusion Matrix]
+Caption: Figure 5.4 — Confusion Matrix for CNN Derived Classification
+Description: For CNN, true negatives are 1700 and true positives are 1772. False positives drop to 92 while false negatives are 436. The accuracy is 86.80% with a weighted F1 score of 86.82%. Recall for class 0 stands at 95.00% and precision for class 1 at 95.00%. This shows fewer errors compared to ElasticNet, indicating better handling of both approval and denial predictions in the classification task.
+
+The Learning Curve for CNN loss offers insight into training stability. [Figure 5.5: CNN Learning Curve Loss]
+Caption: Figure 5.5 — Learning Curve for Loss in CNN Regressor Model
+Description: The learning curve for CNN shows training loss dropping sharply from around 579 at epoch 1 to near 25 by epoch 20. Validation loss follows closely, converging between 8 and 10. The alignment of both curves across 50 epochs suggests no major overfitting. This stable convergence indicates that CNN generalises well to unseen data, supporting its strong test performance with an MAE of 2.2253.
+
+The scatter plot for TabNet shows its predictive strength. [Figure 5.6: TabNet Risk Score Prediction]
+Caption: Figure 5.6 — Actual vs Predicted Risk Score for TabNet Model
+Description: TabNet’s scatter plot reveals the tightest clustering among all models with an R2 score of 0.8839. Points concentrate densely along the perfect prediction diagonal, reflecting high precision with an MAE of 1.8953. The regression trend line almost overlaps with the ideal line. This visual consistency across the range of risk scores confirms TabNet’s superior ability to predict outcomes compared to both ElasticNet and CNN in regression tasks.
+
+The Confusion Matrix for TabNet outlines its classification results. [Figure 5.7: TabNet Confusion Matrix]
+Caption: Figure 5.7 — Confusion Matrix for TabNet Derived Classification
+Description: TabNet’s heatmap indicates true negatives at 1638 and true positives at 1926. False positives are 154 and false negatives are 282. Accuracy reaches 89.10% with a weighted F1 score of 89.13% and ROC-AUC of 95.98%. Recall for class 0 is 91.00% and precision for class 1 is 93.00%. With the lowest false negative count, TabNet excels at identifying denied applicants, making it highly reliable for loan approval decisions.
+
+The Learning Curve for TabNet shows training progress. [Figure 5.8: TabNet Learning Curve]
+Caption: Figure 5.8 — Learning Curve for TabNet Regression Model
+Description: TabNet’s training MAE starts at 966.33 at epoch 0, falling sharply to below 15 within 5 epochs. Validation MAE drops from 12.84 to around 1.89 at early stopping. Both curves stabilise with patience set at 20, preventing overfitting. This convergence reflects strong generalisation, aligning with test results of MAE at 1.8953 and R2 at 0.8839, confirming TabNet’s robust learning behaviour on the loan approval dataset.
+
+Comparative Analysis of Model Performance
+
+The MAE comparison plot visually ranks model errors. [Figure 5.9: MAE Comparison]
+Caption: Figure 5.9 — MAE Comparison Across Models
+Description: This line chart with markers shows TabNet with the lowest MAE at 1.8953 followed by CNN at 2.2253 and ElasticNet at 3.0955. The clear gap between models highlights TabNet’s edge in minimising prediction errors for risk scores. This visual ranking aligns with regression outcomes, confirming that advanced architectures like TabNet handle complex patterns in loan data better than simpler linear methods.
+
+TabNet proves strongest with high accuracy of 89.10% and low error rates. CNN holds a decent middle ground with accuracy at 86.80% but shows more misclassifications. ElasticNet struggles with lower accuracy of 82.73% and higher errors in denial predictions.
+
+TabNet’s lead comes from its design which captures intricate data patterns through attention steps. Its ability to focus on key features like debt ratios likely drives better predictions over CNN and ElasticNet.
+
+Among the models, TabNet stands as the best with top scores across metrics. CNN is acceptable for most tasks with solid results. ElasticNet ranks as the weakest due to higher errors and lower accuracy.
+
+Comparison with Benchmark Research on Loan Approval
+
+This study’s pipeline mirrors the benchmark work by Anand et al. (2024) in following a structured approach from data collection to model evaluation. However, while their research achieves a top accuracy of 87.00% with Random Forest, this work reaches 89.10% with TabNet. The use of advanced models like TabNet and CNN here provides an edge over their traditional algorithms. Their focus on basic client attributes contrasts with the engineered features in this study, such as debt stress indices, which likely boost performance. Deep learning exploration, as suggested in their future work, aligns with the CNN approach adopted here. This comparison shows that modern architectures can outperform ensemble methods on financial datasets with proper feature design.
+
+2. WEB APP TESTING
+----------------------------------------
+Introduction to Web App Testing
+
+This section explores the testing process of a web application built for AI-driven loan risk assessment. The focus lies on evaluating its performance across different input scenarios to ensure reliability.
+
+Testing Methodology and Setup
+
+The testing phase involved a Streamlit-based platform designed for risk prediction. Three distinct test cases were prepared to assess various applicant profiles ranging from low to high risk. Each case used specific input values for factors like income and credit score. The system processed these inputs to generate a risk score and final decision. The aim was to check if the application handled data correctly and applied business rules as expected.
+
+Results from Test Cases
+
+For the first test case a high-risk profile was tested with an annual income of 32000 and credit score of 520. The system returned a risk score of 79.53 leading to a rejected status.
+
+[Figure 5.10: High-Risk Test Result]
+Caption: Figure 5.10 — Output for High-Risk Applicant Test Case
+Description: This figure displays the result for a high-risk applicant in the web application. With an annual income of 32000 and credit score of 520 the output showed a risk score of 79.53. The final decision was rejected which matched the expected outcome based on the business rules set for scores above 50. This confirms the system identifies high-risk profiles accurately.
+
+The second test case involved a borderline applicant with an annual income of 58000 and credit score of 640. A risk score of 51.55 was generated resulting in rejection.
+
+[Figure 5.11: Borderline Test Result]
+Caption: Figure 5.11 — Output for Borderline Applicant Test Case
+Description: This figure shows the result for a borderline applicant with an annual income of 58000 and credit score of 640. The system produced a risk score of 51.55 leading to a rejected status. This aligned with expectations as the score crossed the threshold of 50 confirming correct application of rules.
+
+The third test case used a low-risk profile with an annual income of 110000 and credit score of 780. The risk score was 29.24 resulting in approval.
+
+[Figure 5.12: Low-Risk Test Result]
+Caption: Figure 5.12 — Output for Low-Risk Applicant Test Case
+Description: This figure presents the output for a low-risk applicant with an annual income of 110000 and credit score of 780. The risk score was 29.24 and the decision was approved. This matched the expected result as the score fell below the risk threshold indicating proper system behaviour.
+
+Handling Errors and Unexpected Inputs
+
+The application was built to manage incorrect or unusual inputs effectively. If data entered fell outside acceptable ranges a warning message appeared guiding users to correct their input. This ensured the system did not crash or produce invalid results during testing.
+
+3. SIGNIFICANCE OF KEY RESULTS
+----------------------------------------
+Significance of Key Results
+
+Meaning of Key Findings in Loan Approval Prediction
+
+The results from testing different models for loan approval prediction show interesting patterns when compared to initial expectations. TabNet emerged as the top performer with an accuracy of 89.10% and an R2 score of 0.8839 which suggests it captures data relationships very well. CNN also performed strongly at 86.80% accuracy though it fell short of TabNet. ElasticNet showed lower scores with 82.73% accuracy indicating This indicates that advanced metrics like R2 and MAE hold great value in assessing how closely predictions match real outcomes especially for TabNet (Anand et al. 2024).
+
+Business Impacts of Loan Approval Models
+
+The findings from this study on loan approval prediction carry important real-world effects for financial institutions. TabNet’s high accuracy of 89.10% means it can help banks make better decisions on loan applications reducing the risk of approving unsuitable candidates. Its ability to predict with precision could save costs by avoiding bad loans. Web app testing also proved the model works across varied risk profiles from low to high.
+
+However applying such models in actual settings brings challenges. A high false negative rate in some cases like with ElasticNet could deny loans to deserving applicants affecting trust. Ethical concerns arise if models unintentionally favour certain groups due to data bias. Social impacts include potential exclusion of marginalised applicants if not addressed. For business the gain is in efficiency but care must be taken to balance automation with human judgement to avoid unfair outcomes. These models can support decision-making yet must be monitored to ensure they align with fair lending practices and do not harm vulnerable populations. Regular updates to the system will be needed to adapt to changing financial trends and maintain accuracy over time.
+
+4. FAILED ATTEMPTS
+----------------------------------------
+Introduction to Failed Attempts
+This section explores unsuccessful approaches in the research on predictive modelling for financial risk assessment. It aims to shed light on why certain methods did not meet expectations during the study.
+
+Early Design Challenges
+An initial attempt with a balancing technique for class imbalance proved unsuitable. It distorted the continuous nature of the risk score target, leading to unreliable outcomes for regression tasks.
+
+Standalone Classification Pitfall
+Building separate binary classifiers for loan approval was considered but dismissed. This approach risked creating inconsistency between risk scores and decisions, reducing the clarity of the system.
+
+Underperforming Linear Model
+A linear model was tested but showed limited capability with an R2 score of 73.88% and accuracy of 82.73%. It struggled to capture complex patterns in the data.
+[Figure 5.13: Risk Score Prediction]
+Caption: Figure 5.13 — Actual versus Predicted Risk Scores for Linear Model
+Description: This figure presents a scatter plot comparing actual and predicted risk scores using a linear model. The points show a moderate spread around the regression line, indicating reasonable but not ideal predictions. With an R2 of 73.88% and MAE of 3.0955, the deviation from the perfect prediction diagonal is clear. The plot suggests that while a positive trend exists, the model misses intricate data relationships, pointing to its limitations in this context.
+
+Why TabNet Stands Out
+Among tested methods, TabNet proved superior due to its ability to handle complex patterns and provide clear feature insights. Its performance surpassed others with an R2 of 88.39%.
+
+5. RESEARCH NOVELTY
+----------------------------------------
+Novel Contributions of the Research
+
+This study brings fresh ideas to the field of financial risk assessment through a unique design that combines continuous risk scoring and binary loan approval into one streamlined process. This approach avoids the need for separate models and ensures that risk estimates and approval decisions align closely. A single TabNet model is used with its output split at the median to make yes or no decisions while keeping the depth of the risk score intact.
+
+A key aspect of this work is the use of TabNet's attention-driven method for picking important features step by step. This offers clear insight into which factors matter most unlike typical neural networks. Such transparency is vital in finance where rules demand clarity. The training setup also uses a special batch strategy to improve performance on structured data without the usual issues of small batch sizes.
+
+Another distinct feature is the creation of six new financial measures. One such measure, the Debt Stress Index, blends debt-to-income ratio with interest rate to reflect real-world stress. These crafted indicators embed expert knowledge directly into the data reducing the model's workload compared to using raw figures alone.
+
+The research also adds a policy layer after the model's predictions. This step applies strict lending rules to override high-risk outputs ensuring decisions meet institutional standards. This blend of data-driven results and rule-based checks is a practical design not often seen in existing studies.
+
+Lastly, the use of a language model to turn numerical results into detailed written reports stands out. This method creates clear explanations from complex scores aiding in reviews and communication with stakeholders. These innovations mark this study as a significant step forward in blending technology with practical financial needs.
+

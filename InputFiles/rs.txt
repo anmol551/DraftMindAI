@@ -1,0 +1,42 @@
+Plot : Actual vs Predicted RiskScore — ElasticNet | Type: Scatter Plot with Regression Line | Insights: Predicted risk scores rise with actual values showing a positive linear relationship. Points cluster around the regression line but with noticeable spread reflecting moderate accuracy. MAE of 3.0955 and R2 of 0.7388 are consistent with visible deviation from the perfect prediction diagonal. Regression trend line and perfect prediction reference line both plotted.
+
+Plot : Confusion Matrix — ElasticNet Derived Classification | Type: Heatmap | Insights: True negatives (Loan Approved correctly predicted): 1,627. True positives (Loan Not Approved correctly predicted): 1,682. False positives: 165 approved applicants misclassified as not approved. False negatives: 526 denied applicants misclassified as approved. Overall accuracy 0.8273 with balanced performance across both classes.
+
+Plot : Learning Curve (Loss) — CNN Regressor Model | Type: Line Chart | Insights: Training loss (MSE) drops sharply from approximately 579 at epoch 1 and converges near epoch 20 to 25. Validation loss follows a similar trajectory converging around 8 to 10. Close alignment between training and validation loss confirms no significant overfitting across 50 training epochs.
+
+Plot : Learning Curve (MAE) — CNN Regressor Model | Type: Line Chart | Insights: Training MAE drops from approximately 17.7 at epoch 1 to around 2.2 by epoch 50. Validation MAE mirrors training trajectory with a small stable gap, confirming consistent generalisation. Final validation MAE aligns with test MAE of 2.2253, confirming reliable learning convergence.
+
+Plot : Actual vs Predicted RiskScore — CNN | Type: Scatter Plot with Regression Line | Insights: Tighter clustering around the perfect prediction diagonal compared to ElasticNet. R2 of 0.8556 is visible as reduced scatter and closer alignment between predicted and actual values. Regression trend line closely approximates the ideal perfect prediction line with fewer outliers than the linear model.
+
+Plot : Confusion Matrix — CNN Derived Classification | Type: Heatmap | Insights: True negatives: 1,700. True positives: 1,772. False positives: 92. False negatives: 436. Recall for class 0 (Loan Approved) is 0.95 and precision for class 1 (Loan Not Approved) is 0.95. Accuracy 0.8680, weighted F1 0.8682. Clear improvement over ElasticNet with fewer misclassifications across both classes.
+
+Plot : Learning Curve — TabNet Regression Model | Type: Line Chart | Insights: Training MAE starts at 966.33 at epoch 0 and drops sharply to below 15 within the first 5 epochs. Validation MAE (val_0_mae) converges from 12.84 at epoch 0 to approximately 1.89 at early stopping. Both curves plateau and stabilise, confirming model convergence with patience=20 preventing overfitting.
+
+Plot : Actual vs Predicted RiskScore — TabNet | Type: Scatter Plot with Regression Line | Insights: Tightest scatter across all three models. R2 of 0.8839 is reflected in dense point concentration along the perfect prediction diagonal. Regression trend line nearly coincides with the ideal diagonal. MAE of 1.8953 is the lowest of all models, confirming superior regression precision.
+
+Plot : Confusion Matrix — TabNet Derived Classification | Type: Heatmap | Insights: True negatives: 1,638. True positives: 1,926. False positives: 154. False negatives: 282. Recall for class 0 is 0.91 and precision for class 1 is 0.93. Accuracy 0.8910, weighted F1 0.8913, ROC-AUC 0.9598. Lowest false negative count among all models, indicating best performance in correctly identifying denied applicants.
+
+Plot : MAE Comparison Across Models | Type: Line Chart with Markers | Insights: Will be taken from table.
+
+Plot : MSE and RMSE Comparison Across Models | Type: Grouped Bar Chart | Insights: Will be taken from table.
+
+Plot : R2 Score and Explained Variance Comparison Across Models | Type: Horizontal Grouped Bar Chart | Insights: Will be taken from table.
+
+Plot : Accuracy and ROC-AUC Comparison Across Models | Type: Grouped Bar Chart | Insights: Will be taken from table.
+
+Plot : Precision, Recall and F1 Score Comparison Across Models | Type: Dot/Scatter Comparison Plot | Insights: Will be taken from table.
+
+
+### Regression Performance Table
+Model | MAE | MSE | RMSE | R2 Score | Explained Variance
+--- | --- | --- | --- | --- | ---
+ElasticNet | 3.0955 | 16.2191 | 4.0273 | 0.7388 | 0.7388
+CNN | 2.2253 | 8.9632 | 2.9939 | 0.8556 | 0.8569
+TabNet [BEST] | 1.8953 | 7.2074 | 2.6847 | 0.8839 | 0.8841
+
+### Classification Performance Table
+Model | Accuracy | Precision | Recall | F1 Score | ROC-AUC
+--- | --- | --- | --- | --- | ---
+ElasticNet | 0.8273 | 0.8412 | 0.8273 | 0.8275 | 0.9297
+CNN | 0.8680 | 0.8813 | 0.8680 | 0.8682 | 0.9582
+TabNet [BEST] | 0.8910 | 0.8933 | 0.8910 | 0.8913 | 0.9598

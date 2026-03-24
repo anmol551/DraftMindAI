@@ -1,0 +1,103 @@
+Data Details:
+
+Attached files to analyse [ZIP], it will contain:
+Proposal
+Literature Review
+Complete code in ipynb format
+
+title: Fetch it from the attached proposal
+Research question: Fetch it from the attached proposal
+Research objectives: Fetch these from the attached proposal
+acc_value: best accuracy values achieved
+
+## LITERATURE REVIEW SUMMARY
+Analyze the given Literature Review and generate a structured summary while preserving all essential technical content and citations. Before summarization, conduct a background search to understand the topic thoroughly. The summary should be 15-20% of the original length while maintaining clarity, coherence, and completeness.Summary Must Include:Topic Overview: Provide a concise background and relevance of the topic based on the Literature Review.Importance of the Chosen Field (with Citations): Explain why this field of research is significant, its real-world applications, and its impact on industries, society, or technology.Key Technical Content: Extract critical theories, models, methodologies, or frameworks discussed.Findings & Insights: Summarize major findings, patterns, or trends identified in the literature.Limitations Identified: Highlight gaps, weaknesses, or missing elements in existing research.Unresolved Issues: Mention ongoing debates, contradictions, or unanswered questions that remain open for further study.Preserve Citations: Retain all references and in-text citations exactly as they appear in the original document.Parameters:Background Search: First, gather relevant information to ensure a well-informed summary.Word Limit: Compress to 15-20% of the original content (i.e., 525-700 words for 3,500 words).Technical Accuracy: Maintain integrity of complex concepts, models, and frameworks.Mention all the important values like performance percentage if present.Clarity & Coherence: Ensure readability and logical flow.Citation Integrity: Do not remove or alter any references; they must be retained as in the original document.Deliver the summary in a well-structured format while ensuring all major points, technical details, and research gaps are clearly presented.
+
+## RESEARCH GAP
+Using the literature review that I have already collected and the research pipeline on which I have completed my research code, write a proper research gap. This research gap should be in a way that it points to those methods which I have used in the code and were missing or suggested in the literature. Do not explicitly mention my research, it's just mentioning the details of what is the research gap. Word count: 300 words.
+
+## BASE PAPER
+can you find only one research paper which is based on {title} and having accuracy below {acc_value} research paper should be from the past 2 years.
+Instructions: 
+1. What is the complete flow or pipeline of research 
+2. Details of the data getting used. 
+3. What is the accuracy of all the algorithms used? 
+4. Which algorithm achieved best accuracy and what is it 
+5. What is the novel or unique element in the research 
+6. What are the future recommendations of the research paper? 
+All in 500 words.
+provide reference in Harvard style
+
+## CODE PIPELINE
+Analyze the code notebook and webapp code and write the pipeline by using all the tech used from start to end
+
+## CODE SUMMARY
+Summarize the following code, which focuses on [extract key focus from the code, e.g., machine learning, web scraping, financial analysis, etc.], into 2-3 concise paragraphs while preserving all essential technical details.Summary must include:Overview: Purpose and functionality of the code.Key Components: Main functions, classes, or modules and their roles.Execution Flow: How the code runs from input to output.Core Logic: Important algorithms or computations.Web App Elements (if any): API endpoints, routes, or database interactions.Parameters:Format: Paragraph-based (2-3 paragraphs).Conciseness: 15-20% of original length.Technical Accuracy: Preserve key function names and logic.Readability: Clear, structured, and informative.Deliver the summary in a well-structured, readable format with a clear focus on the main purpose of the code.
+Word count: 300 words.
+
+##CODE SUMMARY WITH VALUES
+Analyze the given code (~1000 lines) stored in a .txt file. Extract a list of libraries used and segment the code into the following categories, ensuring all details are accurately captured.Required Segments:Statistical Analysis:Identify all functions used for statistical analysis.Provide their purpose and the outcome they generate.Exploratory Data Analysis (EDA):Extract details of each plot (read all the plots present in ipynb), including:Plot Type (e.g., histogram, scatter plot, box plot, etc.).Plot Title and what it represents.X and Y Variables being analyzed.Insights from each visualization, explaining trends, patterns, outliers, and distributions.If there are correlation matrices or summary statistics, include key takeaways.Data Preprocessing:List functions used for preprocessing (e.g., scaling, encoding, missing value treatment).Specify parameters and their values for each function.Do not mention Train-Test-Split hereFeature EngineeringMention all the selected column names if feature selection is done.Train Split InformationModel Details:Identify functions used for model building and training along with the layers name used in the model building mainly in deep learning architecture. Mention the name of the tuning method if done.List the models used and their associated parameters.If the code has both a base model (default parameters) and a tuned model (optimized parameters), display them separately.Model Results & Performance Evaluation:First, list the performance metrics used for evaluation.Then, provide a table showing:Algorithm namePerformance values across each metric (e.g., accuracy, precision, recall, RMSE, etc.).If multiple models are compared, highlight which model performed best.Parameters:Format: Structured and well-organized for readability.Conciseness: Extract only relevant details while ensuring completeness.Technical Accuracy: Preserve function names, parameters, and values.Insightful Output: Provide meaningful explanations, especially in the EDA section.Ensure that all extracted details are correctly categorized and that model performance is clearly presented with insightful comparisons.
+
+##WEBAPP SUMMARY
+Analyze the given web application code and generate a concise summary (150-200 words) covering all key functionalities and technical components. Summary Must Include:Overview: Briefly describe the purpose and functionality of the web app.Python Framework Used: Clearly state the web framework (e.g., Flask, Django, FastAPI, streamlit, etc) used in the application.Libraries & Dependencies: List all major libraries and dependencies.User Input Handling: Explain how user input is collected (e.g., input text box, file upload, dropdown, etc.).Main Functions & Features: Summarize key functions, including API endpoints, data processing, and UI components.Prediction Function: Provide a focused explanation of the core prediction logic, including the model used and how it processes input data.Parameters:Conciseness: Keep the summary within 100-150 words while ensuring completeness.Technical Accuracy: Retain function names and their core purpose.Readability: Ensure the summary is clear and structured for easy understanding.Deliver the summary in a well-structured format while preserving all critical details of the web application.
+
+##WEBAPP TEST CASES
+Provide me the insight of the web test result in 150 words with mentioning each of the values and don't use parenthesis to mention values'()'
+
+##NOVELTY
+You are an elite software researcher and systems architect with expertise in advanced algorithms, scalable architectures, and performance engineering.
+Your task is to critically analyze the given code and extract its true novelty—not just surface-level descriptions, but deep technical insights.
+Write a single, well-structured paragraph of exactly ~300 words explaining the novelty of the code. Focus on identifying and articulating:
+Unique or non-trivial algorithmic improvements (e.g., time/space complexity optimizations, heuristics, data structures used innovatively)
+Distinctive architectural decisions (e.g., modularity, abstraction layers, design patterns, system decomposition)
+Any efficiency enhancements (e.g., caching, parallelism, lazy evaluation, memory optimization, vectorization)
+Novel engineering techniques or methodologies (e.g., hybrid approaches, custom pipelines, integration strategies)
+Improvements in scalability, maintainability, and robustness
+Trade-offs made and why they are intellectually or practically significant
+Avoid generic statements like “this improves performance.” Instead, explain how and why specific parts of the code achieve these improvements.
+If the code is not obviously novel, infer subtle innovations such as:
+Clever composition of known techniques
+Minimalistic yet powerful design choices
+Hidden optimizations or implicit assumptions
+Maintain a formal, research-oriented tone, similar to a top-tier conference paper (e.g., NeurIPS, ICSE, or SOSP). Do not describe what the code does line-by-line. Focus only on what makes it novel and impactful.
+
+
+##RESULTS PLOT SUMMARY
+Requirements:1. create a table 2. mention all the plots individually and do not write collectively. mention all plots for all the models Table 1- all result plot information table: Title: Title of the plots from codeType of plot: Type of plot [Bar chart, Pie chart, etc]Insights: Insights of the chart from the code which should include the values presentCharts can be considered in Table 1: Explainable AI, ROC, AUC, Training and loss neural network, comparison curve, confusion matrixNote:1. Do not include any plot from data exploration, preprocessing, feature engineering, or data transformation steps.2. For the comparison plots mention insight as 'will be taken from table'
+
+##RESULTS TABLE
+Generate a table for: Performance Table: Include all models, all metrics (as extracted from the code), and highlight the best-performing model.
+
+## FAILED ATTEMPT
+You are an expert research writer and critical analyst.
+Your task is to write a concise and insightful section titled “Failed Attempts and Design Iterations” based on the provided project or code.
+Begin with a 25–35 word introduction that contextualizes the purpose of analyzing failed approaches in the research or development process.
+Clearly describe unsuccessful or suboptimal methods, including what was attempted and why they did not perform as expected.
+Provide technical reasoning for each failure (e.g., inefficiency, scalability issues, poor generalization, architectural limitations, or computational overhead).
+## REFERENCES
+From the research pipeline/code that I have made, write all the important keywords these could be approx 15 in number. For each keyword find a reference paper which should be related to {title}. Finally keep these parameters in mind for each keyword:
+Keyword, title, reference, citation
+Note: Reference should be Harvard style.
+
+## Output format(JSON):
+{
+‘title’:<title>,
+‘research_question’: <Research question>,
+‘research_objectives’: <Research objectives:>,
+‘data_details’: <Data Details>,
+‘literature_review_summary’: <LR summary>,
+‘research_gap’: <research gap>
+‘best_accuracy’: <acc_value>,
+‘base_paper_summary’:<summary>,
+‘base_paper_reference’:<reference>,
+‘code_pipeline’:  <code pipeline>
+‘code_summary’: <code summary>,
+‘code_summary_with_values’: <code summary with values>,
+‘web_app_summary’: <web app summary>
+‘web_app_test_cases’: <web app test cases>
+‘novelty’: <novelty>
+‘result_plot_summary’:  <result plot summary>
+‘result_table’: <result table>
+‘failed_attempts’: <failed attempts>,
+‘references’: <references>
+}

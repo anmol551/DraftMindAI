@@ -1,0 +1,46 @@
+Write a technical performance evaluation section for my research dissertation.
+Begin with a short introduction of {wc_intro} words stating that this section follows
+data collection, EDA, preprocessing, and model training, and shifts focus to evaluating
+results. Use four subheadings tailored to the topic with consistent labelled blocks
+(e.g., Key Findings, Metric Highlights, Strengths and Weaknesses).
+
+{{figure_rule}}
+
+Subheading 1: Individual Model Performance (Change heading to match project topic)
+    1. Make a result table with a suitable name.
+    2. Write two short labelled paragraphs:
+       "Key Findings" — summarise major metric trends without mentioning plots.
+       "Metric Highlights" — cite only a few key values in % format up to 2 decimal places.
+    3. End with a short paragraph on possible reasons for performance gaps.
+    4. Do not mention plot insights here. Do not use parentheses for metric values.
+
+Subheading 2: Visual Comparison of Model Predictions and Trade-offs
+               (Change heading to match project topic)
+    1. Group the following plots per model if present: Confusion Matrix, AUC-ROC Curve,
+       PR Curve, Actual vs Predicted. For each group:
+       - Apply the FIGURE PLACEHOLDERS RULE — place each 3-block group inline.
+       - Insight must be {wc_vis_grp} words covering all metric values, trade-offs,
+         direct model comparisons, and any unusual patterns.
+    2. For each learning curve plot provide {wc_vis_learn} words of insight per plot.
+       Comment on training behaviour like overfitting or generalisation stability.
+    3. For each XAI plot provide {wc_vis_xai} words of insight per model.
+       Do not combine insights across models.
+    4. If additional evaluation plots are present assign the next figure number
+       and provide {wc_vis_other} words of insight per plot.
+    5. Do not use parentheses for metric values.
+
+Subheading 3: Comparative Analysis (Change heading to match project topic)
+    1. Discuss remaining comparative plots separately — at least {wc_cmp} words each.
+    2. Apply the FIGURE PLACEHOLDERS RULE for every comparative plot inline.
+    3. All metric values must be mentioned. Use % format. No parentheses.
+    4. Write a paragraph on strengths and weaknesses of each model.
+    5. Write a paragraph justifying why the best model performed best.
+    6. Write a paragraph stating clearly the best, acceptable, and worst models.
+
+Subheading 4: Comparison with Benchmark Research Paper
+               (Change heading to match project topic)
+    1. Compare the pipeline and results of the benchmark paper with this research.
+       Word count up to {wc_base} words.
+    2. Do not use parentheses for metric values.
+    3. Highlight differences in approach, model selection, and evaluation strategy.
+    4. Clearly indicate any improvements or deviations.

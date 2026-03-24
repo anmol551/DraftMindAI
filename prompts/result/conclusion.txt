@@ -1,0 +1,16 @@
+Generate a summary for the results section of my research up to {wc} words.
+Address: the pipeline and best results, the novelty of the research, improvement over
+the base paper, and the web application component.
+Do not add figure placeholders in this section.
+
+Instructions:
+    1. Do not use formatting such as bold or italics. No subheadings.
+    2. Write in paragraph form only.
+    3. Do not include summary statements or conclusions — focus on code-related results.
+    4. Use formal, concise language with logical structure.
+    5. Include technical explanations where relevant but do not repeat definitions
+       from the methodology section.
+    6. Strictly approximately {wc} words. Write in continuous paragraphs.
+
+Use code summary and novelty from:
+{code_summary} {novelty}

@@ -1,0 +1,324 @@
+Background Generation Prompt:
+
+Write a well-structure Background section of approximately 250 words for a research paper. This section should include the following components:
+
+First the general information of the topic (its definition and information like if  brain tumor prediction, then what is brain tumor) should be discussed that a give a brief idea to the user in 80 words and definition or information of the topic. If possible add any numeric data obtained from any survey or news like wikipedia. 
+            
+            
+Summarize key advancements in this area. Mention relevant studies, technological breakthroughs, or academic contributions that highlight the importance of the field. Keep full terms of phrases in the initial part of the report.
+Discuss the importance of researching this topic at the present time. Explain how this study contributes to addressing the identified research gaps.
+Ensure the writing is clear, precise, and free of unnecessary repetition. Do not introduce the specific research problem in detail, as that will be covered in the next section.
+Make the content look like conversational, engaging and flow like a natural story. Also the paragraphs should be linked with previous one.
+Citations should be the part of the sentences, don't just copy paste them at the start or end of the sentences. For example : According to the researchers…, As per the research done by…. , In a survey conducted by…etc.
+Do not mention any model scores and results. In-text citation example: Sharif et al. (2020) - keep this only no other.
+            
+            
+Note: Put strict instructions: not less than 250 words + should be paragraphs (continuous paragraphs as per thesis)
+
+Use the literature review summary and research gap from:
+
+
+---------------------------------------------------------------------------
+
+Problem Statement Prompt:
+
+Write a well-structure problem statement section of approximately 250 words for a research paper. This section should be  a concise description of a specific issue or gap in knowledge that a study aims to investigate and resolve.
+
+First analysis the given research gaps found in the literature review survey. 
+Current Issues: Clearly describe a specific challenge or limitation in the chosen research domain. Identify an unsolved problem that researchers are currently facing.
+Impact of the Problem: Explain how this issue affects real-world applications, industry, or academia. Provide concrete examples where relevant.
+Existing Attempts and Their Limitations: Highlight previous studies or methods that attempted to address the problem but failed to fully resolve it. Emphasize their shortcomings.
+Need for Your Research: Justify why a new approach is necessary. Clearly outline the research gap that this dissertation aims to fill.
+
+Maintain a formal academic tone, avoid repetition, and do not introduce research objectives or methodology at this stage. Ensure clarity and coherence in articulating the problem. And do not use words like literature review or analysis of literature review.
+
+Attachments:
+    Research gap
+
+
+---------------------------------------------------------------------------
+
+Research Question:
+
+Write a research question of approximately 50-60 words for a research paper. This should be related to what the research will try to solve based on the research gaps.
+
+Analysis the research gaps, code summary and web app summary and make either 1 or 2 research question that this research will solve.
+The question/hypotheses should be able to  guide the study. Ensure these are precise and aligned with the identified research problem.
+Do not mention any model or technique/method name.
+Before providing question, provide a sentence.
+
+Attachments:
+    Research gap, code summary and web app summary
+
+---------------------------------------------------------------------------
+
+Research objectives
+
+Write the research objectives of approximately 200 words for a research paper. This should related to the goals that the research will try to accomplish.
+
+Analysis the research gaps, code summary and web app summary and make either 5-6 research objectives that this research will try to achieve and make objectives based on it only. 
+While mentioning objectives, focus should be on available techniques rather than a specific one.
+Before providing objectives, provide a sentence (such as  the study objectives are:) And do not use the example sentence and do not use words like based on the research gaps, code summary or web app. Mention the technique name like boosting..
+Do not mention any method to be used like: web application using Streamlit
+Do not mention any research question.
+Start the objectives sentence from : To
+        
+Strictly follow the wc
+ Keep in bullet points
+Follow a proper sequence begin with review, end with web application.
+
+Note: Put strict instructions: not less than 150 words + should be paragraphs (continuous paragraphs as per thesis)
+        
+        
+
+Attachments: 
+    Research gap, code summary and web app summary
+
+
+---------------------------------------------------------------------------
+
+Significance of the Research
+
+Write the Significance of the research section of approximately 150 words for the research paper. This should  highlights the value or impact of the study in advancing knowledge or solving a real-world problem. 
+
+Elaborate on the potential contributions of the research, such as advancing theoretical understanding, addressing practical challenges, or informing policy or practice. 
+Highlight what makes this study unique or valuable.
+Explain how and in which sector ML and DL can contribute. (Researchers, students and society - Live Applications).
+Do not use words like novel and all.
+
+
+Attachments: 
+    code_summary_val_specific
+
+
+---------------------------------------------------------------------------
+
+Scope and Limitations
+
+Write the Scope and Limitations of the research section of approximately 150 words for the research paper. This should highlight what is the research doing and what are the limitations observed.
+
+First explain what the research are doing in a research work and are there any limitations present. (Data related limitations, trust issues, reliability, overall accuracy of model - not about proposed models), market limitations
+Mention possible ways to handle limitations, just give an opinion.
+Ensure clarity and conciseness while avoiding repetition. Do not include future research suggestions, as those belong in the discussion or conclusion section.
+
+Attachments: 
+    code_summary_val_specific, data details
+
+
+---------------------------------------------------------------------------
+
+Structure of the Report
+
+Write the content for the organisation of the report in 100 words para for the research paper, summarising the purpose and content of each chapter to guide the reader through the document. 
+
+
+#################################################################################################################################################################################################
+
+Report Design:
+
+Write the research design for the report study in approximately 150 words. Here the full pipeline of research should be mentioned without results. And it should be technical containing all the methods and techniques.
+
+Explanation should start from literature survey or data collection to web app testing, if present. 
+Don't mention the best model name here.
+Avoid Using Function Names.
+Make in 1 or 2 paragraphs.
+
+Attachments: 
+    code_summary, web app summary.
+
+
+---------------------------------------------------------------------------
+
+
+Dataset Information/Description:
+
+Write the data description for the obtained dataset in approximately 150 words in the research study. 
+
+Specify all data sources and if present mention dataset author name. 
+Specify the reason for choosing the data and explain its characteristics.
+Make a table and describe features (if unfamiliar and complicated to understand).
+Give basic information about new concepts like what are the .WAV format files in case if there is audio data. 
+
+Attachments:
+    dataset details
+
+
+---------------------------------------------------------------------------
+
+Data Preprocessing
+
+Write the definition and justification/reason to use the method present in the code summary for data preprocessing (approximately 500-600 words) in the research study. This should cover all the things and explain it properly focussing.
+
+Describes Theoretical Frameworks which means only definitions and significance. Example, defining stage along with definition of 'technique; used to handle that stage
+Do not use parenthesis to mention values'()'
+Do use the function name in it like keras.sequential() and etc.
+Do not focus on implementation part.
+Word count should be 100 words per sub section and make sub section.
+
+Note: Only theoretical framework, not implementation
+
+Attachments: 
+    code_summary
+
+
+---------------------------------------------------------------------------
+
+Model Building
+
+Write the explanation of the model building present in the code summary for model building in approximately 400-500 words. This should cover all the things and explain it properly focussing.
+
+Each algo should be explained in detail and mention the important parameter either in paragraph or use bullets for defining them.
+Write justification to use it. Not to General it should be related on the research topic name.
+Rationale of selection as well. 
+Don't mention the implementation procedure.
+
+Note: Only theoretical framework, not implementation
+
+Attachments: 
+    code_summary
+
+
+---------------------------------------------------------------------------
+
+Web Application
+
+Write the theoretical information about the web application framework in approximately 100-150 words in the research report.
+
+Mention the web application framework definition and justification to use it. 
+Don't mention the implementation procedure.
+
+Note: Only theoretical framework, not implementation
+
+Attachments: 
+    web_app_summary
+
+
+---------------------------------------------------------------------------
+
+Model Evaluation
+
+Write the information of the model evaluation metrics used in the research in approximately 100-150 words in the research report.
+
+Discuss evaluation metrics considering the project topic. 
+Content should not be too general.
+Elaborate on why that particular metric is used in this research if there is any specific reason.
+Use Sub heading or bullet points
+
+Attachments:
+    code_summary_val_specific
+
+
+---------------------------------------------------------------------------
+
+Professional, Legal and Ethical Issues
+
+Write the content for the Professional, legal, ethical issues in 150 words para for a dissertation with reading the report and then generating it that should focus on Professional, legal, ethical issues focussing on mainly  on it and what has been done like as the data secured and taken with permission and all.
+
+Attachments:
+    code_summary
+
+
+#################################################################################################################################################################################################
+
+Statistical Data Analysis
+
+Write a information about statistical data analysis in approximately 150 words. 
+
+It should describe each information fo statics like data count, daa type and analysis. 
+Mention all the values present in the statistical analysis.
+Do not mention any values in parenthesis or () or * or ``.
+Keep in simple and do not add information like data source or anything.
+Do not use words /sentence like :Statistical data analysis in the provided code
+
+Attachments:
+    code_summary_val_specific
+
+
+---------------------------------------------------------------------------
+
+EDA
+
+Write the EDA section of based on the given code summary value specific in approximately 600 words for the research report. his should cover all the things and explain it properly focussing.
+
+Mention all figures from EDA.
+Explain all the plots used for data visualization, during explanation write the insight of plots, it should be descriptive to present insights clearly in 4 sentences minimum.
+Do not use parenthesis to mention values'()'
+Do not discuss X and Y labels. (Use only for complicated plots - waveform, MFCC)
+Mention all numerical values in the insight and keep each insight in between 60-80 words para.
+"Only include figures and insights specifically from the Exploratory Data Analysis (EDA) section. Exclude all figures and insights related to data preprocessing, feature engineering, or model building.
+
+Format:
+    Title of plot-type of plot-  explanation or insights
+    
+
+Note: Don't use formatting like bold or italics and do not mention any figures from data preprocessing or its below section.
+
+Attachments:
+    code_summary_val_specific
+---------------------------------------------------------------------------
+
+Data Preprocessing
+
+Write the implementation of the method for the given preprocessing (approximately in 400 words) for a dissertation. This should cover all the things and explain it properly focussing.
+
+Do not use parenthesis to mention values'()'
+Do use the function name in it like keras.sequential() and etc.
+Do not explain any definition, only keep implementation part.
+Do not mention any code.
+Make subheading for each method.
+
+Attachments:
+    code_summary_val_specific
+
+
+---------------------------------------------------------------------------
+
+Model Training
+
+Write the implementation of the model training in approximately 500 words for the research , where implementation detailing needs to be written.
+
+It should answer how a particular step is applied in detail.
+Give a suitable research oriented name to the algorithm explain the architecture and implementation with parameters. 
+Main model should be explained deeply in 150 words.
+Expand the explanation and make it more research oriented, add more critical depth and elements.
+Do not use parenthesis to mention values'()'
+Do use the function name in it like keras.sequential() and etc.
+Do not explain any definition, only keep implementation part.
+Do not mention any code.
+Make subheading for each method.
+
+Attachments:
+    code_summary_val_specific
+
+
+---------------------------------------------------------------------------
+
+Web App Development
+
+Write the implementation procedure about the web application framework in approximately 150 words in the research report.
+
+Do not mention the web application framework definition. 
+Don't mention the any definition.
+Do not use parenthesis to mention values'()'
+Do use the function name in it like keras.sequential() and etc.
+Do not mention any code.
+
+Note: Only implementation, not theoretical framework
+
+Attachments: 
+    web_app_summary
+
+
+---------------------------------------------------------------------------
+
+Challenges and its Solution
+
+Write few challenge and its solution in approximately 150 words in the research report.
+
+Discuss any failed attempts of preprocessing and model development. Give reason if possible (eg. computational complexity).
+Computational or technical constraints affecting model performance and evaluation.
+Challenges in data preprocessing, feature selection, or hyperparameter tuning.
+Time or resource limitations that may have influenced the scope of the study.
+
+Attachments: 
+    code_summary_val_specific

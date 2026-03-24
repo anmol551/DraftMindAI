@@ -1,0 +1,92 @@
+{pp}
+
+##-- BACKGROUND --##
+Write a well-structured Background section of approximately {wc_bg} words for a research paper.
+
+First give a general idea about the topic and the problem, strictly in {wc_bg_summ} words. Do not mention ML or DL here. If possible add any numeric data from a survey or credible source to support the information.
+
+Then write how ML and DL can help resolve the identified problem. Summarise key advancements. Mention relevant studies or academic contributions that highlight the importance of the field.
+Keep full terms of phrases in the initial part of the report.
+Discuss the importance of researching this topic at the present time. Explain how this study contributes to addressing the identified research gaps.
+Ensure the writing is clear, precise, and free of unnecessary repetition. Do not introduce the specific research problem in detail, as that will be covered in the next section.
+Make the content conversational, engaging, and flowing like a natural story. Paragraphs should be linked to each other.
+Citations should be part of the sentences. For example: According to the researchers, As per the research done by, In a survey conducted by.
+Do not mention any model scores or results. In-text citation format: Sharif et al. (2020) — use this format only.
+
+Note: Not less than {wc_bg} words. Continuous paragraphs as per thesis format.
+Use the literature review summary and research gap from:
+{a} {b}
+
+---SECTION_BREAK---
+
+##-- PROBLEM STATEMENT --##
+Write a well-structured problem statement section of approximately {wc_prob} words for a research paper. This section should be a concise description of a specific issue or gap in knowledge that a study aims to investigate and resolve.
+
+First analyse the given research gaps and the general pipeline found in the literature review survey.
+Current Issues: Clearly describe a specific challenge or limitation in the chosen research domain. Identify an unsolved problem that researchers are currently facing.
+Impact of the Problem: Explain how this issue affects real-world applications, industry, or academia. Provide concrete examples where relevant.
+Existing Attempts and Their Limitations: Highlight previous studies or methods that attempted to address the problem but failed to fully resolve it. Emphasise their shortcomings.
+Need for Your Research: Justify why a new approach is necessary. Clearly outline the research gap that this dissertation aims to fill.
+Do not focus on literature and gaps as unresolved issues.
+
+Mention the model and preprocessing steps and how they relate to the problem statement.
+
+Maintain a formal academic tone, avoid repetition, and do not introduce research objectives or methodology at this stage. Do not use phrases like literature review or analysis of literature review.
+Cite using literature research. Citations should be part of the sentences. In-text citation format: Sharif et al. (2020) — use this format only.
+
+Note: Not less than {wc_prob} words. Continuous paragraphs as per thesis format.
+
+Use the research gap and literature review from:
+{a} {b}
+
+---SECTION_BREAK---
+
+##-- SIGNIFICANCE OF THE RESEARCH STUDY --##
+Write the Significance of the Research section of approximately {wc_sig} words for the research paper. This should highlight the value or impact of the study in advancing knowledge or solving a real-world problem.
+
+Elaborate on the potential contributions of the research, such as advancing theoretical understanding, addressing practical challenges, or informing policy or practice.
+Highlight what makes this study unique or valuable.
+Explain how, to whom, and in which sector ML and DL can contribute and help. (Researchers, students, and society — live applications).
+Do not mention any score of the model or the concluding result.
+Cite using literature research. Citations should be part of the sentences. In-text citation format: Sharif et al. (2020) — use this format only.
+
+Avoid repeating the problem statement. Focus on the broader academic, practical, and societal significance of the findings.
+
+Note: Not less than {wc_sig} words. 3 continuous paragraphs as per thesis format.
+
+Use the code summary with values and novelty file:
+{c} {d} {e}
+
+---SECTION_BREAK---
+
+##-- SCOPE AND LIMITATIONS --##
+Write the Scope and Limitations of the Research section of approximately {wc_scope} words for the research paper. This should highlight what the research is doing and what limitations are observed.
+
+First explain what the research is doing and what limitations are present. (Data-related limitations, trust issues, reliability, accuracy of model in general — not about proposed models specifically), market limitations.
+Mention possible ways to handle limitations as an opinion only.
+Do not mention any model name, model score, or dataset shape.
+
+Ensure clarity and conciseness while avoiding repetition. Do not include future research suggestions, as those belong in the conclusion section.
+Cite using literature research. Citations should be part of the sentences. In-text citation format: Sharif et al. (2020) — use this format only.
+
+Note: Not less than {wc_scope} words. 3 continuous paragraphs as per thesis format.
+
+Use the code summary with values and data details file:
+{c} {f} {a} {g}
+
+---SECTION_BREAK---
+
+##-- STRUCTURE OF THE REPORT --##
+Write the Organisation of the Report section in approximately {wc_struct} words for the research paper. Summarise the purpose and content of each of the six chapters below to guide the reader through the document.
+
+The report contains exactly six chapters in this order:
+Chapter One: Introduction — introduces the research topic, problem, objectives, and significance.
+Chapter Two: Literature Review — reviews existing studies and identifies research gaps.
+Chapter Three: Methodology — describes the research design, dataset, and methods used.
+Chapter Four: Implementation — covers the practical execution of the pipeline and models.
+Chapter Five: Results and Discussion — presents and interprets findings and model performance.
+Chapter Six: Conclusion and Future Work — summarises contributions and suggests future directions.
+
+Do not add any citations.
+
+Note: Not less than {wc_struct} words. 1 continuous paragraph as per thesis format.

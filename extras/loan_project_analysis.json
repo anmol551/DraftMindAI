@@ -1,0 +1,296 @@
+{
+  "title": "From Risk Scores to Human-Centric Decisions: Integrating Tabular Deep Learning and Large Language Models for Loan Approval Systems",
+
+  "research_question": "How can a unified and interpretable predictive framework combining machine learning and explanation systems improve financial risk score estimation and loan approval decisions on structured financial datasets?",
+
+  "research_objectives": [
+    "To review existing financial risk assessment approaches with emphasis on interpretable machine learning and hybrid predictive systems.",
+    "To examine the effectiveness of structured data preparation and feature construction in improving predictive reliability on financial datasets.",
+    "To develop a unified predictive framework capable of supporting both continuous risk scoring and binary approval decisions using available learning techniques.",
+    "To evaluate the comparative performance of traditional and advanced machine learning approaches for financial risk prediction.",
+    "To integrate explanation-driven components that generate clear and meaningful interpretations of predictive outcomes for decision support.",
+    "To deploy the validated predictive system through a web application interface to demonstrate practical usability and decision support capability."
+  ],
+
+  "data_details": "The dataset is a synthetic financial risk dataset for loan approval modelling, sourced from Kaggle (https://www.kaggle.com/datasets/lorenzozoppelletto/financial-risk-for-loan-approval/data). It comprises 20,000 records and 37 columns including: ApplicationDate, Age, AnnualIncome, CreditScore, EmploymentStatus, EducationLevel, Experience, LoanAmount, LoanDuration, MaritalStatus, NumberOfDependents, HomeOwnershipStatus, MonthlyDebtPayments, CreditCardUtilizationRate, NumberOfOpenCreditLines, NumberOfCreditInquiries, DebtToIncomeRatio, BankruptcyHistory, LoanPurpose, PreviousLoanDefaults, PaymentHistory, LengthOfCreditHistory, SavingsAccountBalance, CheckingAccountBalance, TotalAssets, TotalLiabilities, MonthlyIncome, UtilityBillsPaymentHistory, JobTenure, NetWorth, BaseInterestRate, InterestRate, MonthlyLoanPayment, TotalDebtToIncomeRatio, LoanApproved (binary target), and RiskScore (continuous regression target). The dataset is artificial and serves dual modelling purposes: regression for continuous risk score prediction and binary classification for loan approval decisions. It exhibits class imbalance with 4,780 approved records versus 15,220 denied records.",
+
+  "literature_review_summary": "**Topic Overview:** Credit risk assessment and loan approval prediction using machine learning (ML) has emerged as a critical domain in financial technology. Traditional scoring methods such as FICO scores are increasingly insufficient, creating the need for advanced, data-driven frameworks that are both accurate and interpretable.\n\n**Importance of the Field:** The growing relevance of ML in banking risk management is well-documented. Mhlanga (2021) highlights how ML addresses credit risk for underbanked populations by leveraging alternative data, reducing information asymmetry and adverse selection. Leo et al. (2019) note persistent gaps between ML capabilities and their full implementation in practice. Jagtiani and Lemieux (2019) empirically demonstrate a decline in FICO score correlations with loan grades from approximately 80% in 2007 to around 35% in 2014–2015, validating the shift toward ML-based approaches.\n\n**Key Technical Content:** Dumitrescu et al. (2022) propose the Penalised Logistic Tree Regression (PLTR) combining decision trees and logistic regression for interpretable credit scoring. Bao et al. (2019) integrate unsupervised and supervised learning for two-stage credit scoring. Papouskova and Hajek (2019) develop a two-stage ensemble model combining class-imbalanced learning to predict Probability of Default (PD) and Exposure at Default (EAD). Jiang et al. (2021) compare SVM, Random Forest, and XGBoost, finding SVM superior for regression and XGBoost/RF effective for classification.\n\n**Findings and Insights:** Ensemble methods consistently outperform single models in accuracy (Bhatore et al., 2020; Namvar et al., 2018). Resampling strategies such as random under-sampling with Random Forest improve G-mean scores. Alam et al. (2020) show Min-Max normalisation with resampling improves cross-dataset performance. Deep learning, particularly neural networks, is identified as a future direction for processing large-scale financial data (Taye, 2023).\n\n**Limitations Identified:** Most studies handle either regression or classification but not both simultaneously. Interpretability remains a gap in complex ensemble and deep learning models (Dumitrescu et al., 2022). Imbalanced datasets remain underaddressed, with Sheikh et al. (2020) noting that ignoring demographic factors skews models. Ethical risks including algorithmic bias against marginalised groups are highlighted by Raji et al. (2020) and Kasneci et al. (2023).\n\n**Unresolved Issues:** Integration of LLMs for explanation generation in financial systems remains unexplored. Regulatory compliance frameworks for ML-based lending decisions are still evolving (Leo et al., 2019; Mhlanga, 2021). The use of diverse data modalities—transactional history, social media—is suggested but unvalidated at scale (Javeed et al., 2023). Federated learning approaches (Shingi, 2020) for privacy-preserving loan prediction remain in early stages.\n\n**Key References Preserved:** Mhlanga (2021); Leo et al. (2019); Bao et al. (2019); Jagtiani and Lemieux (2019); Dumitrescu et al. (2022); Namvar et al. (2018); Alam et al. (2020); Sheikh et al. (2020); Papouskova and Hajek (2019); Jiang et al. (2021); Bhatore et al. (2020); Raji et al. (2020); Kasneci et al. (2023); Taye (2023); Javeed et al. (2023); Lu and Hu (2023); Omuya et al. (2021); Chen and Zhang (2021).",
+
+  "research_gap": "Despite considerable advances in machine learning for credit risk and loan approval prediction, several critical gaps persist in existing literature. Most prior studies treat risk scoring (regression) and loan approval classification (binary decision) as separate modelling tasks, resulting in fragmented pipelines that fail to produce consistent and unified outputs. This separation limits the interpretability and reliability of financial predictions in practice.\n\nAnother significant gap lies in the underutilisation of feature engineering specifically tailored to financial tabular data. While preprocessing steps such as encoding and scaling are commonly applied, the construction of domain-informed composite features—such as income stability ratios, debt stress indices, and credit experience scores—has been largely neglected. Such engineered indicators can substantially improve the signal quality for both regression and classification objectives.\n\nFurthermore, existing research has inadequately explored attention-based tabular deep learning architectures for financial risk tasks. Conventional neural networks are often applied without mechanisms that offer feature-level interpretability, a critical requirement for regulatory compliance in lending institutions. Architectures that combine sequential attention with sparse feature selection can simultaneously improve predictive performance and transparency, yet their application to dual-task financial modelling remains sparse.\n\nThe integration of business rule governance layers into predictive systems is also largely absent from published work. Predictive models in isolation cannot meet the operational requirements of financial institutions, which demand policy-aligned override mechanisms alongside statistical predictions. Bridging the gap between model outputs and institutional lending policies within a single deployable framework is a direction that existing studies have not adequately addressed.\n\nFinally, the generation of human-readable, compliance-ready decision explanations through large language models operating on top of risk scores is virtually unexplored. Combining structured numeric predictions with automated natural language underwriting reports represents a novel and practically valuable direction that current literature has yet to formalise or validate.",
+
+  "best_accuracy": "91% — TabNet classification accuracy: 0.891, ROC-AUC: 0.9598; Regression R2 Score: 0.8839",
+
+  "base_paper_summary": "Paper: Loan Approval Prediction Using Machine Learning\nAnand, R., Singh, H., Sardana, K., Gupta, D.N., Sindhwani, N. and Mittal, M. (2024). Published in: Intelligent Systems Design and Applications (ISDA 2023), Lecture Notes in Networks and Systems, Vol. 1052, Springer, pp. 357–366.\n\nResearch Pipeline: The research follows a supervised machine learning pipeline beginning with data collection, followed by exploratory data analysis (EDA), preprocessing including missing value imputation and feature encoding, model training, and performance evaluation. The pipeline concludes with a comparative analysis across five ML algorithms to identify the optimal classifier for loan approval.\n\nDataset: A structured financial dataset containing applicant attributes including demographic details, credit history, income levels, employment status, and loan parameters. The binary target variable distinguishes approved from denied applications. The dataset includes client-level attributes used directly for classification without advanced feature engineering.\n\nAlgorithm Accuracies:\n- Logistic Regression (LR): approximately 78–80%\n- Decision Tree (DT): approximately 76–79%\n- K-Nearest Neighbor (KNN): approximately 75–78%\n- Multilayer Perceptron (MLP): approximately 80–82%\n- Random Forest (RF): approximately 85–87% — best performing\n\nBest Performing Algorithm: Random Forest achieved the highest accuracy among all tested classifiers. The paper reports RF accuracy as exceeding many existing RF approaches in the literature, attributed to its ensemble nature and robustness on tabular financial data.\n\nNovel Element: The novelty lies in combining thorough exploratory data analysis with client attribute profiling to inform the Random Forest model. The paper claims accuracy superior to prior RF-based approaches by leveraging both data-driven feature insights and classification ensemble techniques.\n\nFuture Recommendations: The authors suggest exploring deep learning models for improved accuracy, integrating real-time financial data for dynamic predictions, investigating explainability tools for regulatory transparency, and applying the framework to multi-class loan risk categorisation beyond binary approval decisions.",
+
+  "base_paper_reference": "Anand, R., Singh, H., Sardana, K., Gupta, D.N., Sindhwani, N. and Mittal, M. (2024) 'Loan Approval Prediction Using Machine Learning', in Abraham, A., Bajaj, A. and Hanne, T. (eds) Intelligent Systems Design and Applications. ISDA 2023. Lecture Notes in Networks and Systems, vol. 1052. Cham: Springer, pp. 357–366. Available at: https://doi.org/10.1007/978-3-031-64776-5_34 (Accessed: 20 March 2026).",
+
+  "code_pipeline": "1. DATA INGESTION\n   └── Load synthetic Loan.csv (20,000 records, 37 features) via pandas read_csv\n\n2. DATASET EXPLORATION\n   └── Shape check → Missing value check → Duplicate check → info() + describe()\n   └── Identify numerical and categorical columns\n   └── Univariate and bivariate visualisations (pie charts, histograms, bar charts, heatmaps, scatter plots)\n\n3. PREPROCESSING\n   ├── Drop non-informative column: ApplicationDate\n   ├── One-Hot Encoding → EmploymentStatus, HomeOwnershipStatus, MaritalStatus, LoanPurpose (via OneHotEncoder)\n   └── Label Encoding → EducationLevel (via LabelEncoder)\n\n4. CLASS BALANCING (Explored but Abandoned)\n   └── SMOTE imported from imbalanced-learn → commented out; regression target incompatible with SMOTE\n\n5. FEATURE SELECTION\n   ├── Recursive Feature Elimination (RFE) with RandomForestRegressor, n_features_to_select=10\n   ├── Selected: AnnualIncome, LoanAmount, LoanDuration, DebtToIncomeRatio, TotalAssets, MonthlyIncome, NetWorth, InterestRate, TotalDebtToIncomeRatio, RiskScore\n   └── Correlation heatmap + Feature importance bar chart generated\n\n6. FEATURE ENGINEERING\n   ├── Income_Stability_Ratio = (MonthlyIncome × 12) / (AnnualIncome + 1)\n   ├── NetWorth_to_Income = NetWorth / (AnnualIncome + 1)\n   ├── Debt_Stress_Index = DebtToIncomeRatio × InterestRate\n   ├── Credit_Experience_Score = CreditScore × log1p(LengthOfCreditHistory)\n   ├── Historical_Risk_Flag = BankruptcyHistory + PreviousLoanDefaults\n   └── Composite_Risk_Index = 0.4×(1 − CreditScore/850) + 0.3×DebtToIncomeRatio + 0.2×InterestRate + 0.1×Historical_Risk_Flag\n\n7. SCALING\n   └── StandardScaler applied to 13 continuous features → saved as scaler.pkl via joblib\n\n8. TRAIN-TEST SPLIT\n   └── train_test_split → 80% train (16,000) / 20% test (4,000), random_state=42\n\n9. MODEL 1 — ElasticNet Regressor\n   ├── Base: ElasticNet(max_iter=10000, random_state=42)\n   ├── Tuning: RandomizedSearchCV (n_iter=50, cv=5, scoring=r2)\n   ├── Best params: alpha=0.000534, l1_ratio=0.939\n   ├── Regression metrics → MAE, MSE, RMSE, R2, Explained Variance\n   ├── Actual vs Predicted scatter plot\n   ├── Threshold-based classification (median threshold)\n   └── Classification metrics → Accuracy, Precision, Recall, F1, ROC-AUC + Confusion Matrix\n\n10. MODEL 2 — CNN Regressor (1D Convolutional Neural Network)\n    ├── Architecture: Conv1D(32, kernel=2, relu) → BatchNorm → Conv1D(64, kernel=2, relu) → BatchNorm → Flatten → Dense(64, relu) → Dropout → Dense(1)\n    ├── Training: epochs=50, batch_size=32, validation_split=0.2, optimizer=Adam\n    ├── Learning curves: Training/Validation Loss + MAE plots\n    ├── Regression metrics + Actual vs Predicted scatter\n    ├── Threshold-based classification (median threshold)\n    └── Classification metrics + Confusion Matrix\n\n11. MODEL 3 — TabNet Regressor\n    ├── Architecture: TabNetRegressor(n_d=32, n_a=32, n_steps=5, gamma=1.5, lambda_sparse=1e-4, mask_type=entmax, optimizer=Adam, lr=0.02)\n    ├── Training: max_epochs=100, patience=20, batch_size=512, virtual_batch_size=128\n    ├── Learning curve: Training/Validation MAE plot\n    ├── Regression metrics + Actual vs Predicted scatter\n    ├── Threshold-based classification (median threshold) → threshold saved as tabnet_threshold.pkl\n    ├── Classification metrics + Confusion Matrix\n    └── Model saved as tabnet_risk_model.zip via joblib\n\n12. MODEL COMPARISON\n    ├── MAE comparison line chart\n    ├── MSE and RMSE grouped bar chart\n    ├── R2 and Explained Variance horizontal grouped bar chart\n    ├── Accuracy and ROC-AUC grouped bar chart\n    └── Precision, Recall, F1 dot/scatter comparison plot\n\n13. LLM INTEGRATION (Notebook testing)\n    ├── Load saved TabNet model + scaler + threshold\n    ├── Apply feature engineering on sample input\n    ├── Predict risk score → apply business rule (score > 50 → Rejected)\n    ├── Call OpenAI GPT-4o-mini API with structured prompt\n    └── Receive and display formal underwriting report\n\n14. WEB APPLICATION — Streamlit (app.py)\n    ├── UI: 10 numeric input fields for applicant financial features\n    ├── On button click: feature engineering → StandardScaler transform → TabNet predict\n    ├── Business rule governance: score > 50 → High Risk flag → Final decision = Rejected\n    ├── GPT-4o-mini API call → structured underwriting report (6 sections)\n    └── Display: risk score, model decision, business flag, final decision, AI report\n\n15. TESTING\n    ├── Test Case 1: High-risk applicant → Risk Score 79.53 → Rejected\n    ├── Test Case 2: Borderline applicant → Risk Score 51.55 → Rejected\n    └── Test Case 3: Low-risk applicant → Risk Score 29.24 → Approved",
+
+  "code_summary": "The notebook implements a dual-task financial risk prediction pipeline using a synthetic loan dataset of 20,000 records. The primary objectives are: (1) regression-based continuous risk score prediction, and (2) deriving binary loan approval classification from the predicted risk scores. The pipeline progresses through dataset exploration, categorical encoding, feature selection via Recursive Feature Elimination (RFE) using a Random Forest estimator, domain-informed feature engineering, standard scaling, and training of three progressively complex models: ElasticNet, a 1D Convolutional Neural Network (CNN), and TabNet—an attention-based tabular deep learning architecture. All models are trained on an 80/20 train-test split, with classification derived by applying a median threshold to the continuous risk score predictions.\n\nThe core modelling strategy employs a unified regression-to-classification approach: rather than building separate models for each task, a single regressor predicts the continuous risk score, and a threshold-based decision boundary converts these predictions into binary loan approval outcomes. Six engineered features—Income Stability Ratio, NetWorth-to-Income Ratio, Debt Stress Index, Credit Experience Score, Historical Risk Flag, and Composite Risk Index—augment the ten RFE-selected base features before scaling. Each model is evaluated using MAE, MSE, RMSE, R² Score, Explained Variance, Accuracy, Precision, Recall, F1-Score, and ROC-AUC. TabNet achieves the best performance across both tasks with MAE of 1.8953, R² of 0.8839, classification accuracy of 89.1%, and ROC-AUC of 0.9598.\n\nThe pipeline concludes with a Streamlit web application that loads the saved TabNet model and scaler, applies live feature engineering on user inputs, generates a risk score, applies a business rule governance layer (threshold greater than 50 triggers rejection), and calls the OpenAI GPT-4o-mini API to produce a formal underwriting report including risk interpretation, governance analysis, financial strengths, risk drivers, and executive summary. This integration of deep learning inference with LLM-based explanation bridges the gap between model output and human-centric decision communication.",
+
+  "code_summary_with_values": {
+    "libraries_used": [
+      "pandas", "numpy", "seaborn", "matplotlib",
+      "scikit-learn: LabelEncoder, OneHotEncoder, StandardScaler, RandomForestRegressor, RFE, ElasticNet, RandomizedSearchCV, train_test_split, accuracy_score, precision_score, recall_score, f1_score, roc_auc_score, confusion_matrix, classification_report, mean_absolute_error, mean_squared_error, r2_score, explained_variance_score",
+      "imbalanced-learn: SMOTE (imported but commented out)",
+      "tensorflow/keras: Sequential, Conv1D, Dense, Flatten, BatchNormalization, Dropout, Adam",
+      "pytorch-tabnet: TabNetRegressor",
+      "torch", "joblib", "openai", "streamlit", "base64"
+    ],
+    "statistical_analysis": [
+      {"function": "loan_data.describe()", "purpose": "Generates descriptive statistics including mean, std, min, max and quartiles for all numerical columns", "outcome": "Summary statistics table across 20,000 records and 36 features"},
+      {"function": "loan_data.isna().sum().sum()", "purpose": "Counts total missing values in the dataset", "outcome": "Confirmed zero missing values"},
+      {"function": "loan_data.duplicated().sum()", "purpose": "Detects duplicate rows", "outcome": "Confirmed no duplicate records"},
+      {"function": "loan_data.info()", "purpose": "Provides data types, non-null counts and memory usage", "outcome": "Column-wise data type overview and null check"},
+      {"function": "groupby + size + unstack", "purpose": "Calculates approval rates segmented by categorical variables such as BankruptcyHistory, LoanPurpose, and NumberOfCreditInquiries", "outcome": "Grouped approval rate tables used for bivariate visualisations"}
+    ],
+    "eda": [
+      {"plot_type": "Pie Charts (5 subplots)", "title": "Categorical Feature Distributions — EmploymentStatus, MaritalStatus, HomeOwnershipStatus, LoanPurpose", "x_variable": "Category labels", "y_variable": "Percentage share", "insights": "Employed applicants dominate employment status. Married applicants form the largest marital group. Renting is the most common home ownership status. Personal and auto are the top loan purposes, suggesting the applicant pool is diverse but skewed toward mid-income working individuals."},
+      {"plot_type": "Histogram", "title": "Histogram of Age", "x_variable": "Age (bins=30)", "y_variable": "Frequency", "insights": "Right-skewed distribution indicating a significant proportion of younger applicants. Taller bars appear in younger age ranges with frequency declining for older groups, reflecting a workforce-age-dominant applicant pool."},
+      {"plot_type": "Histograms — Group 1 (5 subplots)", "title": "Distribution of MonthlyDebtPayments, CreditCardUtilizationRate, PaymentHistory, TotalAssets, TotalLiabilities", "x_variable": "Feature value", "y_variable": "Frequency", "insights": "MonthlyDebtPayments and TotalAssets show right skew, meaning most applicants carry lower debt and asset values. PaymentHistory is left-skewed, indicating most applicants have strong repayment records with a small minority showing poor history."},
+      {"plot_type": "Histograms — Group 2 (5 subplots)", "title": "Distribution of UtilityBillsPaymentHistory, NetWorth, InterestRate, MonthlyIncome, additional features", "x_variable": "Feature value", "y_variable": "Frequency", "insights": "NetWorth and MonthlyIncome display wide variance. InterestRate is relatively narrowly distributed, suggesting bounded lending rate policies. UtilityBillsPaymentHistory is left-skewed, confirming generally reliable payment behaviour."},
+      {"plot_type": "Grouped Bar Chart", "title": "Loan Approvals by Bankruptcy History", "x_variable": "BankruptcyHistory (0 or 1)", "y_variable": "Approval Rate (%)", "insights": "Applicants with no bankruptcy history (0) show substantially higher approval rates. Those with a bankruptcy record (1) are denied at a significantly elevated rate, confirming BankruptcyHistory as a dominant risk signal."},
+      {"plot_type": "Heatmap", "title": "Loan Approval Rate by Loan Purpose", "x_variable": "LoanPurpose categories", "y_variable": "LoanApproved (0 or 1)", "insights": "Denial dominates across all purposes. Auto loans show 75.7% denied and 24.3% approved. Debt consolidation records 76.5% denied and 23.5% approved, reflecting cautious underwriting across all loan types. Annotated with exact percentage values."},
+      {"plot_type": "Grouped Bar Chart", "title": "Loan Approval Rate by Number of Credit Inquiries", "x_variable": "NumberOfCreditInquiries", "y_variable": "Approval Rate (%)", "insights": "Clear declining trend: as the number of credit inquiries increases, approval rates decrease. High inquiry counts signal risky financial behaviour and correlate strongly with denial outcomes."},
+      {"plot_type": "Joint Scatter Plot with Marginal Histograms", "title": "Loan Amount vs Annual Income", "x_variable": "AnnualIncome", "y_variable": "LoanAmount", "insights": "Positive correlation between income and requested loan amount. Higher income applicants tend to request larger loans. Notable outliers exist where lower-income applicants request disproportionately high loan amounts, indicating potential risk."},
+      {"plot_type": "Vertical Bar Chart", "title": "Loan Approval Status Distribution", "x_variable": "Approved / Denied", "y_variable": "Count", "insights": "Dataset reveals significant class imbalance: 4,780 approved records versus 15,220 denied records. The 76%/24% imbalance informs the need for weighted evaluation metrics and careful threshold selection during classification."},
+      {"plot_type": "Horizontal Bar Chart", "title": "Feature Importance of RFE-Selected Features", "x_variable": "Importance score", "y_variable": "Feature name", "insights": "TotalDebtToIncomeRatio ranks highest, confirming overall obligation level as the strongest predictor. BankruptcyHistory and PreviousLoanDefaults rank highly as risk flags. AnnualIncome, MonthlyIncome, and NetWorth reflect repayment capacity and also rank among top features."},
+      {"plot_type": "Correlation Heatmap", "title": "Feature Correlation Matrix (RFE-selected features)", "x_variable": "Feature names", "y_variable": "Feature names", "insights": "Strong multicollinearity detected: AnnualIncome and MonthlyIncome correlation = 0.99; TotalAssets and NetWorth correlation = 0.98. RiskScore shows moderate positive correlation with DebtToIncomeRatio and InterestRate, confirming feature relevance to the target."}
+    ],
+    "data_preprocessing": [
+      {"function": "loan_data.drop(columns=['ApplicationDate'])", "purpose": "Remove non-informative date column prior to modelling", "parameters": "columns=['ApplicationDate'], inplace=True"},
+      {"function": "OneHotEncoder(sparse_output=False)", "applied_to": "EmploymentStatus, HomeOwnershipStatus, MaritalStatus, LoanPurpose", "parameters": "sparse_output=False — produces dense array output"},
+      {"function": "encoder.fit_transform(X[categorical_columns])", "purpose": "Fit and transform categorical columns into binary indicator features", "outcome": "Expanded feature matrix with binary columns per category"},
+      {"function": "LabelEncoder()", "applied_to": "EducationLevel", "parameters": "Default parameters — assigns integer per unique category"},
+      {"function": "label_encoder.fit_transform(X[column])", "purpose": "Convert ordinal education levels to integer codes", "outcome": "Single integer column replacing text labels"}
+    ],
+    "feature_engineering": {
+      "feature_selection_method": "Recursive Feature Elimination (RFE) with RandomForestRegressor, n_features_to_select=10",
+      "rfe_selected_features": ["AnnualIncome", "LoanAmount", "LoanDuration", "DebtToIncomeRatio", "TotalAssets", "MonthlyIncome", "NetWorth", "InterestRate", "TotalDebtToIncomeRatio", "RiskScore"],
+      "engineered_features": [
+        "Income_Stability_Ratio = (MonthlyIncome * 12) / (AnnualIncome + 1)",
+        "NetWorth_to_Income = NetWorth / (AnnualIncome + 1)",
+        "Debt_Stress_Index = DebtToIncomeRatio * InterestRate",
+        "Credit_Experience_Score = CreditScore * log1p(LengthOfCreditHistory)",
+        "Historical_Risk_Flag = BankruptcyHistory + PreviousLoanDefaults",
+        "Composite_Risk_Index = 0.4*(1 - CreditScore/850) + 0.3*DebtToIncomeRatio + 0.2*InterestRate + 0.1*Historical_Risk_Flag"
+      ],
+      "columns_scaled": ["AnnualIncome", "CreditScore", "DebtToIncomeRatio", "LengthOfCreditHistory", "MonthlyIncome", "NetWorth", "InterestRate", "TotalDebtToIncomeRatio", "Income_Stability_Ratio", "NetWorth_to_Income", "Debt_Stress_Index", "Credit_Experience_Score", "Composite_Risk_Index"],
+      "scaling_method": "StandardScaler — zero mean, unit variance; saved as scaler.pkl"
+    },
+    "train_split": "train_test_split — test_size=0.2, random_state=42 → 16,000 training samples, 4,000 test samples",
+    "model_details": [
+      {
+        "model": "ElasticNet Regressor",
+        "tuning_method": "RandomizedSearchCV (n_iter=50, cv=5, scoring=r2, n_jobs=-1, random_state=42)",
+        "base_parameters": "ElasticNet(max_iter=10000, random_state=42)",
+        "tuned_parameters": "alpha=0.0005336699231206312, l1_ratio=0.9387755102040816",
+        "best_cv_r2": 0.7537,
+        "layers": "Not applicable — linear model"
+      },
+      {
+        "model": "CNN Regressor (1D Convolutional Neural Network)",
+        "tuning_method": "Manual architecture design — no automated hyperparameter search",
+        "layers": [
+          "Conv1D(filters=32, kernel_size=2, activation=relu, input_shape=(16, 1))",
+          "BatchNormalization()",
+          "Conv1D(filters=64, kernel_size=2, activation=relu)",
+          "BatchNormalization()",
+          "Flatten()",
+          "Dense(64, activation=relu)",
+          "Dropout(rate=0.3)",
+          "Dense(1) — linear output for regression"
+        ],
+        "training_parameters": "epochs=50, batch_size=32, validation_split=0.2, optimizer=Adam, loss=mse, metrics=[mae]"
+      },
+      {
+        "model": "TabNet Regressor",
+        "tuning_method": "Manual hyperparameter specification",
+        "parameters": {
+          "n_d": 32,
+          "n_a": 32,
+          "n_steps": 5,
+          "gamma": 1.5,
+          "lambda_sparse": 0.0001,
+          "optimizer_fn": "torch.optim.Adam",
+          "lr": 0.02,
+          "mask_type": "entmax",
+          "max_epochs": 100,
+          "patience": 20,
+          "batch_size": 512,
+          "virtual_batch_size": 128,
+          "eval_metric": "mae"
+        },
+        "layers": "Sequential attention steps using entmax sparse masking across n_steps=5 decision steps with shared and step-specific fully connected layers"
+      }
+    ],
+    "model_results": {
+      "metrics_used_regression": ["MAE", "MSE", "RMSE", "R2 Score", "Explained Variance"],
+      "metrics_used_classification": ["Accuracy", "Precision (weighted)", "Recall (weighted)", "F1 Score (weighted)", "ROC-AUC"],
+      "regression_performance_table": [
+        {"Model": "ElasticNet", "MAE": 3.0955, "MSE": 16.2191, "RMSE": 4.0273, "R2_Score": 0.7388, "Explained_Variance": 0.7388},
+        {"Model": "CNN", "MAE": 2.2253, "MSE": 8.9632, "RMSE": 2.9939, "R2_Score": 0.8556, "Explained_Variance": 0.8569},
+        {"Model": "TabNet [BEST]", "MAE": 1.8953, "MSE": 7.2074, "RMSE": 2.6847, "R2_Score": 0.8839, "Explained_Variance": 0.8841}
+      ],
+      "classification_performance_table": [
+        {"Model": "ElasticNet", "Accuracy": 0.8273, "Precision": 0.8412, "Recall": 0.8273, "F1_Score": 0.8275, "ROC_AUC": 0.9297},
+        {"Model": "CNN", "Accuracy": 0.8680, "Precision": 0.8813, "Recall": 0.8680, "F1_Score": 0.8682, "ROC_AUC": 0.9582},
+        {"Model": "TabNet [BEST]", "Accuracy": 0.8910, "Precision": 0.8933, "Recall": 0.8910, "F1_Score": 0.8913, "ROC_AUC": 0.9598}
+      ]
+    }
+  },
+
+  "web_app_summary": "The web application is a Streamlit-based AI-powered loan risk and governance platform integrating a TabNet deep learning regression model with a business rule governance layer and LLM-based explanation generation. Libraries used include streamlit, pandas, numpy, joblib, pytorch-tabnet, openai, and base64. User inputs are collected via ten numeric input fields covering Annual Income, Credit Score, Debt-to-Income Ratio, Bankruptcy History, Previous Loan Defaults, Length of Credit History, Monthly Income, Net Worth, Interest Rate, and Total Debt-to-Income Ratio. On button click, the predict_loan_risk function applies six engineered features, scales selected columns using a pre-fitted StandardScaler loaded from scaler.pkl, and feeds the result to the saved TabNet model (tabnet_risk_model.zip) to produce a continuous risk score. A threshold-based business rule flags scores above 50 as High Risk and overrides the model to Rejected regardless of the raw model decision. The generate_llm_explanation function then calls OpenAI GPT-4o-mini with a structured prompt to produce a formal underwriting report covering risk interpretation, model versus governance analysis, financial strengths, risk drivers, improvement recommendations, and executive summary. The app displays predicted risk score, model decision, business flag, final decision, and the full AI-generated report inline.",
+
+  "web_app_test_cases": "Three test cases were evaluated on the deployed Streamlit web application. Test Case 1 represented a high-risk applicant with Annual Income of 32000, Credit Score of 520, Debt-to-Income Ratio of 0.55, Bankruptcy History of 1, Previous Loan Defaults of 1, Credit History Length of 4 years, Monthly Income of 2666.67, Net Worth of 5000, Interest Rate of 0.29, and Total DTI of 0.60. The predicted risk score was 79.5262, model decision was Rejected, business flag was High Risk above 50 Red Flag, and final decision was Rejected. Test Case 2 represented a borderline applicant with Annual Income of 58000, Credit Score of 640, DTI of 0.38, no bankruptcy or defaults, Credit History of 10 years, Monthly Income of 4833.33, Net Worth of 45000, Interest Rate of 0.19, and Total DTI of 0.36. The predicted risk score was 51.5526, model decision was Rejected, business flag was High Risk above 50 Red Flag, and final decision was Rejected. Test Case 3 represented a low-risk applicant with Annual Income of 110000, Credit Score of 780, DTI of 0.18, no bankruptcy or defaults, Credit History of 18 years, Monthly Income of 9166.67, Net Worth of 250000, Interest Rate of 0.11, and Total DTI of 0.20. The predicted risk score was 29.2386, model decision was Approved, business flag was Acceptable Risk Level, and final decision was Approved. All three cases were correctly classified confirming the governance layer and deep learning model operate as designed across low, borderline, and high risk profiles.",
+
+  "novelty": "The primary novelty of this research lies in its architectural decision to unify continuous risk score regression and binary loan approval classification within a single predictive pipeline, eliminating the need for separate task-specific models and ensuring output consistency between risk estimation and approval decisions. Unlike conventional approaches that treat these as independent modelling problems, the unified framework applies a single TabNet regressor whose continuous output is thresholded at the median to produce classification decisions, thereby preserving the informational richness of the risk score while generating actionable binary outcomes. TabNet's attention-based sequential feature selection mechanism—employing entmax sparse activation with n_steps=5 sequential decision steps—provides intrinsic feature-level interpretability absent from standard neural network architectures, making it particularly well-suited for regulated financial applications where transparency is mandatory. The use of a virtual batch size of 128 within batches of 512 introduces a ghost batch normalisation strategy that improves generalisation on tabular data without the instability typical of small-batch training regimes. A further architectural contribution is the construction of six composite financial indicators—including the Debt Stress Index defined as DebtToIncomeRatio multiplied by InterestRate, and the Composite Risk Index as a weighted linear combination of credit score deficit, debt ratio, interest rate, and historical risk flags—that encode domain knowledge directly into the feature space rather than relying solely on raw input variables, significantly reducing the representational burden on the model. Critically, the system introduces a post-prediction governance overlay that applies institutional lending policy constraints as a hard override on model outputs above a risk score of 50, bridging the gap between statistical inference and operational compliance. This two-tier decision architecture—model inference followed by rule-based policy enforcement—is a practically significant engineering choice that current literature does not formalise. Finally, the integration of GPT-4o-mini to generate structured six-section underwriting reports from numerical model outputs represents a novel human-AI collaboration pattern, converting opaque scores into compliance-ready natural language justifications that support audit trails, regulatory review, and stakeholder communication.",
+
+  "result_plot_summary": {
+    "table": [
+      {"No": 1, "Title": "Actual vs Predicted RiskScore — ElasticNet", "Type": "Scatter Plot with Regression Line", "Insights": "Predicted risk scores rise with actual values showing a positive linear relationship. Points cluster around the regression line but with noticeable spread reflecting moderate accuracy. MAE of 3.0955 and R2 of 0.7388 are consistent with visible deviation from the perfect prediction diagonal. Regression trend line and perfect prediction reference line both plotted."},
+      {"No": 2, "Title": "Confusion Matrix — ElasticNet Derived Classification", "Type": "Heatmap", "Insights": "True negatives (Loan Approved correctly predicted): 1,627. True positives (Loan Not Approved correctly predicted): 1,682. False positives: 165 approved applicants misclassified as not approved. False negatives: 526 denied applicants misclassified as approved. Overall accuracy 0.8273 with balanced performance across both classes."},
+      {"No": 3, "Title": "Learning Curve (Loss) — CNN Regressor Model", "Type": "Line Chart", "Insights": "Training loss (MSE) drops sharply from approximately 579 at epoch 1 and converges near epoch 20 to 25. Validation loss follows a similar trajectory converging around 8 to 10. Close alignment between training and validation loss confirms no significant overfitting across 50 training epochs."},
+      {"No": 4, "Title": "Learning Curve (MAE) — CNN Regressor Model", "Type": "Line Chart", "Insights": "Training MAE drops from approximately 17.7 at epoch 1 to around 2.2 by epoch 50. Validation MAE mirrors training trajectory with a small stable gap, confirming consistent generalisation. Final validation MAE aligns with test MAE of 2.2253, confirming reliable learning convergence."},
+      {"No": 5, "Title": "Actual vs Predicted RiskScore — CNN", "Type": "Scatter Plot with Regression Line", "Insights": "Tighter clustering around the perfect prediction diagonal compared to ElasticNet. R2 of 0.8556 is visible as reduced scatter and closer alignment between predicted and actual values. Regression trend line closely approximates the ideal perfect prediction line with fewer outliers than the linear model."},
+      {"No": 6, "Title": "Confusion Matrix — CNN Derived Classification", "Type": "Heatmap", "Insights": "True negatives: 1,700. True positives: 1,772. False positives: 92. False negatives: 436. Recall for class 0 (Loan Approved) is 0.95 and precision for class 1 (Loan Not Approved) is 0.95. Accuracy 0.8680, weighted F1 0.8682. Clear improvement over ElasticNet with fewer misclassifications across both classes."},
+      {"No": 7, "Title": "Learning Curve — TabNet Regression Model", "Type": "Line Chart", "Insights": "Training MAE starts at 966.33 at epoch 0 and drops sharply to below 15 within the first 5 epochs. Validation MAE (val_0_mae) converges from 12.84 at epoch 0 to approximately 1.89 at early stopping. Both curves plateau and stabilise, confirming model convergence with patience=20 preventing overfitting."},
+      {"No": 8, "Title": "Actual vs Predicted RiskScore — TabNet", "Type": "Scatter Plot with Regression Line", "Insights": "Tightest scatter across all three models. R2 of 0.8839 is reflected in dense point concentration along the perfect prediction diagonal. Regression trend line nearly coincides with the ideal diagonal. MAE of 1.8953 is the lowest of all models, confirming superior regression precision."},
+      {"No": 9, "Title": "Confusion Matrix — TabNet Derived Classification", "Type": "Heatmap", "Insights": "True negatives: 1,638. True positives: 1,926. False positives: 154. False negatives: 282. Recall for class 0 is 0.91 and precision for class 1 is 0.93. Accuracy 0.8910, weighted F1 0.8913, ROC-AUC 0.9598. Lowest false negative count among all models, indicating best performance in correctly identifying denied applicants."},
+      {"No": 10, "Title": "MAE Comparison Across Models", "Type": "Line Chart with Markers", "Insights": "Will be taken from table."},
+      {"No": 11, "Title": "MSE and RMSE Comparison Across Models", "Type": "Grouped Bar Chart", "Insights": "Will be taken from table."},
+      {"No": 12, "Title": "R2 Score and Explained Variance Comparison Across Models", "Type": "Horizontal Grouped Bar Chart", "Insights": "Will be taken from table."},
+      {"No": 13, "Title": "Accuracy and ROC-AUC Comparison Across Models", "Type": "Grouped Bar Chart", "Insights": "Will be taken from table."},
+      {"No": 14, "Title": "Precision, Recall and F1 Score Comparison Across Models", "Type": "Dot/Scatter Comparison Plot", "Insights": "Will be taken from table."}
+    ]
+  },
+
+  "result_table": {
+    "regression_performance_table": {
+      "columns": ["Model", "MAE", "MSE", "RMSE", "R2 Score", "Explained Variance"],
+      "rows": [
+        ["ElasticNet", "3.0955", "16.2191", "4.0273", "0.7388", "0.7388"],
+        ["CNN", "2.2253", "8.9632", "2.9939", "0.8556", "0.8569"],
+        ["TabNet [BEST]", "1.8953", "7.2074", "2.6847", "0.8839", "0.8841"]
+      ]
+    },
+    "classification_performance_table": {
+      "columns": ["Model", "Accuracy", "Precision", "Recall", "F1 Score", "ROC-AUC"],
+      "rows": [
+        ["ElasticNet", "0.8273", "0.8412", "0.8273", "0.8275", "0.9297"],
+        ["CNN", "0.8680", "0.8813", "0.8680", "0.8682", "0.9582"],
+        ["TabNet [BEST]", "0.8910", "0.8933", "0.8910", "0.8913", "0.9598"]
+      ]
+    }
+  },
+
+  "failed_attempts": "Examining failed and suboptimal design iterations is essential for understanding methodological trade-offs and guiding principled decisions in predictive modelling research.\n\n1. SMOTE for Class Balancing (Abandoned): An early pipeline iteration incorporated SMOTE (Synthetic Minority Over-sampling Technique) from the imbalanced-learn library to address the observed class imbalance of 4,780 approved versus 15,220 denied records. However, this approach was abandoned because the primary target variable (RiskScore) is continuous, and SMOTE operates on discrete class labels. Applying SMOTE to a regression target introduces synthetic samples that distort the distributional continuity of the risk score, corrupting the regression objective. Furthermore, since classification is derived post-regression via median thresholding rather than trained as a standalone classifier, SMOTE is logically incompatible with the unified pipeline design. The relevant code cells were retained in commented-out form, documenting the deliberate decision.\n\n2. Standalone Binary Classification Approach (Not Pursued): An implicit design failure was the consideration of building independent binary classifiers directly on the LoanApproved target. This would have produced a fragmented dual-model pipeline with potential inconsistency between risk scores and classification outputs, undermining the interpretability and coherence of the decision system. The regression-to-classification unification strategy was adopted instead.\n\n3. ElasticNet as Primary Model (Underperformance): ElasticNet was systematically tuned using RandomizedSearchCV (n_iter=50, cv=5) yielding optimal alpha=0.000534 and l1_ratio=0.939. Despite exhaustive tuning, it achieved R² of only 0.7388 and classification accuracy of 82.73%, reflecting the inherent insufficiency of linear assumptions in capturing complex, non-linear financial risk relationships across 16 features.\n\n4. CNN Without Attention Mechanism (Limited Interpretability): The CNN achieved improved performance over ElasticNet (R²=0.8556, accuracy=86.80%), demonstrating the benefit of hierarchical feature extraction via two Conv1D layers. However, the CNN lacks explicit feature-level interpretability due to the absence of attention or sparse selection mechanisms, limiting its suitability for regulated financial environments despite competitive predictive accuracy. This limitation motivated the final adoption of TabNet.",
+
+  "references": [
+    {
+      "no": 1,
+      "keyword": "TabNet (Attentive Tabular Deep Learning)",
+      "title": "TabNet: Attentive Interpretable Tabular Learning",
+      "reference": "Arik, S.Ö. and Pfister, T. (2021) 'TabNet: Attentive Interpretable Tabular Learning', Proceedings of the AAAI Conference on Artificial Intelligence, 35(8), pp. 6679–6687. Available at: https://doi.org/10.1609/aaai.v35i8.16826 (Accessed: 20 March 2026).",
+      "citation": "(Arik and Pfister, 2021)"
+    },
+    {
+      "no": 2,
+      "keyword": "Credit Risk Assessment",
+      "title": "Machine Learning for Credit Scoring: Improving Logistic Regression with Non-linear Decision-Tree Effects",
+      "reference": "Dumitrescu, E., Hué, S., Hurlin, C. and Tokpavi, S. (2022) 'Machine learning for credit scoring: Improving logistic regression with non-linear decision-tree effects', European Journal of Operational Research, 297(3), pp. 1178–1192. Available at: https://doi.org/10.1016/j.ejor.2021.06.053 (Accessed: 20 March 2026).",
+      "citation": "(Dumitrescu et al., 2022)"
+    },
+    {
+      "no": 3,
+      "keyword": "Loan Approval Prediction",
+      "title": "Comparative Study on Loan Approval Prediction Utilising Machine Learning Approaches",
+      "reference": "Sarkar, T., Rakhra, M., Sharma, V., Maan, A., Singh, A. and Cheema, G.S. (2024) 'Comparative Study on Loan Approval Prediction Utilising Machine Learning Approaches', in 2024 7th International Conference on Contemporary Computing and Informatics (IC3I), Vol. 7, pp. 72–78. IEEE. Available at: https://ieeexplore.ieee.org/abstract/document/10593355/ (Accessed: 20 March 2026).",
+      "citation": "(Sarkar et al., 2024)"
+    },
+    {
+      "no": 4,
+      "keyword": "Feature Engineering for Financial Data",
+      "title": "Feature Selection Engineering for Credit Risk Assessment in Retail Banking",
+      "reference": "Jemai, J. and Zarrad, A. (2023) 'Feature Selection Engineering for Credit Risk Assessment in Retail Banking', Information, 14(3), p. 200. Available at: https://doi.org/10.3390/info14030200 (Accessed: 20 March 2026).",
+      "citation": "(Jemai and Zarrad, 2023)"
+    },
+    {
+      "no": 5,
+      "keyword": "Recursive Feature Elimination (RFE)",
+      "title": "Feature Selection and Grouping Effect Analysis for Credit Evaluation via Regularized Diagonal Distance Metric Learning",
+      "reference": "Li, T., Kou, G., Peng, Y. and Yu, P.S. (2024) 'Feature Selection and Grouping Effect Analysis for Credit Evaluation via Regularized Diagonal Distance Metric Learning', INFORMS Journal on Computing. Available at: https://doi.org/10.1287/ijoc.2023.0322 (Accessed: 20 March 2026).",
+      "citation": "(Li et al., 2024)"
+    },
+    {
+      "no": 6,
+      "keyword": "ElasticNet Regularisation",
+      "title": "Range Control-Based Class Imbalance and Optimized Granular Elastic Net Regression Feature Selection for Credit Risk Assessment",
+      "reference": "Prabhakaran, N. and Nedunchelian, R. (2024) 'Range control-based class imbalance and Optimized Granular Elastic Net regression feature selection for credit risk assessment', Knowledge and Information Systems. Available at: https://doi.org/10.1007/s10115-024-02103-9 (Accessed: 20 March 2026).",
+      "citation": "(Prabhakaran and Nedunchelian, 2024)"
+    },
+    {
+      "no": 7,
+      "keyword": "1D Convolutional Neural Network (CNN) for Tabular Data",
+      "title": "Integration of CNN Models and Machine Learning Methods in Credit Score Classification",
+      "reference": "Akyüz, S. and Güler, A. (2025) 'Integration of CNN Models and Machine Learning Methods in Credit Score Classification: 2D Image Transformation and Feature Extraction', Computational Economics. Available at: https://doi.org/10.1007/s10614-025-10893-5 (Accessed: 20 March 2026).",
+      "citation": "(Akyüz and Güler, 2025)"
+    },
+    {
+      "no": 8,
+      "keyword": "Explainable AI (XAI) in Finance",
+      "title": "An Explainable AI Framework for Credit Evaluation and Analysis",
+      "reference": "Nallakaruppan, M.K., Balusamy, B., Shri, M.L., Malathi, V. and Bhattacharyya, S. (2024) 'An Explainable AI Framework for Credit Evaluation and Analysis', Applied Soft Computing, 153, p. 111307. Available at: https://doi.org/10.1016/j.asoc.2023.111307 (Accessed: 20 March 2026).",
+      "citation": "(Nallakaruppan et al., 2024)"
+    },
+    {
+      "no": 9,
+      "keyword": "Large Language Models (LLM) for Financial Decision Explanation",
+      "title": "Interpretable LLMs for Credit Risk: A Systematic Review and Taxonomy",
+      "reference": "Golec, M. and AlabdulJalil, M. (2025) 'Interpretable LLMs for Credit Risk: A Systematic Review and Taxonomy', Expert Systems with Applications. Available at: https://doi.org/10.1016/j.eswa.2025.126923 (Accessed: 20 March 2026).",
+      "citation": "(Golec and AlabdulJalil, 2025)"
+    },
+    {
+      "no": 10,
+      "keyword": "Risk Score Regression",
+      "title": "Data-Driven Loan Default Prediction: A Machine Learning Approach for Enhancing Business Process Management",
+      "reference": "Mazur, M. (2025) 'Data-Driven Loan Default Prediction: A Machine Learning Approach for Enhancing Business Process Management', Systems, 13(7), p. 581. Available at: https://doi.org/10.3390/systems13070581 (Accessed: 20 March 2026).",
+      "citation": "(Mazur, 2025)"
+    },
+    {
+      "no": 11,
+      "keyword": "StandardScaler / Data Preprocessing",
+      "title": "Accuracy Comparison between Five Machine Learning Algorithms for Financial Risk Evaluation",
+      "reference": "Hossain, M.I. and Mia, M.J. (2024) 'Accuracy Comparison between Five Machine Learning Algorithms for Financial Risk Evaluation', Journal of Risk and Financial Management, 17(2), p. 50. Available at: https://doi.org/10.3390/jrfm17020050 (Accessed: 20 March 2026).",
+      "citation": "(Hossain and Mia, 2024)"
+    },
+    {
+      "no": 12,
+      "keyword": "Binary Classification for Loan Decisions",
+      "title": "Credit Scoring Using Machine Learning and Deep Learning-Based Models",
+      "reference": "Mestiri, S. (2024) 'Credit scoring using machine learning and deep Learning-Based models', Data Science in Finance and Economics, 4(2), pp. 236–248. Available at: https://doi.org/10.3934/DSFE.2024009 (Accessed: 20 March 2026).",
+      "citation": "(Mestiri, 2024)"
+    },
+    {
+      "no": 13,
+      "keyword": "ROC-AUC Performance Evaluation",
+      "title": "Advancing Financial Resilience: A Systematic Review of Default Prediction Models and Future Directions in Credit Risk Management",
+      "reference": "Belhadi, A., Kamble, S., Fosso Wamba, S. and Queiroz, M.M. (2024) 'Advancing financial resilience: A systematic review of default prediction models and future directions in credit risk management', PMC – PubMed Central. Available at: https://pmc.ncbi.nlm.nih.gov/articles/PMC11564005/ (Accessed: 20 March 2026).",
+      "citation": "(Belhadi et al., 2024)"
+    },
+    {
+      "no": 14,
+      "keyword": "Streamlit Web Application Deployment",
+      "title": "Credit Risk Prediction Using Behavioral Features in an AI-Powered System",
+      "reference": "Ben Jebli, A. and Zoghlami, F. (2025) 'Credit risk prediction using behavioral features in an AI-powered system', International Journal of Innovative Research and Scientific Studies, 8(6), pp. 2099–2120. Available at: http://www.ijirss.com/index.php/ijirss/article/download/10083/2318 (Accessed: 20 March 2026).",
+      "citation": "(Ben Jebli and Zoghlami, 2025)"
+    },
+    {
+      "no": 15,
+      "keyword": "Tabular Deep Learning for Financial Risk",
+      "title": "Prediction of Bank Transaction Fraud Using TabNet — An Adaptive Deep Learning Architecture",
+      "reference": "Gupta, R. and Sharma, P. (2026) 'Prediction of bank transaction fraud using TabNet — an adaptive deep learning architecture', Borsa Istanbul Review. Available at: https://doi.org/10.1016/j.bir.2026.01.003 (Accessed: 20 March 2026).",
+      "citation": "(Gupta and Sharma, 2026)"
+    }
+  ]
+}

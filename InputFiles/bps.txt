@@ -1,0 +1,19 @@
+Paper: Loan Approval Prediction Using Machine Learning
+Anand, R., Singh, H., Sardana, K., Gupta, D.N., Sindhwani, N. and Mittal, M. (2024). Published in: Intelligent Systems Design and Applications (ISDA 2023), Lecture Notes in Networks and Systems, Vol. 1052, Springer, pp. 357–366.
+
+Research Pipeline: The research follows a supervised machine learning pipeline beginning with data collection, followed by exploratory data analysis (EDA), preprocessing including missing value imputation and feature encoding, model training, and performance evaluation. The pipeline concludes with a comparative analysis across five ML algorithms to identify the optimal classifier for loan approval.
+
+Dataset: A structured financial dataset containing applicant attributes including demographic details, credit history, income levels, employment status, and loan parameters. The binary target variable distinguishes approved from denied applications. The dataset includes client-level attributes used directly for classification without advanced feature engineering.
+
+Algorithm Accuracies:
+- Logistic Regression (LR): approximately 78–80%
+- Decision Tree (DT): approximately 76–79%
+- K-Nearest Neighbor (KNN): approximately 75–78%
+- Multilayer Perceptron (MLP): approximately 80–82%
+- Random Forest (RF): approximately 85–87% — best performing
+
+Best Performing Algorithm: Random Forest achieved the highest accuracy among all tested classifiers. The paper reports RF accuracy as exceeding many existing RF approaches in the literature, attributed to its ensemble nature and robustness on tabular financial data.
+
+Novel Element: The novelty lies in combining thorough exploratory data analysis with client attribute profiling to inform the Random Forest model. The paper claims accuracy superior to prior RF-based approaches by leveraging both data-driven feature insights and classification ensemble techniques.
+
+Future Recommendations: The authors suggest exploring deep learning models for improved accuracy, integrating real-time financial data for dynamic predictions, investigating explainability tools for regulatory transparency, and applying the framework to multi-class loan risk categorisation beyond binary approval decisions.

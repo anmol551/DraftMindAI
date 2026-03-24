@@ -1,0 +1,180 @@
+{pp}
+
+Generate an implementation section of my research report.
+
+CRITICAL GLOBAL CONSTRAINT: The total combined word count of ALL generated subsections MUST BE approximately 2000 words. Expand technically on each pipeline component, detail all configurations, and provide comprehensive insights to ensure the final output reaches this target length.
+
+══════════════════════════════════════════════════════════
+PIPELINE CONTENT (read carefully before generating):
+{pipeline}
+══════════════════════════════════════════════════════════
+
+SECTION GENERATION RULES:
+1. Read the pipeline content above carefully.
+2. Generate the FIXED subsections listed below (always present).
+3. Then identify ALL additional components present in the pipeline
+   (e.g., Feature Selection, Feature Engineering, Class Balancing,
+   Hyperparameter Tuning, LLM Integration, Web Application, XAI, etc.)
+   and generate a dedicated subsection for EACH one found.
+4. Place subsections in pipeline order:
+   - Components before model training go between Data Preprocessing
+     and Model Training.
+   - Components after model training go between Model Training
+     and Challenges And Solutions.
+5. Do NOT skip any pipeline component — every stage must have a section.
+6. Number all subsections sequentially.
+7. Do NOT include a Model Comparison or Model Performance Summary subsection
+   in the Implementation chapter. All performance metrics, scores, tables,
+   and comparative analysis belong exclusively in the Results chapter.
+8. Do NOT output any Markdown heading symbols (#, ##, ###, etc.).
+   Write all subsection headings as plain text only.
+
+══════════════════════════════════════════════════════════
+FIGURE PLACEHOLDERS RULE (apply to EDA, Preprocessing, Model Training,
+and any section that produces visual output):
+Must start from new line
+Every plot, chart, graph, or screenshot MUST have a placeholder using
+this exact 3-block structure placed INLINE immediately after the sentence
+that describes the figure:
+
+[Figure 4.X: short caption]
+Caption: Figure 4.X — full caption sentence
+Description: one paragraph of 60-80 words explaining what the figure
+          reveals, key values, patterns, and conclusions
+
+X increments globally across the entire implementation section.
+Never reset between subsections. Use ONLY [Figure 4.X: caption] format.
+══════════════════════════════════════════════════════════
+
+══════════════════════════════════════════════════════════
+SPECIFICITY RULE (apply to ALL subsections):
+Every technique must be named EXACTLY as used in the code.
+Never use generic descriptions.
+    WRONG  → "normalisation was applied"
+    CORRECT → "StandardScaler was applied to 13 continuous features"
+    WRONG  → "a neural network was trained"
+    CORRECT → "Conv1D with 32 filters, kernel_size=2, relu activation,
+               trained for 50 epochs with batch_size=32, Adam optimizer"
+State every parameter value explicitly — do not omit any.
+══════════════════════════════════════════════════════════
+
+── FIXED SUBSECTION 1 : Statistical Analysis (~{wc_stat} words) ─────────────
+Change heading to match project topic.
+    1. Begin with one introductory sentence.
+    2. Describe statistical characteristics: total count, data types,
+       mean, standard deviation, minimum, maximum, quartiles.
+    3. Include all values. No parentheses, asterisks, or special
+       formatting around values.
+    4. Do not mention code or code execution.
+    5. No citations. Follow the SPECIFICITY RULE.
+    6. Strictly approximately {wc_stat} words.
+
+── FIXED SUBSECTION 2 : EDA (~{wc_eda} words) ──────────────────────────────
+Change heading to match project topic.
+    1. Begin with one introductory sentence connecting to previous section.
+    2. Include ONLY figures from the EDA stage — no preprocessing,
+       feature engineering, or model plots.
+    3. For each EDA plot apply the FIGURE PLACEHOLDERS RULE inline.
+    4. Each insight paragraph: 60-80 words, all numerical values stated,
+       no parentheses for values.
+    5. Do not refer to axes labels unless the plot is complex.
+    6. No summary at the end. No citations.
+    7. Do not use "this" or "lastly" to start a sentence.
+    8. Do not mention plot names at the start of sentences.
+    9. Follow the SPECIFICITY RULE.
+    10. Strictly approximately {wc_eda} words.
+
+── FIXED SUBSECTION 3 : Data Preprocessing ────────────────────────────
+Change heading to match project topic.
+    1. Start with one introductory sentence.
+    2. One plain-text subheading per technique (~{wc_pre} words each, always 2
+       paragraphs, past tense).
+    3. Name the EXACT method used under each subheading.
+       Follow the SPECIFICITY RULE strictly.
+    4. For any preprocessing plot apply the FIGURE PLACEHOLDERS RULE.
+    5. No citations. Past tense.
+
+── DYNAMIC SUBSECTIONS (pre-model training) ───────────────────────────
+For each pipeline stage that occurs BEFORE model training
+(e.g., Feature Selection, Feature Engineering, Class Balancing,
+Hyperparameter Tuning, or any other component in the pipeline):
+
+Generate a dedicated subsection (~{wc_dyn} words, always 2 paragraphs, past tense):
+    - Paragraph 1: How it was implemented — exact class names,
+      parameter names, and parameter values.
+    - Paragraph 2: What was achieved, any plots (apply FIGURE
+      PLACEHOLDERS RULE if applicable).
+    - Follow the SPECIFICITY RULE for all values.
+    - No citations.
+
+── FIXED SUBSECTION : Model Training ──────────────────────────────────
+Change heading to match project topic.
+    1. Begin with one introductory sentence.
+    2. For EACH model (~{wc_mod} words, always 2 paragraphs, past tense):
+        - Name the exact class, every parameter, and every value.
+        - Example: "Conv1D with 32 filters, kernel_size=2, relu activation..."
+    3. [Mandatory]For EACH model's training plots apply FIGURE PLACEHOLDERS RULE, for remaining models keep coding screensshots.
+    4. No model scores or results. No citations. Past tense.
+    5. Follow the SPECIFICITY RULE.
+
+── DYNAMIC SUBSECTIONS (post-model training) ──────────────────────────
+For each pipeline stage that occurs AFTER model training
+(e.g., LLM Integration, Web Application, XAI, or any other component
+in the pipeline):
+
+Generate a dedicated subsection in past tense. Requirements by type:
+
+LLM Integration (~{wc_llm} words, 2 paragraphs):
+    - Exact model name, API used, prompt structure, key parameters
+      with exact values (temperature, max_tokens, etc.).
+    - How input is prepared, what the API returns, and how that
+      output is used in the application.
+    - Follow the SPECIFICITY RULE. No citations. No scores.
+
+Web Application Development (~{wc_web} words, 2 paragraphs):
+    - Exact framework used and key configurations.
+    - UI components, number of input fields, types of fields,
+      output display logic, business rules applied.
+    - Include figure placeholders for web app screenshots
+      using FIGURE PLACEHOLDERS RULE.
+    - Do not mention function names or best model name.
+    - No citations. Follow the SPECIFICITY RULE.
+
+XAI Implementation (~{wc_xai} words, 2 paragraphs):
+    - Exact XAI technique name, which models it was applied to,
+      all parameters and their values.
+    - What the output visualisation shows.
+    - Include figure placeholders for XAI plots.
+    - No scores. No citations. Follow the SPECIFICITY RULE.
+
+Any other post-model component: ~{wc_dyn} words, 2 paragraphs, past tense,
+exact implementation details, SPECIFICITY RULE applied.
+
+── FIXED LAST SUBSECTION : Challenges And Solutions (~{wc_chal} words) ───────
+    1. Technical challenges faced and solutions implemented.
+    2. Name exact methods, classes, or workarounds used.
+    3. Citations for one or two challenges from the citation file.
+       Do not use paper titles. Example: Sharif et al. (2020).
+       Embed citations in sentences, not at start or end.
+    4. Strictly approximately {wc_chal} words. Past tense.
+    5. Follow the SPECIFICITY RULE.
+
+--Format of Output--
+3. Implementation
+3.1. subheading 1
+3.2. subheading 2
+
+══════════════════════════════════════════════════════════
+IMPORTANT FINAL CHECKS before finishing:
+- Confirm EVERY pipeline stage has a corresponding subsection.
+- Confirm LLM Integration is present if LLM appears in the pipeline.
+- Confirm Web Application is present if a web app appears in the pipeline.
+- Confirm no Model Comparison or performance metric tables are included.
+- Confirm no section is missing, merged, or out of order.
+- Confirm NO Markdown heading symbols (#, ##, etc.) appear anywhere.
+- Use commas only when necessary.
+- Do not mention word count explicitly
+══════════════════════════════════════════════════════════
+
+Use code summary value specific, web app summary, and citations from:
+{a} {b} {c}

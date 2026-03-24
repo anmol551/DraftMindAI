@@ -1,0 +1,78 @@
+Data Details:
+The dataset is a synthetic financial risk dataset for loan approval modelling, sourced from Kaggle (https://www.kaggle.com/datasets/lorenzozoppelletto/financial-risk-for-loan-approval/data). It comprises 20,000 records and 37 columns including: ApplicationDate, Age, AnnualIncome, CreditScore, EmploymentStatus, EducationLevel, Experience, LoanAmount, LoanDuration, MaritalStatus, NumberOfDependents, HomeOwnershipStatus, MonthlyDebtPayments, CreditCardUtilizationRate, NumberOfOpenCreditLines, NumberOfCreditInquiries, DebtToIncomeRatio, BankruptcyHistory, LoanPurpose, PreviousLoanDefaults, PaymentHistory, LengthOfCreditHistory, SavingsAccountBalance, CheckingAccountBalance, TotalAssets, TotalLiabilities, MonthlyIncome, UtilityBillsPaymentHistory, JobTenure, NetWorth, BaseInterestRate, InterestRate, MonthlyLoanPayment, TotalDebtToIncomeRatio, LoanApproved (binary target), and RiskScore (continuous regression target). The dataset is artificial and serves dual modelling purposes: regression for continuous risk score prediction and binary classification for loan approval decisions. It exhibits class imbalance with 4,780 approved records versus 15,220 denied records.
+
+Attached files to analyse [ZIP], it will contain:
+Proposal
+Literature Review
+Complete code in ipynb format
+
+title: Fetch it from the attached proposal
+Research question: Fetch it from the attached proposal
+Research objectives: Fetch these from the attached proposal
+acc_value: best accuracy values achieved
+
+## LITERATURE REVIEW SUMMARY
+Analyze the given Literature Review and generate a structured summary while preserving all essential technical content and citations. Before summarization, conduct a background search to understand the topic thoroughly. The summary should be 15-20% of the original length while maintaining clarity, coherence, and completeness. Summary Must Include: Topic Overview, Importance of the Chosen Field (with Citations), Key Technical Content, Findings & Insights, Limitations Identified, Unresolved Issues, Preserve Citations. Parameters: Word Limit 525-700 words for 3,500 words. Technical Accuracy: Maintain integrity of complex concepts. Mention all important values like performance percentage. Citation Integrity: Do not remove or alter any references.
+
+## RESEARCH GAP
+Using the literature review that I have already collected and the research pipeline on which I have completed my research code, write a proper research gap. This research gap should be in a way that it points to those methods which I have used in the code and were missing or suggested in the literature. Do not explicitly mention my research. Word count: 300 words.
+
+## BASE PAPER
+can you find only one research paper which is based on {title} and having accuracy below {acc_value} research paper should be from the past 2 years.
+Instructions:
+1. What is the complete flow or pipeline of research
+2. Details of the data getting used.
+3. What is the accuracy of all the algorithms used?
+4. Which algorithm achieved best accuracy and what is it
+5. What is the novel or unique element in the research
+6. What are the future recommendations of the research paper?
+All in 500 words. Provide reference in Harvard style.
+
+## CODE SUMMARY
+Summarize the following code into 2-3 concise paragraphs while preserving all essential technical details. Summary must include: Overview, Key Components, Execution Flow, Core Logic, Web App Elements (if any). Format: Paragraph-based, 15-20% of original length. Word count: 300 words.
+
+## CODE SUMMARY WITH VALUES
+Analyze the given code (~1000 lines). Extract a list of libraries used and segment into: Statistical Analysis, Exploratory Data Analysis (EDA) with plot details, Data Preprocessing, Feature Engineering, Train Split Information, Model Details (including layers for deep learning), Model Results & Performance Evaluation table. Format: Structured and well-organized.
+
+## WEBAPP SUMMARY
+Analyze the given web application code and generate a concise summary (150-200 words) covering: Overview, Python Framework Used, Libraries & Dependencies, User Input Handling, Main Functions & Features, Prediction Function.
+
+## WEBAPP TEST CASES
+Provide me the insight of the web test result in 150 words with mentioning each of the values and don't use parenthesis to mention values'()'
+
+## NOVELTY
+You are an elite software researcher. Write a single well-structured paragraph of exactly ~300 words explaining the novelty of the code. Focus on: unique algorithmic improvements, distinctive architectural decisions, efficiency enhancements, novel engineering techniques, scalability/maintainability improvements, trade-offs made. Maintain a formal research-oriented tone similar to a top-tier conference paper (NeurIPS, ICSE, SOSP).
+
+## RESULTS PLOT SUMMARY
+Requirements: 1. Create a table. 2. Mention all plots individually. Table columns: Title, Type of plot, Insights. Charts: Explainable AI, ROC, AUC, Training and loss neural network, comparison curve, confusion matrix. Note: Do not include plots from data exploration/preprocessing steps. For comparison plots mention insight as 'will be taken from table'.
+
+## RESULTS TABLE
+Generate a table for: Performance Table: Include all models, all metrics (as extracted from the code), and highlight the best-performing model.
+
+## FAILED ATTEMPT
+Write a concise section titled 'Failed Attempts and Design Iterations'. Begin with a 25-35 word introduction. Describe unsuccessful/suboptimal methods and why they failed. Provide technical reasoning for each failure.
+
+## REFERENCES
+From the research pipeline/code, write approx 15 important keywords. For each keyword find a reference paper related to {title}. Parameters: Keyword, title, reference, citation. Reference in Harvard style.
+
+## Output format (JSON):
+{
+  'title': <title>,
+  'research_question': <Research question>,
+  'research_objectives': <Research objectives>,
+  'data_details': <Data Details>,
+  'literature_review_summary': <LR summary>,
+  'research_gap': <research gap>,
+  'best_accuracy': <acc_value>,
+  'base_paper_summary': <summary>,
+  'base_paper_reference': <reference>,
+  'code_summary': <code summary>,
+  'code_summary_with_values': <code summary with values>,
+  'web_app_summary': <web app summary>,
+  'web_app_test_cases': <web app test cases>,
+  'novelty': <novelty>,
+  'result_plot_summary': <result plot summary>,
+  'result_table': <result table>,
+  'failed_attempts': <failed attempts>,
+  'references': <references>
+}

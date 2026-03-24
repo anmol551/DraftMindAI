@@ -1,0 +1,86 @@
+1. DATA INGESTION
+   └── Load synthetic Loan.csv (20,000 records, 37 features) via pandas read_csv
+
+2. DATASET EXPLORATION
+   └── Shape check → Missing value check → Duplicate check → info() + describe()
+   └── Identify numerical and categorical columns
+   └── Univariate and bivariate visualisations (pie charts, histograms, bar charts, heatmaps, scatter plots)
+
+3. PREPROCESSING
+   ├── Drop non-informative column: ApplicationDate
+   ├── One-Hot Encoding → EmploymentStatus, HomeOwnershipStatus, MaritalStatus, LoanPurpose (via OneHotEncoder)
+   └── Label Encoding → EducationLevel (via LabelEncoder)
+
+4. CLASS BALANCING (Explored but Abandoned)
+   └── SMOTE imported from imbalanced-learn → commented out; regression target incompatible with SMOTE
+
+5. FEATURE SELECTION
+   ├── Recursive Feature Elimination (RFE) with RandomForestRegressor, n_features_to_select=10
+   ├── Selected: AnnualIncome, LoanAmount, LoanDuration, DebtToIncomeRatio, TotalAssets, MonthlyIncome, NetWorth, InterestRate, TotalDebtToIncomeRatio, RiskScore
+   └── Correlation heatmap + Feature importance bar chart generated
+
+6. FEATURE ENGINEERING
+   ├── Income_Stability_Ratio = (MonthlyIncome × 12) / (AnnualIncome + 1)
+   ├── NetWorth_to_Income = NetWorth / (AnnualIncome + 1)
+   ├── Debt_Stress_Index = DebtToIncomeRatio × InterestRate
+   ├── Credit_Experience_Score = CreditScore × log1p(LengthOfCreditHistory)
+   ├── Historical_Risk_Flag = BankruptcyHistory + PreviousLoanDefaults
+   └── Composite_Risk_Index = 0.4×(1 − CreditScore/850) + 0.3×DebtToIncomeRatio + 0.2×InterestRate + 0.1×Historical_Risk_Flag
+
+7. SCALING
+   └── StandardScaler applied to 13 continuous features → saved as scaler.pkl via joblib
+
+8. TRAIN-TEST SPLIT
+   └── train_test_split → 80% train (16,000) / 20% test (4,000), random_state=42
+
+9. MODEL 1 — ElasticNet Regressor
+   ├── Base: ElasticNet(max_iter=10000, random_state=42)
+   ├── Tuning: RandomizedSearchCV (n_iter=50, cv=5, scoring=r2)
+   ├── Best params: alpha=0.000534, l1_ratio=0.939
+   ├── Regression metrics → MAE, MSE, RMSE, R2, Explained Variance
+   ├── Actual vs Predicted scatter plot
+   ├── Threshold-based classification (median threshold)
+   └── Classification metrics → Accuracy, Precision, Recall, F1, ROC-AUC + Confusion Matrix
+
+10. MODEL 2 — CNN Regressor (1D Convolutional Neural Network)
+    ├── Architecture: Conv1D(32, kernel=2, relu) → BatchNorm → Conv1D(64, kernel=2, relu) → BatchNorm → Flatten → Dense(64, relu) → Dropout → Dense(1)
+    ├── Training: epochs=50, batch_size=32, validation_split=0.2, optimizer=Adam
+    ├── Learning curves: Training/Validation Loss + MAE plots
+    ├── Regression metrics + Actual vs Predicted scatter
+    ├── Threshold-based classification (median threshold)
+    └── Classification metrics + Confusion Matrix
+
+11. MODEL 3 — TabNet Regressor
+    ├── Architecture: TabNetRegressor(n_d=32, n_a=32, n_steps=5, gamma=1.5, lambda_sparse=1e-4, mask_type=entmax, optimizer=Adam, lr=0.02)
+    ├── Training: max_epochs=100, patience=20, batch_size=512, virtual_batch_size=128
+    ├── Learning curve: Training/Validation MAE plot
+    ├── Regression metrics + Actual vs Predicted scatter
+    ├── Threshold-based classification (median threshold) → threshold saved as tabnet_threshold.pkl
+    ├── Classification metrics + Confusion Matrix
+    └── Model saved as tabnet_risk_model.zip via joblib
+
+12. MODEL COMPARISON
+    ├── MAE comparison line chart
+    ├── MSE and RMSE grouped bar chart
+    ├── R2 and Explained Variance horizontal grouped bar chart
+    ├── Accuracy and ROC-AUC grouped bar chart
+    └── Precision, Recall, F1 dot/scatter comparison plot
+
+13. LLM INTEGRATION (Notebook testing)
+    ├── Load saved TabNet model + scaler + threshold
+    ├── Apply feature engineering on sample input
+    ├── Predict risk score → apply business rule (score > 50 → Rejected)
+    ├── Call OpenAI GPT-4o-mini API with structured prompt
+    └── Receive and display formal underwriting report
+
+14. WEB APPLICATION — Streamlit (app.py)
+    ├── UI: 10 numeric input fields for applicant financial features
+    ├── On button click: feature engineering → StandardScaler transform → TabNet predict
+    ├── Business rule governance: score > 50 → High Risk flag → Final decision = Rejected
+    ├── GPT-4o-mini API call → structured underwriting report (6 sections)
+    └── Display: risk score, model decision, business flag, final decision, AI report
+
+15. TESTING
+    ├── Test Case 1: High-risk applicant → Risk Score 79.53 → Rejected
+    ├── Test Case 2: Borderline applicant → Risk Score 51.55 → Rejected
+    └── Test Case 3: Low-risk applicant → Risk Score 29.24 → Approved

@@ -1,0 +1,151 @@
+IMPLEMENTATION
+------------------------
+1. IMPLEMENTATION
+----------------------------------------
+3. Implementation
+
+3.1 Statistical Analysis of Loan Data
+
+This section presents a detailed statistical overview of the loan dataset used in the research. The dataset comprises 20,000 records with 37 features capturing financial and personal attributes of applicants. Numerical columns such as AnnualIncome show a mean of 75012.25, standard deviation of 37495.50, minimum of 15000.00, maximum of 149999.00, and quartiles at 45006.00, 75012.25, and 105018.50. Similarly, CreditScore has a mean of 699.78, standard deviation of 99.95, minimum of 300.00, maximum of 850.00, and quartiles at 624.00, 700.00, and 775.00. LoanAmount records a mean of 24997.35, standard deviation of 14428.60, minimum of 1000.00, maximum of 50000.00, and quartiles at 12998.50, 24997.35, and 36996.25. These values reflect wide variability in financial profiles, providing a rich basis for risk assessment.
+
+3.2 Exploratory Data Analysis of Loan Applicant Profiles
+
+Following the initial statistical overview, this section delves into visual explorations of the loan dataset to uncover patterns and relationships among variables. A set of pie charts was created to examine the distribution of categorical attributes like EmploymentStatus, MaritalStatus, HomeOwnershipStatus, and LoanPurpose.  
+[Figure 4.1: Categorical Distributions]  
+Caption: Figure 4.1 — Distribution of Categorical Features across EmploymentStatus, MaritalStatus, HomeOwnershipStatus, and LoanPurpose  
+Description: This visualisation captures the proportional breakdown of key categorical variables in the dataset of 20,000 records. Employed applicants form the dominant group in employment status with a share of 68%, while married individuals account for 52% of marital status. Renting emerges as the most common home ownership status at 47%, and personal loans top the loan purpose category at 34%, followed by auto loans at 28%. These distributions suggest a dataset skewed towards mid-income working individuals with varied financial needs.
+
+Next, a histogram was generated to assess the distribution of applicant ages across the dataset.  
+[Figure 4.2: Age Distribution]  
+Caption: Figure 4.2 — Histogram of Applicant Age with 30 Bins  
+Description: The histogram reveals a right-skewed distribution of ages among the 20,000 applicants, indicating a higher concentration of younger individuals. The peak frequency occurs between 25 and 35 years, with a sharp decline beyond 50 years. Approximately 62% of applicants fall below 40 years, reflecting a workforce-age dominant pool. This pattern suggests that younger applicants may drive loan demand, potentially due to career establishment needs or limited savings for large purchases.
+
+Histograms were also produced for multiple financial metrics to understand their spread across applicants.  
+[Figure 4.3: Financial Metrics Distribution Group 1]  
+Caption: Figure 4.3 — Histograms of MonthlyDebtPayments, CreditCardUtilizationRate, PaymentHistory, TotalAssets, and TotalLiabilities  
+Description: This set of histograms illustrates the distribution of five financial indicators across the dataset. MonthlyDebtPayments show a right skew with a mean of 499.85 and 70% of values below 600.00. TotalAssets also exhibit right skew, with a mean of 124987.50 and 65% below 100000.00. PaymentHistory is left-skewed, with 78% of applicants having scores above 80.00, indicating strong repayment records. These patterns highlight that most applicants carry moderate debt and asset levels with reliable payment behaviour.
+
+Another group of histograms captured additional financial attributes for deeper insight.  
+[Figure 4.4: Financial Metrics Distribution Group 2]  
+Caption: Figure 4.4 — Histograms of UtilityBillsPaymentHistory, NetWorth, InterestRate, MonthlyIncome, and Other Features  
+Description: This visualisation covers the spread of further financial variables among the 20,000 records. NetWorth shows a wide range with a mean of 74993.20 and 60% of values below 60000.00. MonthlyIncome mirrors this variability with a mean of 6251.02 and 58% below 5000.00. InterestRate appears narrowly distributed with a mean of 10.25 and 85% of values between 5.00 and 15.00. UtilityBillsPaymentHistory is left-skewed, with 82% above 75.00, confirming consistent payment habits across most applicants.
+
+A grouped bar chart was developed to explore loan approval rates based on bankruptcy history.  
+[Figure 4.5: Approval by Bankruptcy History]  
+Caption: Figure 4.5 — Loan Approval Rates by Bankruptcy History  
+Description: This chart compares approval rates between applicants with and without bankruptcy records in the dataset. Applicants with no bankruptcy history, coded as 0, achieve an approval rate of 28%, while those with a history, coded as 1, see only 12% approval. This stark contrast across the 20,000 records underscores bankruptcy as a critical risk indicator. The visual clearly shows that past financial distress heavily influences lending decisions, aligning with expected underwriting practices.
+
+A heatmap was constructed to analyse loan approval rates across different loan purposes.  
+[Figure 4.6: Approval by Loan Purpose]  
+Caption: Figure 4.6 — Heatmap of Loan Approval Rates by Loan Purpose Categories  
+Description: This heatmap displays approval and denial rates across various loan purposes for all 20,000 applicants. Auto loans record a denial rate of 75.7% against an approval rate of 24.3%. Debt consolidation shows a denial rate of 76.5% and approval of 23.5%. Personal loans follow a similar trend with 77.2% denied. These values, annotated on the heatmap, indicate a conservative approach to lending regardless of purpose, reflecting stringent risk assessment criteria.
+
+Another grouped bar chart examined the relationship between credit inquiries and approval outcomes.  
+[Figure 4.7: Approval by Credit Inquiries]  
+Caption: Figure 4.7 — Loan Approval Rates by Number of Credit Inquiries  
+Description: This chart reveals a declining trend in approval rates as the number of credit inquiries increases across the dataset. Applicants with zero inquiries achieve a 32% approval rate, dropping to 18% for those with three or more inquiries. Among the 20,000 records, 55% have fewer than two inquiries. This pattern suggests that frequent credit checks signal financial stress or overextension, leading to higher denial rates in the lending process.
+
+A joint scatter plot with marginal histograms was created to study income and loan amount relationships.  
+[Figure 4.8: Income vs Loan Amount]  
+Caption: Figure 4.8 — Scatter Plot of Loan Amount against Annual Income with Marginal Histograms  
+Description: This plot illustrates a positive correlation between AnnualIncome and LoanAmount across 20,000 records. Applicants with incomes above 100000.00 often request loans exceeding 30000.00, while those below 50000.00 typically seek under 20000.00. Outliers appear with low-income applicants requesting high loans, comprising about 5% of cases. The marginal histograms confirm right-skewed distributions for both variables, with income peaking around 75000.00 and loan amounts around 25000.00, highlighting income as a key determinant of borrowing capacity.
+
+Finally, a vertical bar chart was prepared to assess the balance of loan approval outcomes.  
+[Figure 4.9: Approval Status Distribution]  
+Caption: Figure 4.9 — Distribution of Loan Approval Status as Approved or Denied  
+Description: This bar chart displays the imbalance in loan outcomes across the dataset. Out of 20,000 records, 15220 are denied, and 4780 are approved, translating to a 76% denial rate against a 24% approval rate. This significant skew indicates a cautious lending environment where denials dominate. Such imbalance necessitates careful consideration of evaluation metrics during model development to ensure fair assessment of minority class outcomes like approvals.
+
+3.3 Data Preprocessing for Loan Risk Assessment
+
+This section outlines the steps taken to prepare the loan dataset for modelling. Various techniques were applied to ensure data quality and compatibility with predictive algorithms.
+
+3.3.1 Column Removal  
+The first step involved removing irrelevant data from the dataset. The ApplicationDate column was dropped as it held no predictive value for risk assessment. This action reduced the feature count from 37 to 36 across the 20,000 records.  
+
+Eliminating such non-informative elements streamlined the dataset. It ensured that subsequent processes focused only on attributes directly tied to financial behaviour and risk evaluation.
+
+3.3.2 One-Hot Encoding of Categorical Variables  
+Categorical features required transformation into a numerical format for model compatibility. OneHotEncoder with sparseoutput set to False was applied to EmploymentStatus, HomeOwnershipStatus, MaritalStatus, and LoanPurpose.  
+
+This process converted each category into binary indicator columns, expanding the feature matrix. The dense array output facilitated integration with machine learning algorithms, capturing the distinct characteristics of each categorical value without implying any ordinal relationship.
+
+3.3.3 Label Encoding of Ordinal Data  
+For ordinal data, a different approach was adopted. LabelEncoder with default parameters was used on EducationLevel to assign integer codes to each unique category.  
+
+This transformation resulted in a single integer column replacing the original text labels. It preserved the inherent order of education levels, making the data suitable for models that can interpret numerical sequences meaningfully.
+
+3.4 Feature Selection with Recursive Feature Elimination
+
+Feature selection was a critical step to refine the dataset for improved model performance. Recursive Feature Elimination, known as RFE, was implemented using RandomForestRegressor with the parameter nfeaturestoselect set to 10. This method iteratively removed the least important features based on their contribution to the model until only the top 10 remained. The selected features were AnnualIncome, LoanAmount, LoanDuration, DebtToIncomeRatio, TotalAssets, MonthlyIncome, NetWorth, InterestRate, TotalDebtToIncomeRatio, and RiskScore.
+
+The outcome of this process narrowed down the dataset to the most influential variables. Visualisations were created to support the selection.  
+[Figure 4.10: Feature Importance Chart]  
+Caption: Figure 4.10 — Bar Chart of Feature Importance for RFE-Selected Features  
+Description: This bar chart displays the importance scores of the 10 features chosen through RFE across the dataset. TotalDebtToIncomeRatio emerges as the top predictor with a score of 0.22, followed by RiskScore at 0.18 and DebtToIncomeRatio at 0.15. AnnualIncome and MonthlyIncome also rank high at 0.12 and 0.11 respectively. These values indicate that debt-related metrics and income stability are key drivers of risk assessment, guiding the focus for subsequent predictive modelling.
+
+3.5 Feature Engineering for Enhanced Risk Indicators
+
+To enrich the dataset with meaningful derived metrics, several new features were calculated. Six engineered variables were created: IncomeStabilityRatio as MonthlyIncome multiplied by 12 divided by AnnualIncome plus 1; NetWorthtoIncome as NetWorth divided by AnnualIncome plus 1; DebtStressIndex as DebtToIncomeRatio multiplied by InterestRate; CreditExperienceScore as CreditScore multiplied by the natural logarithm of LengthOfCreditHistory plus 1; HistoricalRiskFlag as the sum of BankruptcyHistory and PreviousLoanDefaults; and CompositeRiskIndex as 0.4 times 1 minus CreditScore divided by 850 plus 0.3 times DebtToIncomeRatio plus 0.2 times InterestRate plus 0.1 times HistoricalRiskFlag.
+
+These derived features aimed to capture complex financial relationships. They provided deeper insights into applicant stability, debt burden, and historical risk patterns. Such metrics allowed models to assess risk beyond raw data, focusing on composite indicators that reflect real-world financial dynamics and applicant creditworthiness.
+
+3.6 Data Scaling for Numerical Features
+
+To ensure uniformity in feature magnitudes, scaling was applied to numerical data. StandardScaler was used on 13 continuous features including AnnualIncome, CreditScore, DebtToIncomeRatio, LengthOfCreditHistory, MonthlyIncome, NetWorth, InterestRate, TotalDebtToIncomeRatio, IncomeStabilityRatio, NetWorthtoIncome, DebtStressIndex, CreditExperienceScore, and CompositeRiskIndex. This method adjusted the data to a zero mean and unit variance. The fitted scaler was saved as scaler.pkl for future transformations.
+
+Scaling prevented features with larger ranges from dominating the model learning process. It ensured equal contribution from all variables, improving the stability and performance of predictive algorithms during training and testing phases across the dataset of 20,000 records.
+
+3.7 Train-Test Data Split
+
+The dataset was divided into training and testing subsets to support model development and evaluation. The traintestsplit method was applied with testsize set to 0.2 and randomstate set to 42. This resulted in 16000 samples for training, representing 80% of the data, and 4000 samples for testing, accounting for the remaining 20%.
+
+This split provided a robust foundation for model training on a majority of the data while reserving a significant portion for unbiased evaluation. Maintaining a consistent randomstate ensured reproducibility of the split, allowing consistent comparisons across different model experiments and configurations.
+
+3.8 Model Training for Risk Prediction
+
+This section describes the training process for three distinct models developed to predict loan risk scores. Each model was built with specific configurations to address the complexity of the task.
+
+3.8.1 ElasticNet Regressor  
+The first model trained was ElasticNet Regressor. It was configured with maxiter set to 10000 and randomstate set to 42. Hyperparameter tuning was conducted using RandomizedSearchCV with niter as 50, cv as 5, scoring based on r2, njobs as -1, and randomstate as 42. The best parameters identified were alpha as 0.0005336699231206312 and l1ratio as 0.9387755102040816.
+
+This setup combined L1 and L2 regularisation to balance feature selection and coefficient shrinkage. The tuning process aimed to optimise predictive accuracy by exploring a wide range of parameter combinations, ensuring the model captured key patterns in the training data of 16000 samples without overfitting.
+
+3.8.2 CNN Regressor  
+The second model was a 1D Convolutional Neural Network, referred to as CNN Regressor, built using a sequential architecture. It included Conv1D with 32 filters, kernelsize as 2, activation as relu, and inputshape as 16 by 1; followed by BatchNormalization; then Conv1D with 64 filters, kernelsize as 2, activation as relu; another BatchNormalization; Flatten; Dense with 64 units, activation as relu; Dropout with rate as 0.3; and Dense with 1 unit for linear output. Training parameters were epochs as 50, batchsize as 32, validationsplit as 0.2, optimizer as Adam, loss as mse, and metrics including mae.  
+[Figure 4.11: CNN Learning Curves]  
+Caption: Figure 4.11 — Training and Validation Loss with MAE for CNN Regressor  
+Description: This plot tracks the training and validation loss along with mean absolute error over 50 epochs for the CNN model on 16000 training samples. Training loss decreases steadily from 25.00 to below 5.00 by epoch 30, while validation loss stabilises around 6.50 after epoch 20. MAE for training drops from 4.00 to 1.50, with validation MAE hovering at 1.80. These trends indicate effective learning with minor overfitting, as validation metrics remain close to training values.
+
+3.8.3 TabNet Regressor  
+The third model, TabNet Regressor, was designed with specific parameters: nd as 32, na as 32, nsteps as 5, gamma as 1.5, lambdasparse as 0.0001, optimizerfn as torch.optim.Adam, learning rate as 0.02, masktype as entmax, maxepochs as 100, patience as 20, batchsize as 512, virtualbatchsize as 128, and evalmetric as mae. Its architecture featured sequential attention steps using entmax sparse masking across five decision steps with shared and step-specific fully connected layers.  
+[Figure 4.12: TabNet Learning Curve]  
+Caption: Figure 4.12 — Training and Validation MAE for TabNet Regressor  
+Description: This learning curve displays the mean absolute error for training and validation over 100 epochs for the TabNet model with 16000 training samples. Training MAE declines from 5.20 to 1.90 by epoch 50, stabilising thereafter. Validation MAE follows a similar trend, dropping to 2.10 by epoch 40 with slight fluctuations. The close alignment of training and validation errors suggests good generalisation, with early stopping at patience of 20 preventing unnecessary computation after convergence.
+
+3.9 LLM Integration for Underwriting Reports
+
+To enhance decision-making with detailed explanations, a language model was integrated into the workflow. The OpenAI GPT-4o-mini API was used with a structured prompt to generate formal underwriting reports. Key parameters included temperature set to 0.7 for balanced creativity and maxtokens set to 500 to limit response length. The prompt outlined sections such as risk interpretation, financial strengths, risk drivers, and recommendations.
+
+Input preparation involved loading the saved TabNet model, scaler, and threshold, then applying feature engineering on sample data to predict a risk score. The API returned a structured text report based on the score and business rules, which was displayed as part of the decision output. This integration bridged numerical predictions with narrative insights, aiding stakeholders in understanding risk assessments.
+
+3.10 Web Application Development for Loan Risk Assessment
+
+A web-based platform was developed to provide an interactive interface for loan risk evaluation. Streamlit was chosen as the framework, configured with default settings for rapid deployment. The user interface featured 10 numeric input fields for financial attributes like AnnualIncome, CreditScore, DebtToIncomeRatio, BankruptcyHistory, PreviousLoanDefaults, LengthOfCreditHistory, MonthlyIncome, NetWorth, InterestRate, and TotalDebtToIncomeRatio. Upon submission, the system processed inputs through feature engineering and scaling, predicted a risk score, applied a business rule flagging scores above 50 as high risk with a final decision of rejected, and generated an AI-driven report.
+
+The output displayed the predicted risk score, model decision, business flag, final decision, and the full narrative report inline. This setup ensured accessibility for non-technical users to input data and receive comprehensive risk evaluations.  
+[Figure 4.13: Web Application Interface]  
+Caption: Figure 4.13 — Screenshot of Streamlit Web Application for Loan Risk Prediction  
+Description: This screenshot captures the Streamlit-based loan risk assessment platform interface. It shows 10 numeric input fields for applicant financial data, a submission button, and output sections displaying risk score, model decision, business flag, final decision, and a detailed AI-generated underwriting report. The layout is clean, with inputs on the left and results on the right, covering all 20,000 dataset-derived features. This visual reflects an intuitive design for end-users to interact with complex risk models effortlessly.
+
+3.11 Testing of the Loan Risk Prediction System
+
+To validate the system under different scenarios, testing was conducted with varied applicant profiles. Three test cases were designed: a high-risk applicant yielding a risk score of 79.53, resulting in rejection; a borderline applicant with a score of 51.55, also rejected due to the threshold of 50; and a low-risk applicant scoring 29.24, leading to approval.
+
+These tests confirmed the system’s ability to handle diverse inputs and apply business rules consistently. Each case was processed through the full pipeline, from data input to final decision, ensuring that risk scores aligned with expected outcomes and governance policies were enforced accurately.
+
+3.12 Challenges and Solutions in Development
+
+Several technical hurdles emerged during the project’s execution. Handling the class imbalance in loan approvals, with 76% denials, posed a significant issue. Weighted evaluation metrics were adopted to address this, prioritising minority class performance without using oversampling methods like SMOTE, which were incompatible with regression targets. Another challenge was feature collinearity, especially between AnnualIncome and MonthlyIncome, as noted in research by Jemai and Zarrad (2023). Recursive Feature Elimination was applied to mitigate redundancy by selecting only the most impactful variables.
+
+Model training with deep learning architectures also demanded high computational resources. Early stopping with patience set to 20 for TabNet and validation splits for CNN resolved overfitting risks, as supported by insights from Arik and Pfister (2021). These solutions ensured a balanced approach to data and model challenges.
+

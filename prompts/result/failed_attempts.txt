@@ -1,0 +1,19 @@
+Discuss any failed attempts in my research dissertation.
+Begin with a short introduction of {wc_intro} words.
+Add a performance result table if available.
+Mention why a particular method is more suitable than others.
+Modify subheadings to suit the research topic. Target approximately {wc_total} words.
+
+{figure_rule}
+
+Instructions:
+    1. For any plots related to failed attempts, apply the FIGURE PLACEHOLDERS RULE
+       inline — continue the global figure counter from FIGURE_START above.
+    2. The insight for each failed attempt figure must be {wc_insight} words.
+    3. Do not use parentheses for metric values.
+
+{common}
+    10. Strictly approximately {wc_total} words.
+
+Use failed attempts file from:
+{failed_attempts}

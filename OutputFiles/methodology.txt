@@ -1,0 +1,89 @@
+METHODOLOGY
+------------------------
+1. METHODOLOGY
+----------------------------------------
+Chapter 3: Methodology
+
+3.1. Research Design
+This section outlines the structure and approach adopted for the study. A quantitative framework was chosen to analyse financial data and predict risk scores for loan applicants. The focus was on building a systematic process to handle data and apply predictive techniques. Various methods were explored to ensure the design aligns with the goal of assessing risk accurately. The emphasis was placed on creating a clear path from raw data to meaningful predictions. This involved selecting appropriate tools and techniques suitable for handling numerical and categorical information. A visual representation of the workflow is provided below to clarify the process.
+<Figure of a flowchart showing the methodology pipeline>
+<Caption: Figure 1 - Overview of the Research Workflow>
+
+3.2. Data Details
+This part describes the dataset used in the study. It consists of synthetic loan information with 20000 records and 37 attributes. These attributes cover financial metrics like income, debt, and credit history of applicants. The data was sourced to simulate real-world loan scenarios for analysis. The aim was to work with a comprehensive set of variables to predict risk effectively.
+
+3.3. Preprocessing
+This section explains the initial steps taken to prepare the data for analysis. Methods were applied to clean and transform the dataset into a usable format for predictive tasks.
+
+3.3.1. Column Removal
+Non-informative fields were identified and excluded from the dataset. Certain attributes did not contribute to the prediction of risk and were dropped to simplify the data structure. This step helped in reducing noise and focusing on variables that matter for the analysis. Removing irrelevant data also made the subsequent processes more efficient. The decision to exclude specific fields was based on their lack of impact on risk assessment. This ensured that only meaningful information was retained for building the predictive framework.
+
+3.3.2. Encoding Techniques
+Categorical variables were converted into numerical formats to make them suitable for analysis. Different encoding methods were applied based on the nature of the variables. This transformation was necessary as most predictive tools work better with numerical inputs. The choice of encoding was guided by the need to preserve the information within categories. It was also important to avoid introducing bias during this conversion. This approach helped in maintaining the integrity of the original data while preparing it for further steps.
+
+3.4. Feature Selection
+This section discusses the process of identifying key variables for prediction. A structured method was applied to narrow down the most significant attributes from the dataset.
+
+3.4.1. Recursive Elimination
+A technique was used to select a subset of variables by iteratively removing the least important ones. This method relied on a predictive tool to rank the attributes based on their contribution to the outcome. The goal was to retain only those variables that had a strong influence on risk prediction. This selection was crucial to avoid overfitting and improve the efficiency of the models. It also helped in focusing on a smaller set of data points for better interpretation. The process ensured that the chosen variables were relevant for the task.
+
+3.4.2. Correlation Analysis
+Relationships between variables were examined to understand their interdependencies. A visual tool was used to map out how different attributes connected with each other. This analysis helped in identifying potential overlaps or redundancies in the data. The aim was to ensure that selected variables did not duplicate information unnecessarily. Understanding these connections was vital for refining the dataset further. It supported the decision-making process for variable selection with clear evidence.
+
+3.5. Feature Engineering
+This part covers the creation of new variables to improve prediction accuracy. Derived attributes were constructed based on existing data to capture deeper insights.
+
+3.5.1. Ratio Derivation
+New metrics were calculated by combining existing financial figures into ratios. These ratios aimed to reflect specific aspects of an applicant’s financial health. The purpose was to provide a clearer picture of stability or stress in their profile. Creating such metrics was essential to uncover patterns not visible in raw data. The approach was driven by the need to quantify relationships between key financial indicators. This step added value to the dataset by introducing meaningful derived measures.
+
+3.5.2. Index Formulation
+Composite scores were developed by blending multiple variables into a single measure. These scores were designed to summarise complex financial risks into a simpler form. The method involved assigning weights to different components based on their importance. This was done to ensure the index reflected a balanced view of risk factors. The creation of such indices was necessary for a holistic assessment. It provided a way to integrate diverse data points into a unified risk indicator.
+
+3.6. Scaling
+This section addresses the standardisation of numerical data. A method was applied to adjust the range of variables for consistency across the dataset.
+
+3.6.1. Standardisation Process
+A technique was used to transform numerical attributes into a common scale. This process ensured that no single variable dominated due to its original magnitude. The aim was to create a balanced dataset where all attributes contributed equally to predictions. Standardisation was a key step before applying predictive methods. It was chosen to maintain fairness in how data influenced outcomes. This adjustment supported better performance in the subsequent stages of analysis.
+
+3.7. Train-Test Split
+This part explains how the dataset was divided for training and evaluation. A clear separation was made to assess the performance of predictive tools.
+
+3.7.1. Data Division
+The dataset was split into two portions with 80% allocated for training and 20% for testing. This division allowed for building models on a larger subset while reserving a smaller part for validation. The split was done randomly but with a fixed seed for reproducibility. This approach was vital to evaluate how well the models generalised to unseen data. It provided a fair way to measure effectiveness. The balance between training and testing sets was carefully considered for reliable results.
+
+3.8. Models
+This section describes the predictive tools applied for risk assessment. Three distinct approaches were chosen to address the problem from different angles.
+
+3.8.1. ElasticNet Approach
+A linear method combining two types of penalties was used for regression. This technique balanced between variable selection and coefficient shrinkage for better prediction. It was tuned with a search method to find optimal settings for performance. The choice was based on its ability to handle a mix of relevant and less relevant variables. This method suited the dataset due to its focus on simplicity and effectiveness. It provided a solid baseline for risk score prediction.
+<Figure of ElasticNet model structure>
+<Caption: Figure 2 - Structure of ElasticNet Model>
+
+3.8.2. Convolutional Neural Network
+A deep learning method using convolutional layers was applied for regression. The architecture included multiple layers to capture patterns in the data. Training was conducted over several iterations with validation to monitor progress. This approach was selected for its strength in handling complex relationships within data. It was particularly useful for detecting hidden trends in financial metrics. The design aimed to improve prediction by learning intricate data features.
+<Figure of CNN architecture diagram>
+<Caption: Figure 3 - Architecture of Convolutional Neural Network>
+
+3.8.3. TabNet Framework
+A specialised neural network designed for tabular data was implemented. This method used attention mechanisms to focus on important variables during prediction. It was trained with specific settings to balance learning and efficiency. The selection of this framework was due to its suitability for structured datasets like financial records. It offered a way to prioritise key attributes dynamically. This approach was expected to handle the complexity of risk assessment well.
+<Figure of TabNet model flowchart>
+<Caption: Figure 4 - Flowchart of TabNet Framework>
+
+3.9. Performance Measures
+This section outlines the criteria used to evaluate the predictive tools. Different metrics were applied to assess various aspects of model effectiveness.
+
+3.9.1. Regression Metrics
+Several numerical indicators were calculated to measure prediction accuracy. These included errors and variance explained by the models. The purpose was to quantify how close predictions were to actual values. These metrics provided a clear view of model performance in terms of precision. They were chosen to cover different dimensions of error and fit. This ensured a thorough evaluation of the regression outcomes.
+
+3.9.2. Classification Metrics
+Indicators specific to categorisation tasks were used after applying a threshold to predictions. These metrics assessed accuracy, precision, and other aspects of binary decisions. The goal was to evaluate how well models distinguished between risk levels. These measures were necessary since risk assessment often involves a final decision point. They were selected to reflect the practical utility of predictions. This approach helped in understanding the decision-making capability of the models.
+
+3.10. Web Application
+This part discusses the development of an interface for practical use. A platform was created to apply the predictive framework in a user-friendly way.
+
+3.10.1. Streamlit Interface
+A web-based tool was built using a Python library for easy interaction. This platform allowed users to input financial details and receive risk assessments. The design focused on simplicity and accessibility for non-technical users. It was important to bridge the gap between complex models and real-world application. The interface integrated the trained model for instant predictions. This setup made the results available in a clear and actionable format.
+
+3.10.2. Decision Logic
+Rules were embedded in the application to interpret model outputs. These rules determined the final decision based on predicted risk scores. The logic was designed to align with practical business needs in loan assessment. This step was crucial to ensure predictions translated into meaningful outcomes. It provided a structure for consistent decision-making. The approach aimed to make the tool reliable for end users.
+

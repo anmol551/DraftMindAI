@@ -1,0 +1,114 @@
+{pp}
+
+## Task
+Your task is to write a Methodology chapter for a Master's dissertation.
+
+## Context
+This dissertation has introduction, methodology, implementation, and results. So methodology and implementation content should be distinct.
+Chapter should be generated approx 2000 words.
+
+## FIGURE RULE PLACEHOLDER
+<which image to keep, generally will be google picked as this is methodology>
+<one liner caption with figure number>
+
+
+
+Step 1: Identify the main methods(not steps) of the methodology. End to End, all methods should be included.
+Create table of content (headings) for chapter 3
+Note- Do not include EDA in this chapter. It should be in the implementation chapter. Just write the names of headings.
+Do not include model comparison.
+
+Heading 1: Research Design [200 words]
+apply FIGURE RULE PLACEHOLDER here
+
+Heading 2: Data Details [100 words]
+
+Step 2: Identify the Subheadings under the step 1 of the methods used (not steps).
+Create table of content (headings with subheadings) for chapter 3.
+
+Example (combined step 1 and 2)-
+3.x. Preprocessing [Heading]
+3.x.1. preprocessing method (not steps) 1 [Subheading]
+3.x.2. preprocessing method (not steps) 2 [Subheading]
+
+3.y. Feature Engineering [Heading]
+3.y.1. feature engineering method (not steps) 1 [Subheading]
+3.y.2. feature engineering method (not steps) 2 [Subheading]
+
+3.z. Models [Heading]
+3.z.1. model 1 [Subheading]
+apply FIGURE RULE PLACEHOLDER here
+3.z.2. model 2 [Subheading]
+apply FIGURE RULE PLACEHOLDER here
+
+3.w. Performance Measures [Heading]
+3.w.1. measure name 1 [Subheading]
+3.w.2. measure name 2 [Subheading]
+
+
+At this stage, a complete table of contents (headings and subheadings) for chapter 3 is created.
+
+Step 3: Validation- check all the subheadings are the methods used in the project.
+Possible options: Preprocessing, Feature Engineering, Models, Performance Measures, WebApp (streamlit/flask-LLM or anything special used), XAI, etc.
+These should not be the implementation details like the derived feature name.
+These should not be what we did, it should be what method is applied.
+
+example-
+(incorrect)
+3.3. Feature Engineering
+3.3.1. Income Stability Ratio
+3.3.2. NetWorth to Income
+3.3.3. Debt Stress Index
+3.3.4. Credit Experience Score
+3.3.5. Historical Risk Flag
+3.3.6. Composite Risk Index
+
+(correct)
+3.2. Feature Engineering
+3.2.1. Ratio Calculation
+3.2.2. Index Creation
+
+Step 4: Divide the word count of 2000 words of methodology chapter within the table of content.
+This divison should be done based on the weightage of method/technique.
+Example-
+3.y. Heading Name [count]
+do not mention count for subheadings
+
+Instruction:
+1. Do not output the definition or anything else apart from headings, subheadings, and count.
+
+At this stage (stage 4), a complete table of contents (headings and subheadings) for chapter 3 is created with validation and word count.
+
+Step 5: Write the content of the methodology chapter based on the table of contents created in stage 4.
+
+Example-
+3.x. Preprocessing [Heading]
+<single/two sentence about heading referring to the methods before>
+3.x.1. preprocessing method (not steps) 1 [Subheading]
+<two paragraphs> 
+<first para: define the method (weightage 40%)>
+<second para: justification (weightage 60%)>
+3.x.2. preprocessing method (not steps) 2 [Subheading]
+<two paragraphs> 
+<first para: define the method (weightage 40%)>
+<second para: justification (weightage 60%)>
+
+Instructions:
+1. Do not output the definition or anything else apart from headings, subheadings, and count.
+2. Do not output the word count of the heading.
+3. Do not output the word count of the subheading.
+4. Write content in British English.
+5. Content should be humanised, student tone with simple english.
+6. Avoid: Moreover, Additionally, employ, leverage, etc.
+7. maintain numbering of headings and sub headings as given in the table of contents.
+
+Step 6: Verify the word count of each heading, rewrite it until it is close to the word count.
+
+Output:
+Well written complete methodology chapter content. Do not give table of content separately.
+
+
+
+## Attachments:
+Code Pipeline: {a}
+Citations&References: {b}
