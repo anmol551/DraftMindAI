@@ -6,7 +6,7 @@ import streamlit as st
 
 
 load_dotenv()
-key = st.GROK_API_KEY#os.getenv("GROK_API_KEY")
+key = st.secrets["GROK_API_KEY"]#os.getenv("GROK_API_KEY")
 # key = os.getenv("OPENAI_API_KEY")
 
 def generate_content(prompt):
