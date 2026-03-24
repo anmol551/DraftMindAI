@@ -1241,6 +1241,63 @@ def _render_equation_ph(doc, text):
         _spacing(p, before=8, after=8)
 
 
+def _render_body(doc, text, warnings=None):
+    n = CFG["_n"]
+    p = doc.add_paragraph()
+    _spacing(p, before=6, after=6)
+    _run(p, text, CFG["sz_body"], color=CFG["col_body"])
+    
+    if warnings:
+        for w in warnings:
+            _render_warning_block(doc, w)
+
+
+def _render_bullet(doc, text):
+    # Using 'List Bullet' style if available, else fallback to manual bullet
+    try:
+        p = doc.add_paragraph(text, style='List Bullet')
+    except Exception:
+        p = doc.add_paragraph()
+        _run(p, "\u2022  ", CFG["sz_body"], color=CFG["col_body"])
+        _run(p, text, CFG["sz_body"], color=CFG["col_body"])
+        p.paragraph_format.left_indent = Inches(0.25)
+    _spacing(p, before=0, after=4)
+
+
+def _render_caption(doc, text):
+    p = doc.add_paragraph()
+    p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    _run(p, "Caption: ", CFG["sz_body"], bold=True, color=CFG["col_cap"])
+    _run(p, text, CFG["sz_body"], italic=True, color=CFG["col_cap"])
+    _spacing(p, before=2, after=10)
+
+
+def _render_insight(doc, text):
+    p = doc.add_paragraph()
+    p.paragraph_format.left_indent = Inches(0.25)
+    _border_left(p, color_hex="CCCCCC", size=4, space=10)
+    _run(p, "Insight: ", 9, bold=True, color=CFG["col_insight"])
+    _run(p, text, 9, italic=True, color=CFG["col_insight"])
+    _spacing(p, before=4, after=8)
+
+
+def _render_source(doc, text):
+    p = doc.add_paragraph()
+    p.alignment = WD_ALIGN_PARAGRAPH.RIGHT
+    _run(p, "Source: ", 8, italic=True, color=RGBColor(0x88,0x88,0x88))
+    _run(p, text, 8, color=RGBColor(0x88,0x88,0x88))
+    _spacing(p, before=0, after=4)
+
+
+def _render_warning_block(doc, warning):
+    p = doc.add_paragraph()
+    p.paragraph_format.left_indent = Inches(0.3)
+    _shade_paragraph(p, fill_hex="FFF0F0")
+    _border_left(p, color_hex="C00000", size=18, space=6)
+    _run(p, "⚠️  " + warning, 9, color=RGBColor(0xC0,0x00,0x00))
+    _spacing(p, before=4, after=4)
+
+
 # -- Master renderer ───────────────────────────────────────────────────────────
 
 def generate_docx(tokens: List[dict],
