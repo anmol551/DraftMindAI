@@ -1,11 +1,12 @@
 from openai import OpenAI
 import os 
 from dotenv import load_dotenv
+import streamlit as st
 
 
 
 load_dotenv()
-key = os.getenv("GROK_API_KEY")
+key = st.GROK_API_KEY#os.getenv("GROK_API_KEY")
 # key = os.getenv("OPENAI_API_KEY")
 
 def generate_content(prompt):
