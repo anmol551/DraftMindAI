@@ -93,6 +93,23 @@ Example-
 <first para: define the method (weightage 40%)>
 <second para: justification (weightage 60%)>
 
+## Do not create extra headings which can be added in the previous subheadings. For example:
+incorrect:
+3.7. Web Application Setup [200]
+3.7.1. Streamlit Framework
+3.7.2. Real-Time Prediction Interface
+
+3.8. Explanatory Analysis Integration [200]
+3.8.1. Language Model Integration
+3.8.2. Forensic Explanation Generation
+
+correct:
+3.7. Web Application Setup [250]
+3.7.1. Streamlit Framework
+3.7.2. Real-Time Prediction Interface
+3.7.3. Integration with Language Model
+
+
 Instructions:
 1. Do not output the definition or anything else apart from headings, subheadings, and count.
 2. Do not output the word count of the heading.

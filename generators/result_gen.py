@@ -1,8 +1,8 @@
 """
 result_gen.py — generates Results + Conclusion + Future Work.
 
-Chains all sub-prompt builders (performance evaluation, web app testing,
-significance, failed attempts, novelty, conclusion, future work).
+Cycle 1: Full Results chapter (5.1–5.8) in a single generation call.
+Cycle 2: Conclusion + Future Work in a single generation call.
 """
 
 from generators.base import BaseGenerator
@@ -27,7 +27,7 @@ Caption: Figure 5.X — full caption sentence
 Description: one paragraph of 60-80 words explaining what the figure
           reveals, key values, patterns, and conclusions
 
-X increments globally across the entire implementation section.
+X increments globally across the entire results section.
 Never reset between subsections. Use ONLY [Figure 5.X: caption] format.
 """
 
@@ -45,118 +45,62 @@ Important Guidelines:
     7. For metrics ranging from 0 to 1, convert them to percentage format using the
        % symbol, up to 2 decimal places.
     8. Do NOT output any Markdown heading symbols (#, ##, ###, etc.). Write all headings as plain text.
-    9. CRITICAL GLOBAL CONSTRAINT: The total combined word count of the entire Results chapter
-       MUST NOT EXCEED 1500 words. Be concise and strictly adhere to the word count limit
-       for your specific section.
 """
-
-
-def _extract_last_figure_num(text: str) -> int:
-    matches = re.findall(r'\[Figure 5\.(\d+):', text)
-    return max((int(n) for n in matches), default=0)
 
 
 # ── prompt builders ───────────────────────────────────────────────────────────
 
-def _performance_prompt(gen, fmt, counts, code_summary_val_specific,
-                         result_summary, result_plot_title_and_category,
-                         base_paper_summary, base_paper_citation):
-    shared = f"""
-Use Code Summary Value Specific, Result Summary, Result Plot Title and Category,
-Base Paper Summary, and Base Paper Citation from:
-{code_summary_val_specific} {result_summary} {result_plot_title_and_category}
-{base_paper_summary} {base_paper_citation}
-"""
+def _results_prompt(gen, fmt, counts):
+    """Build the full results chapter prompt (sections 5.1–5.8)."""
+    base_paper_citation = gen.config['BASE_PAPER_CITATION']
+
     template = gen.load_prompt(f"result/performance_format_{fmt}.txt")
 
     body = template.format(
         figure_rule=FIGURE_RULE,
-        wc_intro=counts.get('INTRO', '30 to 50'),
-        wc_vis_learn=counts.get('VISUAL_COMPARISON_LEARNING', '30 to 40'),
-        wc_vis_xai=counts.get('VISUAL_COMPARISON_XAI', '80 to 90'),
-        wc_vis_grp=counts.get('VISUAL_COMPARISON_GROUPED', '120 to 130'),
-        wc_vis_ind=counts.get('VISUAL_COMPARISON_INDIVIDUAL', '50 to 60'),
-        wc_vis_other=counts.get('VISUAL_COMPARISON_OTHER', '40 to 50'),
-        wc_cmp=counts.get('COMPARATIVE_PLOT', '30 to 40'),
-        wc_base=counts.get('COMPARISON_WITH_BASE', 150),
-        wc_lim=counts.get('LIMITATIONS', 60),
-    )
-    return gen.prompt_parameters + body + COMMON_GUIDELINES + shared
-
-
-def _web_app_testing_prompt(gen, web_app_development, web_app_testing_results,
-                             figure_start, counts):
-    template = gen.load_prompt("result/web_app_testing.txt")
-    return gen.prompt_parameters + f"FIGURE_START: {figure_start} — begin figure numbering from Figure 5.{figure_start}\n\n" + template.format(
-        figure_rule=FIGURE_RULE,
         common=COMMON_GUIDELINES,
-        wc_intro=counts.get('WEB_APP_TESTING_INTRO', '25 to 35'),
-        wc_total=counts.get('WEB_APP_TESTING_TOTAL', 200),
-        wc_insight=counts.get('WEB_APP_TESTING_INSIGHT', '30 to 40'),
-        web_app_development=web_app_development,
-        web_app_testing_results=web_app_testing_results,
+        wc_intro=counts.get('INTRO', 50),
+        wc_table_explain=counts.get('TABLE_EXPLAIN', 100),
+        wc_per_model=counts.get('PER_MODEL', 200),
+        wc_per_chart_type=counts.get('PER_CHART_TYPE', 200),
+        wc_comparison=counts.get('COMPARISON', 300),
+        wc_webapp=counts.get('WEBAPP', 100),
+        wc_webapp_screenshots=counts.get('WEBAPP_SCREENSHOTS', 'N'),
+        wc_benchmark=counts.get('BENCHMARK', 100),
+        wc_novelty=counts.get('NOVELTY', 200),
+        wc_sig_obj=counts.get('SIG_OBJECTIVES', 200),
+        wc_sig_limit=counts.get('SIG_LIMITATIONS', 100),
+        code_summary_val_specific=gen.code_summary_val_specific.split('"model_results":')[-1] if '"model_results":' in gen.code_summary_val_specific else gen.code_summary_val_specific,
+        result_summary=gen.result_summary,
+        result_plot_title_and_category="{result_plot_title_and_category}",
+        base_paper_summary=gen.base_paper_summary,
+        base_paper_citation=base_paper_citation,
+        web_app_development=gen.web_app_development,
+        web_app_testing_results=gen.web_app_testing_results,
+        novelty=gen.novelty,
+        research_objectives=gen.research_question_and_objectives,
     )
+    return gen.prompt_parameters + body
 
 
-def _significance_prompt(gen, performance_evaluation, web_app_testing_results, counts):
-    template = gen.load_prompt("result/significance.txt")
-    return gen.prompt_parameters + template.format(
-        common=COMMON_GUIDELINES,
-        wc_sub1=counts.get('SIGNIFICANCE_SUB1', 80),
-        wc_sub2=counts.get('SIGNIFICANCE_SUB2', 120),
-        wc_total=counts.get('SIGNIFICANCE_TOTAL', 200),
-        performance_evaluation=performance_evaluation,
-        web_app_testing_results=web_app_testing_results,
-    )
-
-
-def _failed_attempts_prompt(gen, failed_attempts, figure_start, counts):
-    template = gen.load_prompt("result/failed_attempts.txt")
-    return gen.prompt_parameters + f"FIGURE_START: {figure_start} — begin figure numbering from Figure 5.{figure_start}\n\n" + template.format(
-        figure_rule=FIGURE_RULE,
-        common=COMMON_GUIDELINES,
-        wc_intro=counts.get('FAILED_ATTEMPTS_INTRO', '25 to 35'),
-        wc_total=counts.get('FAILED_ATTEMPTS_TOTAL', 100),
-        wc_insight=counts.get('FAILED_ATTEMPTS_INSIGHT', '30 to 40'),
-        failed_attempts=failed_attempts,
-    )
-
-
-def _novelty_prompt(gen, novelty, counts):
-    template = gen.load_prompt("result/novelty.txt")
-    return gen.prompt_parameters + template.format(
-        common=COMMON_GUIDELINES,
-        wc=counts.get('RESEARCH_NOVELTY', 250),
-        novelty=novelty,
-    )
-
-
-def _no_base_paper_prompt(gen, code_summary, result_summary, counts):
-    template = gen.load_prompt("result/no_base_paper.txt")
-    return gen.prompt_parameters + template.format(
-        common=COMMON_GUIDELINES,
-        wc=counts.get('NO_BASE_PAPER', 250),
-        code_summary=code_summary,
-        result_summary=result_summary,
-    )
-
-
-def _conclusion_prompt(gen, code_summary, novelty, counts):
+def _conclusion_prompt(gen, counts):
+    """Build the conclusion prompt."""
     template = gen.load_prompt("result/conclusion.txt")
     return gen.prompt_parameters + template.format(
         common=COMMON_GUIDELINES,
         wc=counts.get('CONCLUSION', 300),
-        code_summary=code_summary,
-        novelty=novelty,
+        code_summary=gen.code_summary,
+        novelty=gen.novelty,
     )
 
 
-def _future_work_prompt(gen, code_summary_val_specific, counts):
+def _future_work_prompt(gen, counts):
+    """Build the future work prompt."""
     template = gen.load_prompt("result/future_work.txt")
     return gen.prompt_parameters + template.format(
         common=COMMON_GUIDELINES,
         wc=counts.get('FUTURE_WORK', 300),
-        code_summary_val_specific=code_summary_val_specific,
+        code_summary_val_specific=gen.code_summary_val_specific,
     )
 
 
@@ -167,9 +111,9 @@ def generate_result_conclusion():
     counts = gen.get_counts()
     fmt = gen.format
 
-    base_paper_citation = gen.config['BASE_PAPER_CITATION']
-
-    paper_citation = pd.read_csv(gen.config['PAPER_CITATION'], encoding='utf-8')
+    # ══════════════════════════════════════════════════════════════════════════
+    # CYCLE 1: Full Results Chapter (5.1–5.8)
+    # ══════════════════════════════════════════════════════════════════════════
 
     # Step 1: Collect plot titles
     title_prompt = gen.prompt_parameters + f"""
@@ -177,74 +121,37 @@ From the result plot summary, collect all plot titles.
 Use Results Summary from:
 {gen.result_summary}
 """
+    print("Collecting plot titles...")
     result_plot_title_and_category = gen.generate(title_prompt)
 
-    # Step 2: Performance evaluation
-    perf_prompt = _performance_prompt(
-        gen, fmt, counts,
-        gen.code_summary_val_specific, gen.result_summary,
-        result_plot_title_and_category, gen.base_paper_summary, base_paper_citation
+    # Step 2: Generate full results chapter
+    results_prompt = _results_prompt(gen, fmt, counts)
+    # Inject the collected plot titles
+    results_prompt = results_prompt.replace(
+        "{result_plot_title_and_category}", result_plot_title_and_category
     )
-    
-    performance_evaluation = gen.generate(perf_prompt)
-    last_fig_perf = _extract_last_figure_num(performance_evaluation)
-    print(f"Last figure after performance evaluation: 5.{last_fig_perf}")
 
-    # Step 3: Web app testing
-    web_app_test = gen.generate(_web_app_testing_prompt(
-        gen, gen.web_app_development, gen.web_app_testing_results,
-        figure_start=last_fig_perf + 1, counts=counts
-    ))
-    last_fig_webapp = _extract_last_figure_num(web_app_test)
-    print(f"Last figure after web app testing: 5.{last_fig_webapp}")
-
-    # Step 4: Significance
-    significance = gen.generate(_significance_prompt(
-        gen, performance_evaluation, gen.web_app_testing_results, counts
-    ))
-
-    # Step 5: Failed attempts
-    failed_attempts_content = gen.generate(_failed_attempts_prompt(
-        gen, gen.failed_attempts, figure_start=last_fig_webapp + 1, counts=counts
-    ))
-
-    # Step 6: Novelty
-    novelty_content = gen.generate(_novelty_prompt(gen, gen.novelty, counts))
-
-    # Step 7: Choose results structure based on whether benchmark exists
-    benchmark_found = bool(re.search(r'(?:benchmark|base paper)', performance_evaluation, re.IGNORECASE))
-
-    if benchmark_found:
-        print("Benchmark section found — writing results with it.")
-        result_sections = {
-            "PERFORMANCE EVALUATION":      performance_evaluation,
-            "WEB APP TESTING":             web_app_test,
-            "SIGNIFICANCE OF KEY RESULTS": significance,
-            "FAILED ATTEMPTS":             failed_attempts_content,
-            "RESEARCH NOVELTY":            novelty_content,
-        }
-    else:
-        print("No benchmark section — generating interpretation instead.")
-        interp = gen.generate(_no_base_paper_prompt(gen, gen.code_summary, gen.result_summary, counts))
-        result_sections = {
-            "PERFORMANCE EVALUATION":      performance_evaluation,
-            "WEB APP TESTING":             web_app_test,
-            "SIGNIFICANCE OF KEY RESULTS": significance,
-            "FAILED ATTEMPTS":             failed_attempts_content,
-            "INTERPRETATION OF RESULTS":   interp,
-            "RESEARCH NOVELTY":            novelty_content,
-        }
-
-    gen.save("OutputFiles/results.txt", result_sections, label="RESULTS")
-
-    # Step 8: Conclusion
-    conclusion = gen.generate(_conclusion_prompt(gen, gen.code_summary, gen.novelty, counts))
-
-    # Step 9: Future Work
-    future_work = gen.generate(_future_work_prompt(gen, gen.code_summary_val_specific, counts))
+    print("Generating Results chapter...")
+    results_content = gen.generate(results_prompt)
 
     gen.save(
-        "OutputFiles/conclusion.txt",
-        {"CONCLUSION": conclusion, "FUTURE WORK": future_work},
-        label="CONCLUSION AND FUTURE WORK"
+        "OutputFiles/results.txt",
+        {"RESULTS": results_content},
+        label="RESULTS"
     )
+
+    # # ══════════════════════════════════════════════════════════════════════════
+    # # CYCLE 2: Conclusion + Future Work
+    # # ══════════════════════════════════════════════════════════════════════════
+
+    # print("Generating Conclusion...")
+    # conclusion = gen.generate(_conclusion_prompt(gen, counts))
+
+    # print("Generating Future Work...")
+    # future_work = gen.generate(_future_work_prompt(gen, counts))
+
+    # gen.save(
+    #     "OutputFiles/conclusion.txt",
+    #     {"CONCLUSION": conclusion, "FUTURE WORK": future_work},
+    #     label="CONCLUSION AND FUTURE WORK"
+    # )

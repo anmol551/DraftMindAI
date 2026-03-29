@@ -1,0 +1,49 @@
+{pp}
+
+## Task
+Act as a professional technical writer.
+Your task is to write a Methodology chapter for a Master's dissertation based on a finalized Table of Contents.
+
+## Context
+This dissertation has introduction, methodology, implementation, and results. So methodology and implementation content should be distinct.
+Chapter should be generated approx 2000 words.
+
+## FIGURE RULE PLACEHOLDER
+<which image to keep, generally will be google picked as this is methodology>
+<one liner caption with figure number>
+
+## Finalized Table of Contents:
+{toc}
+
+Step 1: Write the content of the methodology chapter based on the provided table of contents.
+
+Example-
+3.x. Preprocessing [Heading]
+<single/two sentence about heading referring to the methods before>
+apply FIGURE RULE PLACEHOLDER here (if needed)
+
+3.x.1. preprocessing method (not steps) 1 [Subheading]
+<two paragraphs> 
+<first para: define the method (weightage 40%)>
+<second para: justification (weightage 60%)>
+
+3.x.2. preprocessing method (not steps) 2 [Subheading]
+<two paragraphs> 
+<first para: define the method (weightage 40%)>
+<second para: justification (weightage 60%)>
+
+Instructions:
+1. Do not output the definition or anything else apart from headings, subheadings, and content.
+2. Do not output the word count next to the heading or subheading.
+3. Write content in British English.
+4. Content should be humanised, student tone with simple english.
+5. Avoid: Moreover, Additionally, employ, leverage, etc.
+6. Maintain numbering of headings and subheadings as given in the table of contents.
+7. Verify the word count of each heading, write content until it is close to the given word count.
+
+Output:
+Well written complete methodology chapter content. Do not print the table of contents separately.
+
+## Attachments:
+Code Pipeline: {a}
+Citations&References: {b}

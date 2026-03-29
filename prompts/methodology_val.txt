@@ -1,0 +1,23 @@
+{pp}
+
+## Task
+Your task is to validate and refine the Table of Contents for a Methodology chapter.
+
+## Validation Input
+Proposed Table of Contents:
+{toc}
+
+## Context
+Code Pipeline: {a}
+WebApp: {b}
+
+## Instructions
+Review the Proposed Table of Contents against the Code Pipeline.
+1. Ensure that ALL required methods and techniques present in the Code Pipeline are included in the Table of Contents.
+2. Ensure nothing is missing. If a core method (Preprocessing, Modeling, Evaluation, etc.) is missing, add it with appropriate subheadings and word count.
+3. Ensure the subheadings are generalized methods, not specific implementation details or variable names.
+4. If there are missing items, add them. If items are too specific, generalize them.
+5. The total word count allocated across all headings should still remain approximately 2000 words.
+6. Main models should be having 600 words reserved.
+
+Output ONLY the validated, finalized Table of Contents with headings, subheadings, and word counts. Do not output any explanation or conversational text.

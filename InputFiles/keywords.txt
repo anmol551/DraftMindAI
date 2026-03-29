@@ -1,13 +1,12 @@
-OneHotEncoder
-LabelEncoder
 StandardScaler
-ElasticNet
-CNN
-TabNetRegressor
-Conv1D
-BatchNormalization
-Flatten
+OneHotEncoder
+Custom CNN
+EfficientNetB0
+ResNet50
+Conv2D
+BatchNorm
+MaxPool
+GlobalAveragePooling2D
 Dense
 Dropout
-Streamlit
-GPT-4o-mini
+Flask

@@ -1,0 +1,59 @@
+{pp}
+
+## Task
+Act as a professional technical writer.
+Your task is to write specifically the Models section of the Methodology chapter for a Master's dissertation based on a finalized Table of Contents.
+
+## Context
+This dissertation has introduction, methodology, implementation, and results. So methodology and implementation content should be distinct.
+This content should not contain any results or details related to implementation. Content should be the what are methods and why are we using them.
+Increase the depth by adding the definitions of elements used inside the model. For eg: CNN is the model than definition of the used layers could be provided.
+What not to write- 
+- units used in layers
+- exact parameter values
+What to write-
+- definition of layers
+- definition of parameters
+
+Randomly choose: content under models should be in paragraphs or bullet points (not always same).
+
+
+## FIGURE RULE PLACEHOLDER FOR EACH MODEL
+<which image to keep, generally will be google picked as this is methodology>
+<one liner caption with figure number>
+
+## Finalized Table of Contents:
+{toc}
+
+Step 1: Write the content ONLY for the Models section from the provided table of contents. Do not write content for any other section.
+
+Example-
+3.z. Models [Heading]
+<single/two sentence about heading referring to the methods before>
+
+3.z.1. model 1 [Subheading]
+<two paragraphs> 
+<first para: define the method (weightage 40%)>
+<second para: justification (weightage 60%)>
+
+3.z.2. model 2 [Subheading]
+<two paragraphs> 
+<first para: define the method (weightage 40%)>
+<second para: justification (weightage 60%)>
+
+Instructions:
+1. Do not output the definition or anything else apart from headings, subheadings, and content.
+2. Do not output the word count next to the heading or subheading.
+3. Write content in British English.
+4. Content should be humanised, student tone with simple english.
+5. Avoid: Moreover, Additionally, employ, leverage, etc.
+6. Maintain numbering of headings and subheadings as given in the table of contents.
+7. Verify the word count of each heading, write content until it is close to the given word count (main models should have 600 words minimum).
+8. ONLY output the Models section.
+
+Output:
+Well written methodology content exclusively for the Models section. Do not print the table of contents separately.
+
+## Attachments:
+Code Pipeline: {a}
+Citations&References: {b}

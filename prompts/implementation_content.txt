@@ -1,0 +1,90 @@
+{pp}
+
+## Task
+Your task is to generate the content for the implementation chapter of the dissertation report.
+
+## Figure Rules
+\n
+<Insert Figure>
+[caption] one liner caption
+[insight] 30-40 words insight of the figure, mention the values in it for better explanation. Keep 3-4 lines minimum
+\n
+
+## Word Count Rules
+- Each heading in the Table of Contents has a target word count in [brackets].
+- Figure placeholders (caption + insight lines) do NOT count toward the word budget — only prose paragraphs count.
+- You MUST write prose content meeting the target word count for each heading.
+- To meet word count targets, follow these minimum paragraph rules:
+  - [150] word heading → at least 2 detailed paragraphs per subheading (4-5 sentences each)
+  - [200] word heading → at least 2-3 detailed paragraphs per subheading (4-5 sentences each)
+  - [250] word heading → distribute across subheadings, each subheading gets 2 paragraphs minimum
+  - [300] word heading → at least 3 detailed paragraphs or cover each plot/chart in 30+ words of prose description
+  - [700] word heading → distribute equally across subheadings. If 4 subheadings exist, write ~175 words each with 2-3 paragraphs per subheading
+- For headings without subheadings (e.g., Challenges), write at least 2 distinct paragraphs covering separate points.
+- CRITICAL: After writing each heading's content, internally verify the prose word count meets the target. If it falls short, expand with more implementation details.
+
+## Content Rules
+1. Content should not have definition or justification.
+2. Content should have only implementation details.
+3. Figure placeholders should be there for each plot/chart/image.
+4. Do not discuss about any type of results here.
+5. Do not write any content under headings, content should be written under the subheadings only.
+6. Models section should be focused on the implementation details with the word count distributed for each subheading.
+7. Do not output the word count next to the heading or subheading in the final output.
+
+Strictly follow this format-
+Models:
+<Do not write anything here>
+    -method 1
+    <figure rule>
+    <Write the implementation details>
+    -method 2
+    <figure rule>
+    <Write the implementation details>
+*Same format should be followed by preprocessing section, feature_engineering section, and modelling section.
+
+Example:
+InCorrect-
+"
+4.3. Preprocessing
+This segment details the steps applied to prepare images for analysis. The focus was on cleaning and standardising data to ensure consistency. Hair removal was implemented to eliminate artefacts using morphological operations followed by inpainting. Colour normalisation adjusted each channel by its mean to maintain balance. Contrast enhancement was carried out through adaptive histogram techniques on specific channels. Resizing images to a uniform 224 by 224 pixels was done alongside scaling pixel values. Standard normalisation parameters based on a well-known dataset were applied. These processes collectively aimed to refine raw images into a suitable format for model training while addressing visual inconsistencies observed during initial exploration.
+
+4.3.1. Hair Removal Method
+<Insert Figure>
+[caption] Hair Removal Code Snippet
+[insight] This screenshot shows the code for hair removal with a kernel size of 9 by 9 and inpainting radius of 6. It applies morphological blackhat operations to clear hair artefacts effectively from images.
+
+The hair removal process used a morphological blackhat operation with a defined kernel size. Inpainting followed to fill gaps left by removed elements ensuring a smoother image surface for further steps.
+
+"
+Correct-
+"
+4.3. Preprocessing
+
+4.3.1. Hair Removal Method
+
+The hair removal process used a morphological blackhat operation with a defined kernel size of 9 by 9 using MORPH_RECT structuring element. The operation targeted dark elongated structures on lighter skin backgrounds to isolate hair strands effectively. A binary threshold was applied to the blackhat output to create a mask identifying hair regions across the image surface.
+
+Inpainting with a radius of 6 using the INPAINT_TELEA algorithm filled the masked regions with surrounding pixel information. This restored the underlying skin texture beneath each removed hair strand. The process ran on every image in the dataset before any further preprocessing steps were applied. Output images showed clean lesion boundaries free from hair obstructions which improved downstream feature extraction quality.
+
+<Insert Figure>
+[caption] Hair Removal Code Snippet
+[insight] This screenshot shows the code for hair removal with a kernel size of 9 by 9 and inpainting radius of 6. It applies morphological blackhat operations to clear hair artefacts effectively from images.
+
+"
+
+## Important
+Use all the plots in EDA section.
+Use all the information provided in code summary.
+
+Usage of plots:
+EDA section: code summary [eda]
+preprocessing subheadings: placeholders for the code screenshots
+Modelling subheadings: placeholders for the code screenshots
+
+## Input
+Table Of Content:
+{implementation_toc_content}
+
+Code Summary:
+{code_summary_val_specific}

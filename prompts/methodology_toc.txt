@@ -1,0 +1,71 @@
+{pp}
+
+## Task
+Your task is to create a Table of Contents for a Methodology chapter of a Master's dissertation.
+
+## Context
+This dissertation has introduction, methodology, implementation, and results. So methodology and implementation content should be distinct.
+The methodology chapter should be approximately 2000 words.
+
+Step 1: Identify the main methods (not steps) of the methodology. End to End, all methods should be included.
+Create a table of contents (headings) for chapter 3.
+Note - Do not include EDA in this chapter. It should be in the implementation chapter. Just write the names of headings.
+Do not include model comparison.
+
+Heading 1: Research Design
+Heading 2: Data Details
+
+Step 2: Identify the Subheadings under the headings of the methods used (not steps).
+Create a table of contents (headings with subheadings) for chapter 3.
+
+Example (combined step 1 and 2)-
+3.x. Preprocessing [Heading]
+3.x.1. preprocessing method (not steps) 1 [Subheading]
+3.x.2. preprocessing method (not steps) 2 [Subheading]
+
+3.y. Feature Engineering [Heading]
+3.y.1. feature engineering method (not steps) 1 [Subheading]
+3.y.2. feature engineering method (not steps) 2 [Subheading]
+
+3.z. Models [Heading]
+3.z.1. model 1 [Subheading]
+3.z.2. model 2 [Subheading]
+
+3.w. Performance Measures [Heading]
+3.w.1. measure name 1 [Subheading]
+3.w.2. measure name 2 [Subheading]
+
+3.v. WebApp/XAI/Anything [Heading]
+<Here need to explain which important tech/framework/library is used in the projects. Just write the tech names, do not mention any process>
+
+
+At this stage, a complete table of contents (headings and subheadings) for chapter 3 is created.
+
+Step 3: Verification - check all the subheadings are the methods used in the project.
+Possible options: Preprocessing, Feature Engineering, Models, Performance Measures, WebApp (streamlit/flask-LLM or anything special used), XAI, etc.
+These should not be the implementation details like the derived feature name.
+These should not be what we did, it should be what method is applied.
+
+example-
+(incorrect)
+3.3. Feature Engineering
+3.3.1. Income Stability Ratio
+3.3.2. NetWorth to Income
+3.3.3. Debt Stress Index
+
+(correct)
+3.2. Feature Engineering
+3.2.1. Ratio Calculation
+3.2.2. Index Creation
+
+Step 4: Divide the word count of 2000 words of the methodology chapter within the table of contents.
+This division should be done based on the weightage of method/technique. Main models should be having 600 words reserved.
+Example-
+3.y. Heading Name [count]
+do not mention count for subheadings
+
+Instruction:
+1. Output ONLY the complete Table of Contents with word counts for headings. Do not output anything else.
+
+## Attachments:
+Code Pipeline: {a}

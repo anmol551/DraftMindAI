@@ -22,32 +22,67 @@ def generate_methodology():
         pipeline_content = ""
         print(f"Warning: Pipeline file not found at '{pipeline_path}'.")
 
-    template = gen.load_prompt("methodology.txt")
-    prompt = template.format(
+    # 1. Generate TOC
+    template_toc = gen.load_prompt("methodology_toc.txt")
+    prompt_toc = template_toc.format(
         pp=gen.prompt_parameters,
-        # pipeline=pipeline_content,
-        # wc_rd=counts['RESEARCH_DESIGN'],
-        # wc_dd=counts['DATASET_DESC'],
-        # wc_pre=counts['PREPROCESSING'],
-        # wc_dyn=counts['DYNAMIC_PRE'],  
-        # wc_mod=counts['MODEL_BUILDING'],
-        # wc_mod_lay=counts['MODEL_LAYERS'],
-        # wc_eval=counts['EVALUATION_METRICS'],
-        # wc_llm=counts['LLM_INTEGRATION'],
-        # wc_web=counts['WEB_APP_FRAMEWORK'],
-        # wc_xai=counts['XAI_FRAMEWORK'],
-        # wc_eth=counts['ETHICS'],
+        a=pipeline_content,
+    )
+    print("Generating Methodology TOC...")
+    toc_content = gen.generate(prompt_toc)
+
+    # 2. Validate TOC
+    template_val = gen.load_prompt("methodology_val.txt")
+    prompt_val = template_val.format(
+        pp=gen.prompt_parameters,
+        toc=toc_content,
+        a=pipeline_content,
+        b=gen.web_app_summary
+    )
+    print("Validating Methodology TOC...")
+    validated_toc = gen.generate(prompt_val)
+    
+    # Save validated TOC for use in implementation chapter
+    import os
+    os.makedirs("InputFiles", exist_ok=True)
+    with open("InputFiles/methodology_toc_content.txt", "w", encoding="utf-8") as f:
+        f.write(validated_toc)
+
+    # 3. Generate Content (Non-Models)
+    template_content_part1 = gen.load_prompt("methodology_content_part1.txt")
+    prompt_content_part1 = template_content_part1.format(
+        pp=gen.prompt_parameters,
+        toc=validated_toc,
+        a=pipeline_content,
+        b=title_and_citation,
+        c=gen.web_app_summary
+    )
+
+    print("Generating Methodology Content (Excluding Models)...")
+    content_part1 = gen.generate(prompt_content_part1)
+
+    # 4. Generate Content (Models Only)
+    template_content_part2 = gen.load_prompt("methodology_content_part2.txt")
+    prompt_content_part2 = template_content_part2.format(
+        pp=gen.prompt_parameters,
+        toc=validated_toc,
         a=pipeline_content,
         b=title_and_citation,
     )
 
-    content = gen.generate(prompt)
+    print("Generating Methodology Content (Models Only)...")
+    content_part2 = gen.generate(prompt_content_part2)
+
+    content = content_part1 + "\n\n" + content_part2
 
     try:
         import unicodedata
         content.encode('utf-8')
     except UnicodeEncodeError:
-        prompt_ascii = prompt.encode('ascii', 'ignore').decode('ascii')
-        content = gen.generate(prompt_ascii)
+        prompt_ascii1 = prompt_content_part1.encode('ascii', 'ignore').decode('ascii')
+        prompt_ascii2 = prompt_content_part2.encode('ascii', 'ignore').decode('ascii')
+        content_part1 = gen.generate(prompt_ascii1)
+        content_part2 = gen.generate(prompt_ascii2)
+        content = content_part1 + "\n\n" + content_part2
 
     gen.save("OutputFiles/methodology.txt", {"METHODOLOGY": content}, label="METHODOLOGY")

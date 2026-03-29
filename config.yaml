@@ -1,15 +1,12 @@
-BASE_PAPER_CITATION: "Anand, R., Singh, H., Sardana, K., Gupta, D.N., Sindhwani, N.\
-  \ and Mittal, M. (2024) 'Loan Approval Prediction Using Machine Learning', in Abraham,\
-  \ A., Bajaj, A. and Hanne, T. (eds) Intelligent Systems Design and Applications.\
-  \ ISDA 2023. Lecture Notes in Networks and Systems, vol. 1052. Cham: Springer, pp.\
-  \ 357\u2013366. Available at: https://doi.org/10.1007/978-3-031-64776-5_34 (Accessed:\
-  \ 20 March 2026)."
+BASE_PAPER_CITATION: "Hammad, M., P\u0142awiak, P., ElAffendi, M., Abd El-Latif, A.A.\
+  \ and Abdel Latif, A.A. (2023) 'Enhanced deep learning approach for accurate eczema\
+  \ and psoriasis skin detection', Sensors, 23(16), p. 7295. doi: 10.3390/s23167295."
 BASE_PAPER_SUMMARY_PATH: InputFiles/bps.txt
 CODE_SUMMARY_PATH: InputFiles/cs.txt
 CODE_SUMMARY_VAL_SPECIFIC_PATH: InputFiles/csvs.txt
 DATA_DETAILS_PATH: InputFiles/dd.txt
 FAILED_ATTEMPT_PATH: InputFiles/fa.txt
-FORMAT: '1'
+FORMAT: '2'
 KEYWORD_FILE: InputFiles/keywords.txt
 LITERATURE_REVIEW_SUMMARY_PATH: InputFiles/lrs.txt
 METHODOLOGY: OutputFiles/methodology.txt
@@ -18,30 +15,37 @@ PAPER_CITATION: InputFiles/papers_result.csv
 PIPELINE: InputFiles/pipeline.txt
 PROMPT: ed.txt
 RESEARCH_GAPS: InputFiles/rg.txt
-RESEARCH_OBJECTIVES: 'To review existing financial risk assessment approaches with
-  emphasis on interpretable machine learning and hybrid predictive systems.
+RESEARCH_OBJECTIVES: 'To investigate previous research on deep learning applications
+  for skin disease classification, with a focus on eczema/atopic dermatitis detection
+  and binary vs. multi-class strategies.
 
-  To examine the effectiveness of structured data preparation and feature construction
-  in improving predictive reliability on financial datasets.
+  To preprocess and prepare a public multi-class skin disease image dataset by merging
+  the nine non-eczema classes into a single ''other'' category for binary classification
+  (eczema vs. non-eczema).
 
-  To develop a unified predictive framework capable of supporting both continuous
-  risk scoring and binary approval decisions using available learning techniques.
+  To analyse, design, and implement a deep learning model using transfer learning
+  (e.g., pre-trained CNN architectures such as EfficientNet, ResNet, or DenseNet)
+  with data augmentation techniques to handle class imbalance and image variability.
 
-  To evaluate the comparative performance of traditional and advanced machine learning
-  approaches for financial risk prediction.
+  To explore the possibilities of advanced techniques (e.g., attention mechanisms,
+  ensemble methods, or fine-tuning strategies) for improving binary classification
+  performance on eczema detection.
 
-  To integrate explanation-driven components that generate clear and meaningful interpretations
-  of predictive outcomes for decision support.
+  To critically evaluate the end product through quantitative metrics (accuracy, precision,
+  recall, F1-score, AUC-ROC) and qualitative analysis (confusion matrices, misclassification
+  examples), comparing binary vs. multi-class baselines where feasible.
 
-  To deploy the validated predictive system through a web application interface to
-  demonstrate practical usability and decision support capability.'
-RESEARCH_QUESTION: How can a unified and interpretable predictive framework combining
-  machine learning and explanation systems improve financial risk score estimation
-  and loan approval decisions on structured financial datasets?
+  To discuss limitations, ethical implications, and potential real-world deployment
+  scenarios for the developed model.'
+RESEARCH_QUESTION: To what extent can a deep learning-based binary classification
+  model accurately distinguish eczema from other common skin diseases using dermoscopic
+  images, and how does consolidating diverse non-eczema classes into a single category
+  impact model performance, robustness, and generalization compared to traditional
+  multi-class approaches?
 RESEARCH_QUESTION_OBJECTIVES: InputFiles/rqo.txt
 RESULT_SUMMARY_PATH: InputFiles/rs.txt
-TITLE: 'From Risk Scores to Human-Centric Decisions: Integrating Tabular Deep Learning
-  and Large Language Models for Loan Approval Systems'
+TITLE: A Deep Learning Framework for the Classification of Eczema Versus Other Dermatological
+  Conditions from Dermoscopic Images
 WEB_APP_DEVELOPMENT: InputFiles/wad.txt
 WEB_APP_SUMMARY_PATH: InputFiles/ws.txt
 WEB_APP_TESTING_RESULTS: InputFiles/wat.txt

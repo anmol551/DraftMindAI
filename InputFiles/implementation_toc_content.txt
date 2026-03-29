@@ -1,0 +1,20 @@
+4. Implementation
+4.1. Statistical Details [150]
+4.2. EDA [300]
+4.3. Preprocessing [250]
+4.3.1. Hair Removal Method
+4.3.2. Colour Adjustment Process
+4.3.3. Contrast Enhancement Technique
+4.4. Feature Engineering [200]
+4.4.1. Image Modification
+4.4.2. Data Augmentation Approach
+4.5. Models [700]
+4.5.1. InceptionV3 Setup
+4.5.2. EfficientNet-B0 Configuration
+4.5.3. Xception Structure
+4.5.4. ConvNeXt-Tiny Framework
+4.6. Web Application Setup [200]
+4.6.1. Flask System
+4.6.2. OpenCV Handling
+4.6.3. PyTorch Processing
+4.7. Challenges [200]

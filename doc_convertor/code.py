@@ -1093,8 +1093,10 @@ def _render_doc_title(doc, text):
         p.alignment = WD_ALIGN_PARAGRAPH.CENTER
     if n == 1:
         _run(p, text, CFG["sz_title"], bold=True, color=CFG["col_title"])
-        _spacing(p, before=0, after=14)
-        _border_bottom(p, color_hex=CFG["bdr_title"], size=8)
+        _spacing(p, before=0, after=6)
+        _border_bottom(p, color_hex=CFG["bdr_title"], size=18)
+        sub = doc.add_paragraph(); _spacing(sub, before=2, after=18)
+        _border_bottom(sub, color_hex=CFG["bdr_title"], size=4)
     elif n == 2:
         _run(p, text.upper(), CFG["sz_title"], bold=True, color=CFG["col_title"])
         _spacing(p, before=0, after=6)
@@ -1117,12 +1119,14 @@ def _render_chapter(doc, num, text):
     if CFG["ch_page_break"]:
         doc.add_page_break()
     if n == 1:
+        top = doc.add_paragraph(); _spacing(top, before=0, after=6)
+        _border_bottom(top, color_hex=CFG["bdr_ch"], size=6)
         p = doc.add_paragraph()
         if num is not None:
             _run(p, "Chapter " + str(num) + chr(10), CFG["sz_ch"] - 4, italic=True, color=CFG["col_sub"])
         _run(p, text.upper(), CFG["sz_ch"], bold=True, color=CFG["col_ch"])
-        _spacing(p, before=0, after=8)
-        _border_bottom(p, color_hex=CFG["bdr_ch"], size=10)
+        _spacing(p, before=4, after=10)
+        _border_bottom(p, color_hex=CFG["bdr_ch"], size=3)
     elif n == 2:
         top = doc.add_paragraph(); _spacing(top, before=0, after=6)
         _border_bottom(top, color_hex="B8860B", size=6)
@@ -1135,17 +1139,22 @@ def _render_chapter(doc, num, text):
     elif n == 3:
         p = doc.add_paragraph()
         if num is not None:
-            _run(p, f"CH.{num}  ", 8, bold=True, color=RGBColor(0xAA,0xAA,0xAA))
+            _run(p, f"Chapter {num}: ", CFG["sz_ch"], bold=True, color=CFG["col_ch"])
         _run(p, text, CFG["sz_ch"], bold=True, color=CFG["col_ch"])
         _spacing(p, before=4, after=6)
         _border_bottom(p, color_hex=CFG["bdr_ch"], size=2)
     elif n == 4:
+        top = doc.add_paragraph(); _spacing(top, before=0, after=6)
+        _border_bottom(top, color_hex="005050", size=15)
         p = doc.add_paragraph()
-        _shade_paragraph(p, fill_hex="005050")
         p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-        label = f"Chapter {num} -- " if num is not None else ""
-        _run(p, label + text.upper(), CFG["sz_ch"], bold=True, color=RGBColor(0xFF,0xFF,0xFF))
+        if num is not None:
+            _run(p, f"CHAPTER {num}", CFG["sz_ch"] - 2, bold=True, color=CFG["col_sub"])
+            p.add_run().add_break()
+        _run(p, text.upper(), CFG["sz_ch"], bold=True, color=CFG["col_title"])
         _spacing(p, before=8, after=8)
+        bot = doc.add_paragraph(); _spacing(bot, before=0, after=12)
+        _border_bottom(bot, color_hex="005050", size=4)
 
 
 def _render_subheading(doc, chapter_num, sub_num, text):
@@ -1156,6 +1165,7 @@ def _render_subheading(doc, chapter_num, sub_num, text):
             _run(p, f"{chapter_num}.{sub_num}  ", CFG["sz_sub"], bold=True, color=CFG["col_sub"])
         _run(p, text, CFG["sz_sub"], bold=True, color=CFG["col_sub"])
         _spacing(p, before=14, after=4)
+        _border_bottom(p, color_hex=CFG["bdr_sub"], size=2)
     elif n == 2:
         if chapter_num:
             _run(p, f"{chapter_num}.{sub_num}  ", CFG["sz_sub"] - 1, bold=True, color=RGBColor(0xB8,0x86,0x0B))

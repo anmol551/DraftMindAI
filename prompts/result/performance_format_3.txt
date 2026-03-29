@@ -1,42 +1,87 @@
-Write a technical performance evaluation section for my research dissertation.
-Target approximately 750 words total. Begin with a short introduction of {wc_intro} words.
-Divide into four subheadings tailored to the research topic.
+Write the Results chapter for a research dissertation.
+All plots listed in the Result Plot Summary MUST be covered — do not skip any plot.
 
-{{figure_rule}}
+{figure_rule}
 
-Subheading 1: Individual Model Performance (Change heading to match project topic)
-    1. Present a results table for all models with a relevant table name.
-    2. Write two paragraphs on important findings — no plot insights here.
-    3. Mention only key metric values. Use % format up to 2 decimal places.
-    4. End with potential limitations. Do not use parentheses for metric values.
+## Chapter Introduction
+Begin with a {wc_intro}-word summary of the pipeline followed in the code.
+Then present the complete results table with a suitable table name.
+Follow the table with a {wc_table_explain}-word explanation of key findings from the table only.
 
-Subheading 2: Visual Comparison of Model Predictions and Trade-offs
-               (Change heading to match project topic)
-    Only describe plots actually present in the result summary — do not assume others.
-    1. For each model group Confusion Matrix, AUC-ROC Curve, PR Curve, and
-       Actual vs Predicted together if available:
-       - Apply the FIGURE PLACEHOLDERS RULE — place each 3-block group inline.
-       - Insight must be {wc_vis_grp} words covering accuracy, precision, recall,
-         F1-score, AUC, specificity, sensitivity, trade-offs, and anomalies.
-       - All models must receive equal depth — do not shorten any model's section.
-    2. For each learning curve plot provide {wc_vis_learn} words of insight per plot.
-       Mention convergence behaviour, overfitting, or underfitting if observed.
-    3. For each XAI plot provide {wc_vis_xai} words per model per plot.
-       Do not combine across models. Explain decision patterns and feature focus.
-    4. For additional evaluation plots follow the same format and assign next figure number.
+## Structure — Per-Chart-Type Subheadings with Collective Discussion
 
-Subheading 3: Comparative Analysis (Change heading to match project topic)
-    1. Discuss remaining comparative plots separately — at least {wc_cmp} words each.
-    2. Apply the FIGURE PLACEHOLDERS RULE for every comparative plot inline.
-    3. All metric values must be mentioned. Use % format. No parentheses.
-    4. Write a paragraph on strengths and weaknesses of each model.
-    5. Write a paragraph justifying why the best model performed best.
-    6. Add a paragraph stating the best, acceptable, and worst models by performance.
+## Numbering Rule
+All subheadings MUST be numbered starting from 5.1. Use the format "5.X. Heading Name".
+- 5.1. Confusion Matrix
+- 5.2. ROC Curves
+- 5.3. Training and Validation Loss
+- 5.4. (any additional chart types, numbered sequentially)
+- 5.N. Models Comparison
+- 5.N+1. WebApp Testing
+- 5.N+2. Comparison with Benchmark
+- 5.N+3. Novelty
+- 5.N+4. Significance and Limitations
+Do not use ### or any markdown heading symbols. Write headings as plain numbered text.
 
-Subheading 4: Comparison with Benchmark Research Paper
-               (Change heading to match project topic)
-    1. Compare pipeline and results of benchmark paper with this research up to {wc_base} words.
-    2. Do not use parentheses for metric values.
-    3. Write a paragraph on strengths and weaknesses of each model.
-    4. Write a paragraph justifying the best model.
-    5. Write a paragraph clearly ranking best, acceptable, and worst models.
+
+Group charts by type across all models. For each chart type, create one subheading:
+
+### Confusion Matrix
+- Present the Confusion Matrix chart for ALL models first (one figure placeholder per model,
+  listed consecutively without discussion between them).
+- After all confusion matrix charts are shown, write ONE collective discussion paragraph
+  comparing all models' confusion matrices together — patterns, misclassifications, and
+  relative strengths.
+- Target approximately {wc_per_chart_type} words total for this subheading.
+
+### ROC Curves
+- Present the ROC Curve chart for ALL models first (consecutive figure placeholders).
+- Write ONE collective discussion comparing AUC values, class-wise performance, and
+  discrimination ability across all models.
+- Target approximately {wc_per_chart_type} words total.
+
+### Training and Validation Loss
+- Present the Training & Validation Loss chart for ALL models first (consecutive figure placeholders).
+- Write ONE collective discussion comparing convergence behaviour, overfitting patterns, and
+  generalisation stability across all models.
+- Target approximately {wc_per_chart_type} words total.
+
+If additional per-model chart types exist in the data (e.g., Per-Class Precision/Recall/F1,
+PR Curves), create a subheading for each and follow the same pattern: all charts first,
+then one collective discussion.
+
+### Models Comparison
+- Present each comparative chart (accuracy comparison, precision/recall/F1 comparison,
+  training time comparison, PR curve comparison, or any other comparative chart).
+- After each chart, write a discussion paragraph.
+- Target approximately {wc_comparison} words.
+
+### WebApp Testing
+- Show {wc_webapp_screenshots} UI screenshots as figure placeholders.
+- Write a collective discussion of test results in approximately {wc_webapp} words.
+- Mention specific test inputs, outputs, and prediction accuracy.
+
+### Comparison with Benchmark
+- Compare the pipeline and results of the benchmark paper with this research.
+- Approximately {wc_benchmark} words. Do not use parentheses for metric values.
+
+### Novelty
+- Rewrite the provided novelty content in the context of the results achieved.
+- Approximately {wc_novelty} words. No figure placeholders.
+
+### Significance and Limitations
+- Paragraph 1 ({wc_sig_obj} words): How this research fulfils the research objectives.
+- Paragraph 2 ({wc_sig_limit} words): Limitations of this research and areas for improvement.
+
+{common}
+
+Use the following inputs:
+Code Summary: {code_summary_val_specific}
+Result Summary: {result_summary}
+Result Plot Titles: {result_plot_title_and_category}
+Base Paper Summary: {base_paper_summary}
+Base Paper Citation: {base_paper_citation}
+WebApp Development: {web_app_development}
+WebApp Testing Results: {web_app_testing_results}
+Novelty: {novelty}
+Research Objectives: {research_objectives}

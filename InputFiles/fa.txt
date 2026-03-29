@@ -1,37 +1,30 @@
-Plot : Actual vs Predicted RiskScore — ElasticNet | Type: Scatter Plot with Regression Line | Insights: Predicted risk scores rise with actual values showing a positive linear relationship. Points cluster around the regression line but with noticeable spread reflecting moderate accuracy. MAE of 3.0955 and R2 of 0.7388 are consistent with visible deviation from the perfect prediction diagonal. Regression trend line and perfect prediction reference line both plotted.
+| # | Plot Title | Plot Type | Insights |
+|---|-----------|-----------|----------|
+| 1 | InceptionV3 – Confusion Matrix (Raw Counts) | Heatmap | nv: 743 correct; 121 misclassified as mel; mel: 80 correct; 35 shifted to nv; df weakest with 4 correct; vasc: 23 correct with minimal errors |
+| 2 | InceptionV3 – Training and Validation Loss | Line Chart | Training loss drops from 1.20 to 0.49; validation loss oscillates 0.85–1.10; divergence after epoch 8–11 indicates mild overfitting |
+| 3 | InceptionV3 – Per-Class Precision, Recall, F1-Score | Grouped Bar Chart | NV: precision 92.3%, recall 75.1%, F1 82.8%; VASC: F1 76.7%; MEL: recall 47.34%, precision 32.00%; DF weakest at ~24% F1 |
+| 4 | InceptionV3 – ROC Curves (One-vs-Rest) | Line Chart | VASC AUC 0.993; AKIEC 0.937; BCC 0.934; NV 0.910; DF 0.856; BKL 0.842; MEL lowest at 0.804; Micro-AUC 0.941 |
+| 5 | EfficientNet-B0 – Confusion Matrix (Raw Counts) | Heatmap | NV: 762 correct; 133 misclassified as mel; MEL: 104 correct; BCC: 58 correct; DF: 4 correct; VASC: 20 correct |
+| 6 | EfficientNet-B0 – Training and Validation Loss | Line Chart | Training loss 1.10 to 0.36; validation minimum ~0.74 at epoch 10; mild overfitting after epoch 11 |
+| 7 | EfficientNet-B0 – Per-Class Precision, Recall, F1-Score | Grouped Bar Chart | NV: precision 93.84%, recall 77.05%, F1 84.62%; BCC F1 60.73%; MEL recall 61.54% precision 35.62%; DF F1 21.05% |
+| 8 | EfficientNet-B0 – ROC Curves (One-vs-Rest) | Line Chart | VASC AUC 0.993; BCC 0.970; AKIEC 0.934; NV 0.932; DF 0.903; BKL 0.878; MEL 0.856; Micro-AUC 0.955 |
+| 9 | Xception – Confusion Matrix (Raw Counts) | Heatmap | NV: strong with 80.99% recall; MEL: 50.89% recall F1 42.68%; BKL: 71.98% recall; DF remains weak |
+| 10 | Xception – Training and Validation Loss | Line Chart | Stable convergence; validation loss controlled; mild gap between training and validation post epoch 10 |
+| 11 | Xception – Per-Class Precision, Recall, F1-Score | Grouped Bar Chart | NV: 92.17% precision, 80.99% recall, 86.22% F1; MEL: recall 50.89%; overall weighted F1 75.47% |
+| 12 | Xception – ROC Curves (One-vs-Rest) | Line Chart | Micro-AUC ~0.962; VASC and BCC highest; MEL remains challenging |
+| 13 | ConvNeXt-Tiny – Confusion Matrix (Raw Counts) | Heatmap | MEL: 99 correct out of 169; NV: 834 correct; BKL: 128 correct; 39 melanoma cases shifted to NV |
+| 14 | ConvNeXt-Tiny – Training and Validation Loss | Line Chart | Smooth training convergence; best generalisation among all four models; validation loss stable post epoch 10 |
+| 15 | ConvNeXt-Tiny – Per-Class Precision, Recall, F1-Score | Grouped Bar Chart | NV: 92.26% precision, 84.33% recall, 88.11% F1; VASC: 83.02% F1; MEL: 58.58% recall, 49.01% F1; DF: 40.0% F1 |
+| 16 | ConvNeXt-Tiny – ROC Curves (One-vs-Rest) | Line Chart | Micro-AUC 0.9665; highest overall; MEL improved vs all other models |
+| 17 | Model Accuracy Comparison | Bar Chart | InceptionV3: 66.58%; EfficientNet-B0: 70.48%; Xception: 74.17%; ConvNeXt-Tiny: 77.34% — steady progression |
+| 18 | Precision / Recall / F1 Comparison | Grouped Bar Chart | Will be taken from table |
+| 19 | Training Time Comparison (Dot Plot) | Dot/Lollipop Plot | EfficientNet-B0: 46.9 min; InceptionV3: ~47.5 min; ConvNeXt-Tiny: 48.9 min; Xception: 49.9 min — minimal variation |
+| 20 | Precision–Recall Curve Comparison | Multi-Line Chart | ConvNeXt-Tiny AP=0.862; Xception AP=0.846; EfficientNet-B0 AP=0.817; InceptionV3 AP=0.771 |
 
-Plot : Confusion Matrix — ElasticNet Derived Classification | Type: Heatmap | Insights: True negatives (Loan Approved correctly predicted): 1,627. True positives (Loan Not Approved correctly predicted): 1,682. False positives: 165 approved applicants misclassified as not approved. False negatives: 526 denied applicants misclassified as approved. Overall accuracy 0.8273 with balanced performance across both classes.
+Iterative model development and design exploration inevitably involved approaches that underperformed before arriving at the final optimised pipeline, offering important lessons in architectural and methodological decision-making.
 
-Plot : Learning Curve (Loss) — CNN Regressor Model | Type: Line Chart | Insights: Training loss (MSE) drops sharply from approximately 579 at epoch 1 and converges near epoch 20 to 25. Validation loss follows a similar trajectory converging around 8 to 10. Close alignment between training and validation loss confirms no significant overfitting across 50 training epochs.
+**Training from Scratch (No Transfer Learning):** An early design iteration attempted to train InceptionV3 and a simple CNN without ImageNet-pretrained weights. Without pretrained feature representations, models failed to converge meaningfully within 20 epochs on the relatively small HAM10000 training set, producing accuracy values below 50% and heavily biased toward the dominant nv class. The absence of pretrained inductive biases made it computationally infeasible to learn discriminative dermatoscopic features from limited data, confirming that transfer learning is non-negotiable for this domain.
 
-Plot : Learning Curve (MAE) — CNN Regressor Model | Type: Line Chart | Insights: Training MAE drops from approximately 17.7 at epoch 1 to around 2.2 by epoch 50. Validation MAE mirrors training trajectory with a small stable gap, confirming consistent generalisation. Final validation MAE aligns with test MAE of 2.2253, confirming reliable learning convergence.
+**Image-Level Train-Test Split:** Initial experiments used image-level stratified random splitting rather than lesion-ID-based partitioning. This approach introduced patient-level data leakage, as multiple images of the same lesion appeared in both training and test sets, artificially inflating accuracy estimates by 3–5 percentage points. Upon discovering the redundant lesion images tracked by lesion_id in the metadata, the split strategy was corrected to lesion-level partitioning, producing more realistic and lower — but clinically meaningful — performance estimates.
 
-Plot : Actual vs Predicted RiskScore — CNN | Type: Scatter Plot with Regression Line | Insights: Tighter clustering around the perfect prediction diagonal compared to ElasticNet. R2 of 0.8556 is visible as reduced scatter and closer alignment between predicted and actual values. Regression trend line closely approximates the ideal perfect prediction line with fewer outliers than the linear model.
-
-Plot : Confusion Matrix — CNN Derived Classification | Type: Heatmap | Insights: True negatives: 1,700. True positives: 1,772. False positives: 92. False negatives: 436. Recall for class 0 (Loan Approved) is 0.95 and precision for class 1 (Loan Not Approved) is 0.95. Accuracy 0.8680, weighted F1 0.8682. Clear improvement over ElasticNet with fewer misclassifications across both classes.
-
-Plot : Learning Curve — TabNet Regression Model | Type: Line Chart | Insights: Training MAE starts at 966.33 at epoch 0 and drops sharply to below 15 within the first 5 epochs. Validation MAE (val_0_mae) converges from 12.84 at epoch 0 to approximately 1.89 at early stopping. Both curves plateau and stabilise, confirming model convergence with patience=20 preventing overfitting.
-
-Plot : Actual vs Predicted RiskScore — TabNet | Type: Scatter Plot with Regression Line | Insights: Tightest scatter across all three models. R2 of 0.8839 is reflected in dense point concentration along the perfect prediction diagonal. Regression trend line nearly coincides with the ideal diagonal. MAE of 1.8953 is the lowest of all models, confirming superior regression precision.
-
-Plot : Confusion Matrix — TabNet Derived Classification | Type: Heatmap | Insights: True negatives: 1,638. True positives: 1,926. False positives: 154. False negatives: 282. Recall for class 0 is 0.91 and precision for class 1 is 0.93. Accuracy 0.8910, weighted F1 0.8913, ROC-AUC 0.9598. Lowest false negative count among all models, indicating best performance in correctly identifying denied applicants.
-
-Plot : MAE Comparison Across Models | Type: Line Chart with Markers | Insights: Will be taken from table.
-
-Plot : MSE and RMSE Comparison Across Models | Type: Grouped Bar Chart | Insights: Will be taken from table.
-
-Plot : R2 Score and Explained Variance Comparison Across Models | Type: Horizontal Grouped Bar Chart | Insights: Will be taken from table.
-
-Plot : Accuracy and ROC-AUC Comparison Across Models | Type: Grouped Bar Chart | Insights: Will be taken from table.
-
-Plot : Precision, Recall and F1 Score Comparison Across Models | Type: Dot/Scatter Comparison Plot | Insights: Will be taken from table.
-
-Examining failed and suboptimal design iterations is essential for understanding methodological trade-offs and guiding principled decisions in predictive modelling research.
-
-1. SMOTE for Class Balancing (Abandoned): An early pipeline iteration incorporated SMOTE (Synthetic Minority Over-sampling Technique) from the imbalanced-learn library to address the observed class imbalance of 4,780 approved versus 15,220 denied records. However, this approach was abandoned because the primary target variable (RiskScore) is continuous, and SMOTE operates on discrete class labels. Applying SMOTE to a regression target introduces synthetic samples that distort the distributional continuity of the risk score, corrupting the regression objective. Furthermore, since classification is derived post-regression via median thresholding rather than trained as a standalone classifier, SMOTE is logically incompatible with the unified pipeline design. The relevant code cells were retained in commented-out form, documenting the deliberate decision.
-
-2. Standalone Binary Classification Approach (Not Pursued): An implicit design failure was the consideration of building independent binary classifiers directly on the LoanApproved target. This would have produced a fragmented dual-model pipeline with potential inconsistency between risk scores and classification outputs, undermining the interpretability and coherence of the decision system. The regression-to-classification unification strategy was adopted instead.
-
-3. ElasticNet as Primary Model (Underperformance): ElasticNet was systematically tuned using RandomizedSearchCV (n_iter=50, cv=5) yielding optimal alpha=0.000534 and l1_ratio=0.939. Despite exhaustive tuning, it achieved R² of only 0.7388 and classification accuracy of 82.73%, reflecting the inherent insufficiency of linear assumptions in capturing complex, non-linear financial risk relationships across 16 features.
-
-4. CNN Without Attention Mechanism (Limited Interpretability): The CNN achieved improved performance over ElasticNet (R²=0.8556, accuracy=86.80%), demonstrating the benefit of hierarchical feature extraction via two Conv1D layers. However, the CNN lacks explicit feature-level interpretability due to the absence of attention or sparse selection mechanisms, limiting its suitability for regulated financial environments despite competitive predictive accuracy. This limitation motivated the final adoption of TabNet.
+**Single-Step Preprocessing:** Early iterations applied only CLAHE without DullRazor hair removal or colour normalisation, resulting in the model learning spurious hair-texture features correlated with lesion labels rather than genuine pigmentation patterns. This produced high precision on the majority class but degraded melanoma recall, confirming that sequential multi-step preprocessing is necessary rather than optional. Applying preprocessing steps in a non-sequential or partial manner yielded visually distorted images when CLAHE was applied before hair removal, generating high-contrast artefacts around hair strands that confused the convolutional feature extractor.

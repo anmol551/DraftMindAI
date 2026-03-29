@@ -1,0 +1,211 @@
+4. Implementation
+
+4.1. Statistical Details
+
+The implementation began with a thorough examination of the dataset composition using specific tools to understand image distribution. A key step involved counting images across each class and per unique lesion identifier. This process showed a breakdown with nv at 6705 images, mel at 1113, bkl at 1099, bcc at 514, akiec at 327, vasc at 142 and df at 115. Such imbalance guided the design of sampling strategies to balance training data effectively.
+
+Another focus was on splitting the dataset based on lesion identifiers to prevent data leakage. The split was set at 70% for training, 15% for validation and 15% for testing. This translated to roughly 7010 images for training, 1502 for validation and 1514 for testing. These steps ensured that images from the same patient remained within a single subset during model development.
+
+4.2. EDA
+
+4.2.1. Class Distribution Analysis
+
+The exploration of class distribution used a bar chart to visualise image counts per diagnosis category. This revealed a heavy skew with nv having 6705 images while df had only 115. Such disparity pointed to the need for weighted sampling during training phases. This imbalance was critical to address for fair model learning across categories.
+
+<Insert Figure>
+[caption] Class Distribution of Skin Lesion Diagnoses
+[insight] This bar chart displays image counts per diagnosis with nv at 6705 and df at 115. The severe imbalance across classes shows why weighted sampling becomes essential for balanced training.
+
+4.2.2. Binary Classification View
+
+A separate bar chart was created to compare melanoma against non-melanoma counts. The vast difference in numbers between these two groups was evident. This highlighted the challenge of identifying melanoma in a heavily skewed dataset. Addressing this required careful design of training mechanisms.
+
+<Insert Figure>
+[caption] Binary Classification: Melanoma vs Non-Melanoma
+[insight] This bar chart compares counts with non-melanoma far exceeding melanoma. It reflects the clinical challenge of detecting melanoma amidst a majority of non-melanoma cases in the dataset.
+
+4.2.3. Sample Images and Visual Diversity
+
+An image grid showcased two samples per lesion class to observe visual traits. Diversity within each class was apparent, with vasc and df showing distinct shapes. This variation posed a challenge for consistent classification. These observations informed preprocessing choices.
+
+<Insert Figure>
+[caption] Sample Images per Lesion Class
+[insight] This grid displays two images per class, revealing visual diversity. Classes like vasc and df show unique forms, indicating the complexity of achieving accurate classification across all types.
+
+4.2.4. Colour and Brightness Patterns
+
+Several plots focused on colour and brightness across images. A line chart mapped RGB channel intensities for 200 random images, showing red as dominant. Another bar chart compared average pixel intensity per class, with melanoma appearing darker. A box plot of brightness distribution justified specific preprocessing steps.
+
+<Insert Figure>
+[caption] RGB Channel Intensity Histogram
+[insight] This line chart for 200 images shows pixel intensity distribution. Red channel peaks higher while blue is lower, reflecting a skin tone bias in the dataset imagery.
+
+<Insert Figure>
+[caption] Average Pixel Intensity per Class
+[insight] This bar chart shows mean intensity across diagnoses. Melanoma images are darker while vasc appears brighter, suggesting colour as a potential factor in classification tasks.
+
+<Insert Figure>
+[caption] Brightness Distribution per Class
+[insight] This box plot reveals brightness variation per class with notable outliers. Such differences across diagnoses support the use of contrast adjustment techniques during preprocessing stages.
+
+4.2.5. Resolution and Edge Analysis
+
+A scatter plot mapped image resolution distribution, showing most at 600 by 450 pixels. Another image grid applied edge detection to highlight lesion borders and artefacts like hair. These insights shaped the preprocessing pipeline to handle such issues.
+
+<Insert Figure>
+[caption] Image Resolution Distribution
+[insight] This scatter plot shows most images at 600 by 450 pixels. Uniform resolution across the dataset reduces the need for extensive resizing in preprocessing workflows.
+
+<Insert Figure>
+[caption] Edge Detection Demonstration
+[insight] This image grid applies Canny edge detection, revealing lesion borders and hair artefacts. Such visuals justify specific preprocessing methods to clean images for better analysis.
+
+4.2.6. Colour Clustering and Pipeline Visuals
+
+A scatter plot explored mean RGB colour distribution for 150 samples, showing class overlap. An image grid also visualised the preprocessing sequence across classes. These helped in understanding colour limitations and preprocessing impacts.
+
+<Insert Figure>
+[caption] Mean RGB Colour Distribution
+[insight] This scatter plot for 150 samples maps mean RGB values. Classes cluster with overlap, indicating colour alone cannot reliably separate different lesion types in analysis.
+
+<Insert Figure>
+[caption] Preprocessing Pipeline Visualisation
+[insight] This grid shows the sequential impact of hair removal, colour adjustment and contrast enhancement per class. Each step visibly refines images for subsequent model training processes.
+
+4.3. Preprocessing
+
+4.3.1. Hair Removal Method
+
+The hair removal process started with a morphological blackhat operation using a kernel size of 9 by 9 with a rectangular structuring element. This targeted dark hair strands against lighter skin backgrounds to create a mask. A binary threshold refined the mask to pinpoint hair regions accurately.
+
+Inpainting with a radius of 6 via the TELEA method filled masked areas using nearby pixel data. This restored skin texture under removed hair, ensuring smoother images. The step was applied to all images before other processes, aiding clearer lesion boundary detection.
+
+<Insert Figure>
+[caption] Hair Removal Code Snippet
+[insight] This screenshot displays the hair removal code with a kernel size of 9 by 9 and inpainting radius of 6. It uses morphological blackhat operations to clear hair artefacts from skin lesion images effectively.
+
+4.3.2. Colour Adjustment Process
+
+Colour adjustment involved normalising each channel by its mean value. Blue, green and red channels were divided by their respective averages and scaled back to a 0 to 255 range. This balanced colour distribution across images for consistency.
+
+The process addressed skin tone variations seen during initial exploration. It was applied post hair removal to maintain image integrity. This step ensured that colour biases did not interfere with later stages of analysis.
+
+<Insert Figure>
+[caption] Colour Normalisation Code Snippet
+[insight] This screenshot shows the code for colour normalisation, dividing each channel by its mean. It scales values to a 0 to 255 range, balancing colour across skin lesion images for uniformity.
+
+4.3.3. Contrast Enhancement Technique
+
+Contrast enhancement used a method to adjust histogram distribution on the lightness channel in LAB colour space. Parameters included a clip limit of 2.0 and tile grid size of 8 by 8. This improved visibility of lesion details in varied lighting conditions.
+
+The technique was applied after colour balancing to refine image clarity. It tackled brightness outliers observed in earlier plots. This ensured that subtle features in images became more distinguishable for downstream tasks.
+
+<Insert Figure>
+[caption] Contrast Enhancement Code Snippet
+[insight] This screenshot displays the code for contrast enhancement with a clip limit of 2.0 and grid size of 8 by 8. It adjusts the lightness channel to improve lesion visibility across images.
+
+4.4. Feature Engineering
+
+4.4.1. Image Modification
+
+Image modification focused on resizing all inputs to a uniform 224 by 224 pixel dimension. Pixel values were scaled to a range of 0 to 1 as floating-point numbers. Standard normalisation parameters matching a well-known dataset were then applied with specific mean and standard deviation values.
+
+This ensured compatibility with model input requirements. The process followed preprocessing steps to maintain data consistency. Such uniformity was vital for smooth training without dimensional mismatches.
+
+<Insert Figure>
+[caption] Image Resizing Code Snippet
+[insight] This screenshot shows the code for resizing images to 224 by 224 pixels and scaling values to 0 to 1. It ensures uniform input dimensions for model compatibility during training.
+
+4.4.2. Data Augmentation Approach
+
+Data augmentation used a weighted sampling strategy based on inverse class frequency. This addressed the dataset imbalance by giving rarer classes more representation during training. No manual feature selection was done as full image pixels served as input data.
+
+Lesion identifier-based splitting prevented overlap of patient data across sets. This approach maintained integrity in training phases. It supported balanced learning despite uneven class distribution seen in earlier analysis.
+
+<Insert Figure>
+[caption] Weighted Sampling Code Snippet
+[insight] This screenshot displays the code for weighted sampling based on inverse class frequency. It helps balance training by increasing exposure to rarer classes in the dataset.
+
+4.5. Models
+
+4.5.1. InceptionV3 Setup
+
+The setup for InceptionV3 used a pretrained backbone with weights from a large image dataset. The main structure was kept frozen to preserve learned patterns while a custom linear layer mapped 2048 features to 7 output classes. The auxiliary classifier was turned off to simplify training.
+
+Training parameters included an Adam optimiser with a learning rate of 0.001 and weight decay of 1e-4. A cross-entropy loss function guided the learning process. Batches of 32 images were processed over 20 epochs with a step-based learning rate adjustment.
+
+<Insert Figure>
+[caption] InceptionV3 Configuration Code Snippet
+[insight] This screenshot shows the code for InceptionV3 setup with a frozen backbone and custom linear head. It uses Adam optimiser with a learning rate of 0.001 over 20 epochs for training.
+
+4.5.2. EfficientNet-B0 Configuration
+
+EfficientNet-B0 was built using a pretrained base structure with frozen layers to retain initial weights. A tailored classifier head transformed 1280 features into 7 output categories via a linear layer. This kept the core architecture intact while adapting to the specific task.
+
+Training followed similar settings with an Adam optimiser at a learning rate of 0.001 and weight decay of 1e-4. Cross-entropy loss was applied with batches of 32 across 20 epochs. A step scheduler adjusted the learning rate during the process.
+
+<Insert Figure>
+[caption] EfficientNet-B0 Configuration Code Snippet
+[insight] This screenshot displays the code for EfficientNet-B0 with a frozen base and custom head. It applies an Adam optimiser at 0.001 learning rate, training over 20 epochs with batch size 32.
+
+4.5.3. Xception Structure
+
+Xception implementation started with a pretrained backbone accessed through a specific library. The base was frozen, and a global average pooling layer was added before a linear layer mapping 2048 features to 7 classes. This setup adapted the model for the classification task.
+
+Training used an Adam optimiser with a learning rate of 0.001 and weight decay set to 1e-4. Cross-entropy loss guided optimisation with batches of 32 over 20 epochs. A step scheduler managed learning rate changes throughout training cycles.
+
+<Insert Figure>
+[caption] Xception Configuration Code Snippet
+[insight] This screenshot shows the Xception setup code with a frozen backbone and custom linear layer. Training uses Adam optimiser at 0.001 learning rate over 20 epochs with batch size 32.
+
+4.5.4. ConvNeXt-Tiny Framework
+
+ConvNeXt-Tiny was configured with a pretrained backbone and a custom classifier. The head included flattening, layer normalisation on 768 features, a linear layer to 512 units, ReLU activation, dropout at 50% and a final linear layer to 7 classes. This design aimed for better adaptation.
+
+Training parameters mirrored others with an Adam optimiser at 0.001 learning rate and 1e-4 weight decay. Cross-entropy loss was used with batches of 32 over 20 epochs. A step scheduler adjusted the learning pace across iterations.
+
+<Insert Figure>
+[caption] ConvNeXt-Tiny Configuration Code Snippet
+[insight] This screenshot displays the ConvNeXt-Tiny setup with a complex custom head. It trains using Adam optimiser at 0.001 learning rate over 20 epochs with a batch size of 32.
+
+4.6. Web Application Setup
+
+4.6.1. Flask System
+
+The web application was built using a lightweight framework for handling server-side tasks. Flask managed user requests and routed image uploads for processing. It served as the backbone for user interaction through a simple interface. Templates were designed to accept image inputs and display outputs.
+
+This setup allowed seamless integration of backend scripts with frontend elements. Deployment focused on local hosting for initial testing phases. The structure supported quick iterations during development.
+
+<Insert Figure>
+[caption] Flask Server Code Snippet
+[insight] This screenshot shows the Flask server code handling image uploads and routing. It forms the core of user interaction, enabling image submission through a web interface for processing.
+
+4.6.2. OpenCV Handling
+
+OpenCV was integrated for image loading and initial preprocessing on the server side. It handled tasks like reading uploaded files and applying basic resizing. Colour space conversions were also managed to match model input needs. This ensured images were in the correct format.
+
+The library worked alongside other tools to maintain pipeline consistency. Its role was critical in bridging raw uploads to processed inputs. This step streamlined data flow within the application.
+
+<Insert Figure>
+[caption] OpenCV Processing Code Snippet
+[insight] This screenshot displays OpenCV code for loading and resizing images. It manages colour space adjustments to prepare uploads for model input within the web application pipeline.
+
+4.6.3. PyTorch Processing
+
+PyTorch handled the core model loading and inference on processed images. Pretrained weights were loaded into memory for quick predictions. It managed tensor conversions from image data to model-compatible formats. Output probabilities were computed for each class.
+
+This setup ensured efficient computation on the server. It integrated with the web framework to return results to users. The focus was on maintaining speed during real-time usage.
+
+<Insert Figure>
+[caption] PyTorch Inference Code Snippet
+[insight] This screenshot shows PyTorch code for model loading and inference. It converts images to tensors and computes class probabilities, enabling real-time predictions within the web application.
+
+4.7. Challenges
+
+Implementing the hair removal process faced issues with varying hair thickness across images. Some thicker strands were not fully masked, requiring manual parameter tuning for the kernel size. This slowed down preprocessing on larger datasets. Testing different values became necessary to achieve cleaner outputs.
+
+Colour normalisation struggled with extreme skin tone variations. Certain images showed overcorrection in channels, distorting natural hues. Adjusting the scaling method took multiple attempts to balance the effect. This step needed careful monitoring to avoid data loss.
+
+Contrast enhancement parameters were tricky to set for diverse lighting conditions. Some images became too sharp, obscuring subtle lesion traits. Iterative testing of clip limits was done to find a suitable range. This required extra time during pipeline setup.
+
+Model training faced hurdles with class imbalance despite weighted sampling. Rarer classes sometimes showed unstable learning patterns. Adjusting batch compositions helped mitigate this over several runs. Continuous monitoring of training logs was essential to address such discrepancies.

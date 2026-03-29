@@ -1,0 +1,68 @@
+================================================================================
+AI-DRIVEN DERMATOSCOPIC IMAGE CLASSIFICATION FOR EARLY MELANOMA DETECTION
+================================================================================
+
+================================================================================
+ABSTRACT
+================================================================================
+Abstract: This study explores the application of deep learning architectures, specifically ConvNeXt-Tiny, for the classification of skin lesions in dermatoscopic images. Using a multi-stage preprocessing pipeline including hair removal and colour normalisation, we achieve significant performance gains over baseline models. The final model is deployed via a Flask web application to assist in clinical triage.
+
+================================================================================
+1. INTRODUCTION
+================================================================================
+1.1 Background
+Skin cancer is one of the most common malignancies worldwide. Early detection is critical as the five-year survival rate for melanoma drops significantly if diagnosed at later stages. Traditional diagnosis relies on clinical expertise, which can be enhanced by computer-aided diagnostic systems.
+
+1.2 Problem Statement
+Variations in imaging devices and lighting conditions create noise in dermatoscopic datasets. Traditional CNNs often struggle with these artefacts and class imbalance, leading to lower sensitivity in detecting malignant lesions (Kurtansky et al., 2024).
+
+================================================================================
+2. LITERATURE REVIEW
+================================================================================
+Recent advances in transfer learning have enabled the use of large-scale pretrained models for medical imaging. Tschandl et al. (2018) established the HAM10000 dataset, which remains a benchmark for skin lesion analysis. Modern architectures like ConvNeXt provide a purely convolutional alternative to Vision Transformers while maintaining high accuracy (Liu et al., 2022).
+
+================================================================================
+3. METHODOLOGY
+================================================================================
+3.1 Research Design
+We adopt a traditional quantitative approach to evaluate four different architectures: InceptionV3, EfficientNet-B0, Xception, and ConvNeXt-Tiny.
+
+3.2 Preprocessing
+The preprocessing pipeline includes:
+- DullRazor for hair removal.
+- RGB mean-based white balancing for colour normalization.
+- CLAHE for contrast enhancement in the LAB colour space.
+
+================================================================================
+4. IMPLEMENTATION
+================================================================================
+The models were implemented using PyTorch. Training was conducted for 15 epochs with an Adam optimizer and a learning rate of 0.001.
+
+[Figure 4.1: Dataset Distribution]
+Caption: Figure 4.1 — Distribution of the seven diagnostic categories in the HAM10000 dataset.
+Description: The bar chart shows a significant class imbalance, with Melanocytic Nevi (nv) comprising over 60% of the dataset.
+
+================================================================================
+5. RESULTS AND DISCUSSION
+================================================================================
+5.1 Performance Evaluation
+ConvNeXt-Tiny achieved the highest accuracy of 77.34%, outperforming InceptionV3 (66.58%) and Xception (74.17%).
+
+[Figure 5.1: Confusion Matrix]
+Caption: Figure 5.1 — Confusion matrix for the ConvNeXt-Tiny model on the test set.
+Description: The matrix demonstrates strong per-class performance, though some confusion between melanoma and benign nevi remains.
+
+5.2 Web App Testing
+The Flask application was tested with real-time uploads. A high-risk alert is triggered for predictions above 60% confidence.
+
+================================================================================
+6. CONCLUSION AND FUTURE WORK
+================================================================================
+This research demonstrates that modern convolutional backbones, when paired with robust preprocessing, can provide reliable support for skin lesion classification. Future work will investigate the use of multi-modal data including patient metadata.
+
+================================================================================
+REFERENCES
+================================================================================
+Kurtansky, N.R. (2024). Patient-level evaluation of AI systems for skin cancer screening. npj Digital Medicine, 7, 88.
+Liu, Z., Mao, H., Wu, C.-Y., Feichtenhofer, C., Darrell, T. and Xie, S. (2022). A ConvNet for the 2020s. Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition.
+Tschandl, P., Rosendahl, C. and Kittler, H. (2018). The HAM10000 dataset, a large collection of multi-source dermatoscopic images of common pigmented skin lesions. Scientific Data.

@@ -1,0 +1,30 @@
+3. Methodology
+
+3.1. Research Design [200]
+
+3.2. Data Details [200]
+
+3.3. Preprocessing [300]
+3.3.1. Hair Removal Method
+3.3.2. Colour Adjustment Process
+3.3.3. Contrast Enhancement Technique
+
+3.4. Feature Engineering [200]
+3.4.1. Image Modification
+3.4.2. Data Augmentation Approach
+
+3.5. Models [600]
+3.5.1. InceptionV3 Setup
+3.5.2. EfficientNet-B0 Configuration
+3.5.3. Xception Structure
+3.5.4. ConvNeXt-Tiny Framework
+
+3.6. Performance Measures [300]
+3.6.1. Accuracy Analysis
+3.6.2. F1 Score Review
+3.6.3. AUC Examination
+
+3.7. Web Application Setup [200]
+3.7.1. Flask System
+3.7.2. OpenCV Handling
+3.7.3. PyTorch Processing

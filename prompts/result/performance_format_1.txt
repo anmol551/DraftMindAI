@@ -1,47 +1,67 @@
-Write a technical performance evaluation section for my research dissertation.
-Begin with a short introduction of {wc_intro} words stating that this section follows
-data collection, EDA, preprocessing, and model training, and now focuses on results.
-Divide the section into four subheadings tailored to the research topic.
+Write the Results chapter for a research dissertation.
+All plots listed in the Result Plot Summary MUST be covered — do not skip any plot.
 
 {figure_rule}
 
-Subheading 1: Individual Model Performance (Change heading to match project topic)
-    1. Present a results table for all individual models with a suitable table name.
-       Do not use asterisk (*).
-    2. Write two paragraphs on important findings from the table only — do not
-       discuss plot insights (Confusion Matrix, AUC-ROC, PR Curves, Actual vs Predicted).
-    3. Mention only a few key metric values, clearly explained.
-    4. For metrics 0-1 use % format up to 2 decimal places.
-    5. End with a paragraph on potential limitations in model performance.
-    6. Do not use parentheses for metric values.
+## Chapter Introduction
+Begin with a {wc_intro}-word summary of the pipeline followed in the code.
+Then present the complete results table with a suitable table name.
+Follow the table with a {wc_table_explain}-word explanation of key findings from the table only.
 
-Subheading 2: Visual Comparison of Model Predictions and Trade-offs
-               (Change heading to match project topic)
-    1. Keep the following plots/figures separate for each model: Confusion Matrix, AUC-ROC Curve,
-       PR Curve, Actual vs Predicted.
-    2. Strictly Apply the FIGURE PLACEHOLDERS RULE for every plot — place each 3-block group
-       inline immediately after the sentence describing that plot.
-    3. Each insight paragraph must be at least {wc_vis_learn} words and must state all
-       metric values. Do not use parentheses for metric values.
-    4. For each learning curve plot provide {wc_vis_learn} words of insight per plot,
-       commenting on overfitting, underfitting, or generalisation.
-    5. For each XAI plot provide {wc_vis_xai} words of insight per model explaining
-       feature importance and decision patterns.
-    6. If additional evaluation plots are present (lift curves, calibration plots,
-       KS-statistic curves, gain charts), describe them in the same format and assign
-       the next figure number.
-    7. Do not combine plot explanations. Do not assume plots not in the result summary.
+## Structure — Per-Model Subheadings
 
-Subheading 3: Comparative Analysis (Change heading to match project topic)
-    1. Discuss remaining comparative plots separately — at least {wc_cmp} words each.
-    2. Apply the FIGURE PLACEHOLDERS RULE for every comparative plot inline.
-    3. All metric values must be mentioned. Use % format. No parentheses.
-    4. Write a paragraph on strengths and weaknesses of each model.
-    5. Write a paragraph justifying why the best model performed best.
-    6. Write a paragraph stating clearly the best, acceptable, and worst models.
+Create one subheading per model found in the results data. For each model:
+- Present every chart belonging to that model (Confusion Matrix, Training & Validation Loss,
+  Per-Class Metrics, ROC Curves, or any other chart listed for that model).
+- After each chart's figure placeholder, write a discussion paragraph covering metric values,
+  patterns, and interpretation.
+- Target approximately {wc_per_model} words per model subheading (distributed across its charts).
+- Do not combine charts from different models.
 
-Subheading 4: Comparison with Benchmark Research Paper
-               (Change heading to match project topic)
-    1. Compare the pipeline and results of the benchmark paper with this research.
-       Word count up to {wc_base} words.
-    2. Do not use parentheses for metric values.
+## Numbering Rule
+All subheadings MUST be numbered starting from 5.1. Use the format "5.X. Heading Name".
+- 5.1. to 5.N. → One per model (e.g., 5.1. InceptionV3, 5.2. EfficientNet-B0, ...)
+- 5.N+1. Models Comparison
+- 5.N+2. WebApp Testing
+- 5.N+3. Comparison with Benchmark
+- 5.N+4. Novelty
+- 5.N+5. Significance and Limitations
+Do not use ### or any markdown heading symbols. Write headings as plain numbered text.
+
+After all individual model subheadings, add the following sections:
+
+### Models Comparison
+- Present each comparative chart (accuracy comparison, precision/recall/F1 comparison,
+  training time comparison, PR curve comparison, or any other comparative chart in the data).
+- After each chart, write a discussion paragraph.
+- Target approximately {wc_comparison} words.
+
+### WebApp Testing
+- Show {wc_webapp_screenshots} UI screenshots as figure placeholders.
+- Write a collective discussion of test results in approximately {wc_webapp} words.
+- Mention specific test inputs, outputs, and whether predictions matched expectations.
+
+### Comparison with Benchmark
+- Compare the pipeline and results of the benchmark paper with this research.
+- Approximately {wc_benchmark} words. Do not use parentheses for metric values.
+
+### Novelty
+- Rewrite the provided novelty content in the context of the results achieved.
+- Approximately {wc_novelty} words. No figure placeholders.
+
+### Significance and Limitations
+- Paragraph 1 ({wc_sig_obj} words): How this research fulfils the research objectives.
+- Paragraph 2 ({wc_sig_limit} words): Limitations of this research and areas for improvement.
+
+{common}
+
+Use the following inputs:
+Code Summary: {code_summary_val_specific}
+Result Summary: {result_summary}
+Result Plot Titles: {result_plot_title_and_category}
+Base Paper Summary: {base_paper_summary}
+Base Paper Citation: {base_paper_citation}
+WebApp Development: {web_app_development}
+WebApp Testing Results: {web_app_testing_results}
+Novelty: {novelty}
+Research Objectives: {research_objectives}

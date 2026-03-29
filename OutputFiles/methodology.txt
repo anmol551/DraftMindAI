@@ -2,88 +2,120 @@ METHODOLOGY
 ------------------------
 1. METHODOLOGY
 ----------------------------------------
-Chapter 3: Methodology
+3. Methodology
 
 3.1. Research Design
-This section outlines the structure and approach adopted for the study. A quantitative framework was chosen to analyse financial data and predict risk scores for loan applicants. The focus was on building a systematic process to handle data and apply predictive techniques. Various methods were explored to ensure the design aligns with the goal of assessing risk accurately. The emphasis was placed on creating a clear path from raw data to meaningful predictions. This involved selecting appropriate tools and techniques suitable for handling numerical and categorical information. A visual representation of the workflow is provided below to clarify the process.
-<Figure of a flowchart showing the methodology pipeline>
-<Caption: Figure 1 - Overview of the Research Workflow>
+This study adopts a structured approach to build a system for skin lesion classification using deep learning methods. The focus lies on creating a reliable pipeline that processes images and evaluates different techniques for accurate diagnosis. A quantitative method is used to assess the performance of various setups through specific measures. Data is gathered from a well-known public dataset to ensure consistency and comparability with other studies. The design includes steps like preprocessing and feature adjustments to prepare images for analysis. Each phase is planned to address challenges such as class imbalance and image quality issues. The workflow also involves splitting data into training, validation, and testing sets for fair evaluation. This framework aims to balance practical implementation with thorough testing of the system. Experiments are conducted on a computational setup with GPU support for faster processing. The goal is to achieve dependable results that can support medical diagnosis in dermatology.
 
 3.2. Data Details
-This part describes the dataset used in the study. It consists of synthetic loan information with 20000 records and 37 attributes. These attributes cover financial metrics like income, debt, and credit history of applicants. The data was sourced to simulate real-world loan scenarios for analysis. The aim was to work with a comprehensive set of variables to predict risk effectively.
+The research uses the HAM10000 dataset, which contains a large collection of dermoscopic images for skin lesion analysis. This dataset includes over 10,000 images across seven diagnostic categories of skin conditions. It offers a diverse range of cases to train and test the system effectively. Images are labelled with specific diagnoses, allowing for detailed classification tasks. The dataset also provides metadata such as lesion type and patient information for deeper insights. A split based on unique lesion identifiers prevents data leakage between sets. This ensures that images from the same patient do not appear across training and testing groups. The class distribution shows a significant imbalance, with some conditions appearing more frequently than others. Addressing this imbalance becomes a key part of the study design. The data source is widely recognised in the field, as noted by Cassidy and Yap (2022).
 
 3.3. Preprocessing
-This section explains the initial steps taken to prepare the data for analysis. Methods were applied to clean and transform the dataset into a usable format for predictive tasks.
+This section focuses on preparing raw images to improve their quality for better analysis in later stages. Several techniques are applied to clean and standardise the data before feeding it into the system.
+<which image to keep, generally will be google picked as this is methodology>
+<Figure 1: Visual effect of preprocessing steps on a sample image>
 
-3.3.1. Column Removal
-Non-informative fields were identified and excluded from the dataset. Certain attributes did not contribute to the prediction of risk and were dropped to simplify the data structure. This step helped in reducing noise and focusing on variables that matter for the analysis. Removing irrelevant data also made the subsequent processes more efficient. The decision to exclude specific fields was based on their lack of impact on risk assessment. This ensured that only meaningful information was retained for building the predictive framework.
+3.3.1. Hair Removal Method
+The first step involves applying a technique to remove hair from dermoscopic images, which often obstructs clear visibility of lesions. The DullRazor algorithm is used, combining morphological operations and inpainting to erase hair-like structures. This method detects dark lines and replaces them with surrounding pixel values for a smoother appearance.
 
-3.3.2. Encoding Techniques
-Categorical variables were converted into numerical formats to make them suitable for analysis. Different encoding methods were applied based on the nature of the variables. This transformation was necessary as most predictive tools work better with numerical inputs. The choice of encoding was guided by the need to preserve the information within categories. It was also important to avoid introducing bias during this conversion. This approach helped in maintaining the integrity of the original data while preparing it for further steps.
+Hair artefacts can interfere with the detection of lesion boundaries and textures, leading to errors in classification. Removing these distractions helps the system focus on actual skin features rather than irrelevant noise. This step is crucial for datasets like HAM10000 where hair presence varies across images. It ensures consistency in how lesions are presented for further processing. The chosen method is computationally light and effective for this purpose, as supported by existing studies such as Hammad et al. (2023).
 
-3.4. Feature Selection
-This section discusses the process of identifying key variables for prediction. A structured method was applied to narrow down the most significant attributes from the dataset.
+3.3.2. Colour Adjustment Process
+Colour variations in images due to different lighting or camera settings are addressed in this stage. A normalisation technique is applied to adjust the colour channels by calculating mean values per channel. This creates a uniform colour profile across the dataset for better comparison.
 
-3.4.1. Recursive Elimination
-A technique was used to select a subset of variables by iteratively removing the least important ones. This method relied on a predictive tool to rank the attributes based on their contribution to the outcome. The goal was to retain only those variables that had a strong influence on risk prediction. This selection was crucial to avoid overfitting and improve the efficiency of the models. It also helped in focusing on a smaller set of data points for better interpretation. The process ensured that the chosen variables were relevant for the task.
+Such adjustments are necessary as inconsistent hues can mislead the system into focusing on irrelevant colour differences rather than lesion characteristics. Standardising the colour range improves the ability to detect true patterns in skin conditions. It also helps in reducing bias caused by external factors during image capture. This process supports more accurate analysis in subsequent steps by providing a balanced input.
 
-3.4.2. Correlation Analysis
-Relationships between variables were examined to understand their interdependencies. A visual tool was used to map out how different attributes connected with each other. This analysis helped in identifying potential overlaps or redundancies in the data. The aim was to ensure that selected variables did not duplicate information unnecessarily. Understanding these connections was vital for refining the dataset further. It supported the decision-making process for variable selection with clear evidence.
+3.3.3. Contrast Enhancement Technique
+To improve visibility of lesion details, a method known as Contrast-Limited Adaptive Histogram Equalisation is applied on the lightness channel of images. This technique boosts contrast in local areas while preventing over-amplification of noise. It makes subtle differences in skin texture more apparent for analysis.
 
-3.5. Feature Engineering
-This part covers the creation of new variables to improve prediction accuracy. Derived attributes were constructed based on existing data to capture deeper insights.
+Enhancing contrast is vital for distinguishing between similar-looking lesions and background skin, especially in low-quality images. Poor contrast can hide critical features needed for correct diagnosis, impacting performance. This approach ensures that even faint boundaries or patterns become visible without distorting the image. It prepares the data for more effective feature extraction by highlighting important visual cues. The method proves beneficial across varied image conditions in the dataset.
 
-3.5.1. Ratio Derivation
-New metrics were calculated by combining existing financial figures into ratios. These ratios aimed to reflect specific aspects of an applicant’s financial health. The purpose was to provide a clearer picture of stability or stress in their profile. Creating such metrics was essential to uncover patterns not visible in raw data. The approach was driven by the need to quantify relationships between key financial indicators. This step added value to the dataset by introducing meaningful derived measures.
+3.4. Feature Engineering
+This part deals with modifying and expanding the image data to improve the system’s learning capacity. Two main strategies are explored to enrich the input for better outcomes.
 
-3.5.2. Index Formulation
-Composite scores were developed by blending multiple variables into a single measure. These scores were designed to summarise complex financial risks into a simpler form. The method involved assigning weights to different components based on their importance. This was done to ensure the index reflected a balanced view of risk factors. The creation of such indices was necessary for a holistic assessment. It provided a way to integrate diverse data points into a unified risk indicator.
+3.4.1. Image Modification
+Images are resized to a standard dimension of 224 by 224 pixels to match the input requirements of the system. Normalisation is also applied to scale pixel values between 0 and 1. This creates a consistent format for all images during processing.
 
-3.6. Scaling
-This section addresses the standardisation of numerical data. A method was applied to adjust the range of variables for consistency across the dataset.
+Standardising size and value range avoids discrepancies that could affect the learning process. Uniform inputs help the system focus on relevant patterns rather than adjusting to varying formats. This step is essential for maintaining efficiency during training and testing phases. It also aligns with common practices in image-based studies, ensuring compatibility with established methods.
 
-3.6.1. Standardisation Process
-A technique was used to transform numerical attributes into a common scale. This process ensured that no single variable dominated due to its original magnitude. The aim was to create a balanced dataset where all attributes contributed equally to predictions. Standardisation was a key step before applying predictive methods. It was chosen to maintain fairness in how data influenced outcomes. This adjustment supported better performance in the subsequent stages of analysis.
+3.4.2. Data Augmentation Approach
+To increase the variety of training data, transformations such as random flips, rotations up to 20 degrees, and colour adjustments are applied. These changes create new versions of images without collecting additional samples. This helps in building a more diverse dataset for training.
 
-3.7. Train-Test Split
-This part explains how the dataset was divided for training and evaluation. A clear separation was made to assess the performance of predictive tools.
+Such techniques are important to prevent the system from learning only specific patterns seen in the original data. By introducing variations, it becomes better at handling unseen cases, improving its ability to generalise. This is particularly useful for imbalanced datasets where some classes have fewer examples. The approach also reduces the risk of overfitting to limited samples, as noted by Shen et al. (2022).
 
-3.7.1. Data Division
-The dataset was split into two portions with 80% allocated for training and 20% for testing. This division allowed for building models on a larger subset while reserving a smaller part for validation. The split was done randomly but with a fixed seed for reproducibility. This approach was vital to evaluate how well the models generalised to unseen data. It provided a fair way to measure effectiveness. The balance between training and testing sets was carefully considered for reliable results.
+3.6. Performance Measures
+This section outlines the metrics used to evaluate the system’s effectiveness in classifying skin lesions. Three key indicators are chosen to provide a comprehensive view of performance across different aspects.
 
-3.8. Models
-This section describes the predictive tools applied for risk assessment. Three distinct approaches were chosen to address the problem from different angles.
+3.6.1. Accuracy Analysis
+Accuracy is calculated as the proportion of correct predictions out of all cases tested. It gives a straightforward measure of how often the system identifies the right class. This metric is simple to interpret and widely used.
 
-3.8.1. ElasticNet Approach
-A linear method combining two types of penalties was used for regression. This technique balanced between variable selection and coefficient shrinkage for better prediction. It was tuned with a search method to find optimal settings for performance. The choice was based on its ability to handle a mix of relevant and less relevant variables. This method suited the dataset due to its focus on simplicity and effectiveness. It provided a solid baseline for risk score prediction.
-<Figure of ElasticNet model structure>
-<Caption: Figure 2 - Structure of ElasticNet Model>
+While useful, accuracy alone may not fully reflect performance in imbalanced datasets where some classes dominate. It serves as a starting point to gauge basic correctness before exploring deeper insights. This measure helps compare results with other studies in the field. It provides a foundation for understanding the system’s basic capability in real scenarios.
 
-3.8.2. Convolutional Neural Network
-A deep learning method using convolutional layers was applied for regression. The architecture included multiple layers to capture patterns in the data. Training was conducted over several iterations with validation to monitor progress. This approach was selected for its strength in handling complex relationships within data. It was particularly useful for detecting hidden trends in financial metrics. The design aimed to improve prediction by learning intricate data features.
-<Figure of CNN architecture diagram>
-<Caption: Figure 3 - Architecture of Convolutional Neural Network>
+3.6.2. F1 Score Review
+The F1 score combines precision and recall into a single value to balance correct positive predictions and missed cases. It is particularly helpful for uneven class distributions. This metric offers a more detailed perspective than accuracy alone.
 
-3.8.3. TabNet Framework
-A specialised neural network designed for tabular data was implemented. This method used attention mechanisms to focus on important variables during prediction. It was trained with specific settings to balance learning and efficiency. The selection of this framework was due to its suitability for structured datasets like financial records. It offered a way to prioritise key attributes dynamically. This approach was expected to handle the complexity of risk assessment well.
-<Figure of TabNet model flowchart>
-<Caption: Figure 4 - Flowchart of TabNet Framework>
+In datasets like HAM10000, where some conditions are rare, F1 score ensures that performance on minority classes is not overlooked. It reflects how well the system handles both common and less frequent cases. This measure is critical for medical applications where missing rare but serious conditions can have significant consequences. It guides improvements in handling specific diagnostic challenges.
 
-3.9. Performance Measures
-This section outlines the criteria used to evaluate the predictive tools. Different metrics were applied to assess various aspects of model effectiveness.
+3.6.3. AUC Examination
+The Area Under the Curve for the Receiver Operating Characteristic plot measures the system’s ability to distinguish between classes. It evaluates performance across various threshold settings. A higher value indicates better separation capability.
 
-3.9.1. Regression Metrics
-Several numerical indicators were calculated to measure prediction accuracy. These included errors and variance explained by the models. The purpose was to quantify how close predictions were to actual values. These metrics provided a clear view of model performance in terms of precision. They were chosen to cover different dimensions of error and fit. This ensured a thorough evaluation of the regression outcomes.
+This metric is valuable for assessing how well the system ranks predictions, especially in distinguishing critical conditions like melanoma. It provides insight into the trade-off between true positives and false positives. AUC is widely accepted in diagnostic studies for its ability to show overall discriminative power. It helps in understanding the system’s reliability across different decision points, as discussed by Maron et al. (2021).
 
-3.9.2. Classification Metrics
-Indicators specific to categorisation tasks were used after applying a threshold to predictions. These metrics assessed accuracy, precision, and other aspects of binary decisions. The goal was to evaluate how well models distinguished between risk levels. These measures were necessary since risk assessment often involves a final decision point. They were selected to reflect the practical utility of predictions. This approach helped in understanding the decision-making capability of the models.
+3.7. Web Application Setup
+This section describes the development of a web-based tool for skin lesion classification. It integrates various components to allow users to upload images and receive diagnostic predictions.
 
-3.10. Web Application
-This part discusses the development of an interface for practical use. A platform was created to apply the predictive framework in a user-friendly way.
+3.7.1. Flask System
+A lightweight web framework called Flask is used to build the application interface. It handles user requests and serves the frontend for image uploads. This setup ensures smooth interaction between user and system.
 
-3.10.1. Streamlit Interface
-A web-based tool was built using a Python library for easy interaction. This platform allowed users to input financial details and receive risk assessments. The design focused on simplicity and accessibility for non-technical users. It was important to bridge the gap between complex models and real-world application. The interface integrated the trained model for instant predictions. This setup made the results available in a clear and actionable format.
+Choosing Flask allows for quick development and easy integration with other tools. It supports a simple yet effective structure for handling image data submissions. This framework is suitable for creating a user-friendly platform. It manages the basic flow of data from input to output seamlessly.
 
-3.10.2. Decision Logic
-Rules were embedded in the application to interpret model outputs. These rules determined the final decision based on predicted risk scores. The logic was designed to align with practical business needs in loan assessment. This step was crucial to ensure predictions translated into meaningful outcomes. It provided a structure for consistent decision-making. The approach aimed to make the tool reliable for end users.
+3.7.2. OpenCV Handling
+OpenCV library is applied for initial image processing within the web tool. It converts image formats and resizes uploads to the required dimensions. This prepares data for further analysis.
+
+Using OpenCV ensures that uploaded images are correctly formatted before prediction. It handles colour space changes and scaling with efficiency. This step is necessary to match the input conditions used during training. It maintains consistency between development and deployment phases.
+
+3.7.3. PyTorch Processing
+The core prediction logic is built using PyTorch, managing the computational backend of the application. It loads the trained system and processes images for classification. This handles the heavy lifting of inference tasks.
+
+PyTorch offers flexibility and speed for running predictions on user-submitted data. It supports GPU acceleration if available, ensuring quick response times. This choice aligns with the training environment for consistent behaviour. It enables accurate delivery of results through the web interface.
+
+3.5. Models
+
+This section outlines the deep learning approaches chosen for skin lesion classification. It explains the structure and reasoning behind each model to build a clear understanding of their application.
+
+3.5.1. InceptionV3 Setup
+
+InceptionV3 is a convolutional neural network designed with a focus on efficiency and depth. It uses a series of inception modules which combine different filter sizes to capture varied patterns in images. These modules include layers like convolutions which process spatial features and pooling which reduces data dimensions while preserving key details. The model also incorporates batch normalisation to stabilise training by adjusting input distributions across layers.
+
+The choice of InceptionV3 stems from its proven strength in handling image-based tasks with intricate details. Its architecture allows for capturing a wide range of visual features critical for distinguishing between skin lesion types. This model balances computational cost with performance making it suitable for a study aiming to achieve reliable results within resource constraints. Its design supports effective learning from complex datasets often seen in medical imaging.
+
+<Placeholder for image: A diagram of InceptionV3 architecture from a trusted academic source.>
+<Caption: Figure 1: Structure of InceptionV3 model.>
+
+3.5.2. EfficientNet-B0 Configuration
+
+EfficientNet-B0 is a neural network built on a principle of scaling depth, width, and resolution in a balanced way. It uses compound scaling to adjust these aspects for better efficiency. Key components include mobile inverted bottleneck blocks which reduce computation through depth-wise separable convolutions. Activation functions like Swish help in smoothing the learning process by introducing non-linearity.
+
+Opting for EfficientNet-B0 comes from its ability to deliver high accuracy with lower resource demands. This model suits projects where processing power might be limited yet performance remains a priority. Its scaling method ensures that it can adapt to the challenges of skin lesion images which often vary in texture and scale. This makes it a practical choice for consistent outcomes in classification tasks as noted in recent studies (Kanchana, 2024).
+
+<Placeholder for image: A schematic of EfficientNet-B0 architecture from a credible online repository.>
+<Caption: Figure 2: Layout of EfficientNet-B0 model.>
+
+3.5.3. Xception Structure
+
+Xception stands for Extreme Inception and builds on the idea of depth-wise separable convolutions. This approach splits standard convolutions into two steps: depth-wise convolution to process each channel separately and point-wise convolution to combine outputs. This reduces the number of operations while maintaining the ability to extract detailed features. The architecture focuses on efficiency through these separable layers.
+
+The decision to include Xception arises from its strength in separating spatial and channel-wise features effectively. This is particularly useful for skin lesion images where fine details can determine classification accuracy. Its lightweight design also aligns with the need for models that perform well without excessive computational burden. This characteristic supports its application in a research setting aiming for precise identification of lesion categories.
+
+<Placeholder for image: A visual representation of Xception architecture from an academic database.>
+<Caption: Figure 3: Design of Xception model.>
+
+3.5.4. ConvNeXt-Tiny Framework
+
+ConvNeXt-Tiny is a modern convolutional network inspired by transformer concepts but rooted in traditional convolution methods. It includes elements like layer normalisation to stabilise training by normalising inputs across features. The model also uses large kernel sizes in convolutions to capture broader contextual information. DropPath is another feature which randomly drops paths during training to prevent overfitting.
+
+Selecting ConvNeXt-Tiny is based on its blend of advanced techniques and strong performance in image tasks. Its design addresses limitations of older convolutional models by integrating ideas from other architectures leading to improved feature extraction. This is essential for medical images where subtle differences matter. Its compact size in the Tiny variant ensures it remains feasible for use in a study focused on accurate skin lesion classification without overwhelming resources (Hammad et al., 2023).
+
+<Placeholder for image: An illustration of ConvNeXt-Tiny architecture from a reliable source.>
+<Caption: Figure 4: Framework of ConvNeXt-Tiny model.>
 

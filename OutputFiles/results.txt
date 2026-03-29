@@ -1,148 +1,145 @@
 RESULTS
 ------------------------
-1. PERFORMANCE EVALUATION
+1. RESULTS
 ----------------------------------------
-Technical Performance Evaluation
+Results Chapter
 
-This section comes after the stages of data collection, exploratory data analysis, preprocessing, and model training. It now shifts focus to the results obtained from the models, evaluating their performance in predicting loan approval risk scores and classification outcomes.
+Chapter Introduction
+This chapter presents findings from a systematic pipeline involving data preprocessing, model training, and evaluation on skin lesion images. Steps included image normalisation, augmentation to balance classes, and training multiple deep learning models for classification across seven categories.
 
-Individual Model Performance for Loan Approval Prediction
+Table 5.1: Model Performance Across Key Metrics
+Model                  | Accuracy | Precision (Weighted) | Recall (Weighted) | F1-Score (Weighted) | ROC-AUC (Micro) | Average Precision (AP)
+---------------------- | -------- | -------------------- | ----------------- | ------------------- | --------------- | ----------------------
+InceptionV3           | 66.58%   | 73.81%              | 66.58%            | 69.18%             | 0.941           | 0.771
+EfficientNet-B0       | 70.48%   | 76.74%              | 70.48%            | 72.56%             | 0.955           | 0.817
+Xception              | 74.17%   | 78.17%              | 74.17%            | 75.47%             | ~0.962          | 0.846
+ConvNeXt-Tiny         | 77.34%   | 79.89%              | 77.34%            | 78.29%             | 0.9665          | 0.862
 
-The performance of three models—ElasticNet, CNN, and TabNet—is summarised in the Regression and Classification Metrics Table. This table captures key measures for regression and classification tasks across the test set of 4000 samples. TabNet stands out with the best scores in most metrics. For regression, it achieves an R2 score of 0.8839 and MAE of 1.8953. In classification, its accuracy reaches 89.10%.
+The table above shows the performance of four models on various metrics. ConvNeXt-Tiny stands out with the highest scores across all measures, achieving an accuracy of 77.34% and a weighted F1-score of 78.29%. Its ROC-AUC score of 0.9665 indicates strong class separation. Xception follows with an accuracy of 74.17%, showing steady improvement over EfficientNet-B0 at 70.48% and InceptionV3 at 66.58%. Precision and recall values reflect a similar trend, with ConvNeXt-Tiny leading. These results suggest that newer architectures handle the complex task of skin lesion classification better, especially for challenging classes. Patterns indicate that while all models perform well on dominant categories, smaller classes pose difficulties, impacting weighted scores.
 
-CNN shows strong results too with an R2 score of 0.8556 in regression and classification accuracy of 86.80%. ElasticNet performs moderately with an R2 score of 0.7388 and accuracy of 82.73%. These values suggest that while all models predict reasonably well, TabNet captures patterns more effectively across both tasks.
+Confusion Matrix
+This section discusses the confusion matrix for each model to understand classification patterns. For InceptionV3, the matrix reveals strengths and weaknesses.
+[Figure 5.1: InceptionV3 Confusion Matrix]
+Caption: Figure 5.1 — Confusion Matrix for InceptionV3 Showing Raw Counts
+Description: The confusion matrix for InceptionV3 shows 743 correct predictions for nv, but 121 are misclassified as mel. For mel, only 80 are correct, with 35 shifted to nv. The df class performs poorly with just 4 correct predictions, indicating difficulty in detection. The vasc class has 23 correct predictions with minimal errors. This suggests the model excels with dominant classes like nv but struggles with less represented categories, leading to notable misclassification rates.
 
-Some limitations exist in these outcomes. Model performance may vary with different data distributions or smaller sample sizes. External factors like changing financial conditions could also affect prediction reliability over time.
+EfficientNet-B0 matrix shows improved results for some classes.
+[Figure 5.2: EfficientNet-B0 Confusion Matrix]
+Caption: Figure 5.2 — Confusion Matrix for EfficientNet-B0 Showing Raw Counts
+Description: The matrix for EfficientNet-B0 indicates 762 correct predictions for nv, though 133 are misclassified as mel. The mel class has 104 correct predictions, while bcc achieves 58 correct. The df class remains weak with only 4 correct, and vasc has 20 correct predictions. This model shows slight improvement over InceptionV3 in mel detection but still faces challenges with smaller classes, reflecting the impact of class imbalance on performance.
 
-Visual Comparison of Loan Approval Predictions and Trade-offs
+Xception offers better balance across categories.
+[Figure 5.3: Xception Confusion Matrix]
+Caption: Figure 5.3 — Confusion Matrix for Xception Showing Raw Counts
+Description: Xception's matrix displays strong performance for nv with a recall of 80.99%, correctly classifying a high number. The mel class achieves a recall of 50.89% with an F1-score of 42.68%. The bkl class shows a recall of 71.98%, while df continues to be weak. This indicates Xception handles dominant and some intermediate classes well, though smaller groups still present classification challenges.
 
-The scatter plot for ElasticNet shows predicted risk scores against actual values. [Figure 5.1: ElasticNet Risk Score Prediction]
-Caption: Figure 5.1 — Actual vs Predicted Risk Score for ElasticNet Model
-Description: The plot reveals a positive linear trend between predicted and actual risk scores for ElasticNet. Points cluster around the regression line but show noticeable spread, indicating moderate accuracy. The MAE of 1.8953 and R2 score of 0.7388 align with the visible deviation from the ideal diagonal line. A regression trend line and a perfect prediction reference are included, highlighting areas where predictions diverge from true values, especially at higher risk scores.
+ConvNeXt-Tiny shows the best distribution.
+[Figure 5.4: ConvNeXt-Tiny Confusion Matrix]
+Caption: Figure 5.4 — Confusion Matrix for ConvNeXt-Tiny Showing Raw Counts
+Description: The confusion matrix for ConvNeXt-Tiny reveals 834 correct predictions for nv and 99 correct for mel out of 169. The bkl class has 128 correct, though 39 mel cases are misclassified as nv. This model performs best among all, with fewer errors across most classes. It shows improved handling of mel, a critical category, though some overlap with nv persists, pointing to areas for refinement.
 
-The Confusion Matrix for ElasticNet displays classification results. [Figure 5.2: ElasticNet Confusion Matrix]
-Caption: Figure 5.2 — Confusion Matrix for ElasticNet Derived Classification
-Description: This heatmap shows true negatives at 1627 and true positives at 1682 for ElasticNet. False positives are at 165 while false negatives reach 526. The accuracy stands at 82.73%. These numbers indicate balanced performance across both classes, though a higher false negative count suggests some denied applicants are misclassified as approved. This could pose risks in practical loan approval settings where identifying denials is critical.
+ROC Curves
+This section examines ROC curves to assess class separation. InceptionV3 curves show varied performance.
+[Figure 5.5: InceptionV3 ROC Curves]
+Caption: Figure 5.5 — ROC Curves for InceptionV3 Across Classes
+Description: The ROC curves for InceptionV3 reveal a micro-AUC of 0.941, indicating good overall separation. The vasc class achieves an AUC of 0.993, followed by akiec at 0.937 and bcc at 0.934. The nv class scores 0.910, while df is at 0.856 and bkl at 0.842. The mel class is lowest at 0.804, showing difficulty in distinguishing it from others, which impacts diagnostic reliability for this critical group.
 
-The scatter plot for CNN presents its prediction accuracy. [Figure 5.3: CNN Risk Score Prediction]
-Caption: Figure 5.3 — Actual vs Predicted Risk Score for CNN Model
-Description: The CNN scatter plot displays tighter clustering around the perfect prediction diagonal compared to ElasticNet. With an R2 score of 0.8556, the reduced scatter reflects better alignment between predicted and actual risk scores. The MAE is 2.2253, showing improved precision. The regression trend line nearly matches the ideal diagonal, with fewer outliers, suggesting CNN captures risk patterns more effectively than the linear approach of ElasticNet.
+EfficientNet-B0 improves on some values.
+[Figure 5.6: EfficientNet-B0 ROC Curves]
+Caption: Figure 5.6 — ROC Curves for EfficientNet-B0 Across Classes
+Description: EfficientNet-B0 shows a micro-AUC of 0.955, reflecting better class distinction. The vasc class again leads with an AUC of 0.993, bcc at 0.970, and akiec at 0.934. The nv class is at 0.932, df at 0.903, and bkl at 0.878. The mel class improves to 0.856, though it remains challenging. This model offers stronger discrimination, especially for critical classes.
 
-The Confusion Matrix for CNN highlights classification outcomes. [Figure 5.4: CNN Confusion Matrix]
-Caption: Figure 5.4 — Confusion Matrix for CNN Derived Classification
-Description: For CNN, true negatives are 1700 and true positives are 1772. False positives drop to 92 while false negatives are 436. The accuracy is 86.80% with a weighted F1 score of 86.82%. Recall for class 0 stands at 95.00% and precision for class 1 at 95.00%. This shows fewer errors compared to ElasticNet, indicating better handling of both approval and denial predictions in the classification task.
+Xception continues the upward trend.
+[Figure 5.7: Xception ROC Curves]
+Caption: Figure 5.7 — ROC Curves for Xception Across Classes
+Description: Xception achieves a micro-AUC of around 0.962, showing robust separation. The vasc and bcc classes score highest, maintaining near-perfect distinction. Other classes follow a similar pattern, with mel still presenting some difficulty. This suggests Xception handles most categories well, providing reliable discrimination for diagnostic purposes, though certain overlaps persist in complex cases.
 
-The Learning Curve for CNN loss offers insight into training stability. [Figure 5.5: CNN Learning Curve Loss]
-Caption: Figure 5.5 — Learning Curve for Loss in CNN Regressor Model
-Description: The learning curve for CNN shows training loss dropping sharply from around 579 at epoch 1 to near 25 by epoch 20. Validation loss follows closely, converging between 8 and 10. The alignment of both curves across 50 epochs suggests no major overfitting. This stable convergence indicates that CNN generalises well to unseen data, supporting its strong test performance with an MAE of 2.2253.
+ConvNeXt-Tiny peaks in performance.
+[Figure 5.8: ConvNeXt-Tiny ROC Curves]
+Caption: Figure 5.8 — ROC Curves for ConvNeXt-Tiny Across Classes
+Description: ConvNeXt-Tiny records the highest micro-AUC at 0.9665, marking excellent class separation. All categories show strong values, with notable improvement in mel compared to other models. This indicates superior ability to distinguish between classes, even for challenging ones, making it a strong candidate for practical use in skin lesion classification tasks.
 
-The scatter plot for TabNet shows its predictive strength. [Figure 5.6: TabNet Risk Score Prediction]
-Caption: Figure 5.6 — Actual vs Predicted Risk Score for TabNet Model
-Description: TabNet’s scatter plot reveals the tightest clustering among all models with an R2 score of 0.8839. Points concentrate densely along the perfect prediction diagonal, reflecting high precision with an MAE of 1.8953. The regression trend line almost overlaps with the ideal line. This visual consistency across the range of risk scores confirms TabNet’s superior ability to predict outcomes compared to both ElasticNet and CNN in regression tasks.
+Training and Validation Loss
+This section reviews loss trends for each model. InceptionV3 shows specific patterns.
+[Figure 5.9: InceptionV3 Loss Trends]
+Caption: Figure 5.9 — Training and Validation Loss for InceptionV3
+Description: InceptionV3 training loss decreases from 1.20 to 0.49 over epochs, indicating learning progress. Validation loss fluctuates between 0.85 and 1.10, with a divergence after epochs 8 to 11. This gap suggests mild overfitting, where the model learns training data well but struggles to generalise to unseen samples. Adjusting training duration or data balance might help improve its broader applicability.
 
-The Confusion Matrix for TabNet outlines its classification results. [Figure 5.7: TabNet Confusion Matrix]
-Caption: Figure 5.7 — Confusion Matrix for TabNet Derived Classification
-Description: TabNet’s heatmap indicates true negatives at 1638 and true positives at 1926. False positives are 154 and false negatives are 282. Accuracy reaches 89.10% with a weighted F1 score of 89.13% and ROC-AUC of 95.98%. Recall for class 0 is 91.00% and precision for class 1 is 93.00%. With the lowest false negative count, TabNet excels at identifying denied applicants, making it highly reliable for loan approval decisions.
+EfficientNet-B0 presents a similar behaviour.
+[Figure 5.10: EfficientNet-B0 Loss Trends]
+Caption: Figure 5.10 — Training and Validation Loss for EfficientNet-B0
+Description: For EfficientNet-B0, training loss drops from 1.10 to 0.36, showing effective learning. Validation loss reaches a low of around 0.74 at epoch 10, but a mild gap appears after epoch 11. This points to slight overfitting, though less pronounced than InceptionV3. The model captures patterns well but needs minor tweaks to ensure better performance on new data.
 
-The Learning Curve for TabNet shows training progress. [Figure 5.8: TabNet Learning Curve]
-Caption: Figure 5.8 — Learning Curve for TabNet Regression Model
-Description: TabNet’s training MAE starts at 966.33 at epoch 0, falling sharply to below 15 within 5 epochs. Validation MAE drops from 12.84 to around 1.89 at early stopping. Both curves stabilise with patience set at 20, preventing overfitting. This convergence reflects strong generalisation, aligning with test results of MAE at 1.8953 and R2 at 0.8839, confirming TabNet’s robust learning behaviour on the loan approval dataset.
+Xception offers more stability.
+[Figure 5.11: Xception Loss Trends]
+Caption: Figure 5.11 — Training and Validation Loss for Xception
+Description: Xception displays stable convergence in training loss over time. Validation loss remains controlled, with a small gap appearing after epoch 10. This indicates better generalisation compared to earlier models, with reduced risk of overfitting. The balance between training and validation suggests Xception adapts well to the dataset, making it more reliable for unseen cases.
 
-Comparative Analysis of Model Performance
+ConvNeXt-Tiny excels in balance.
+[Figure 5.12: ConvNeXt-Tiny Loss Trends]
+Caption: Figure 5.12 — Training and Validation Loss for ConvNeXt-Tiny
+Description: ConvNeXt-Tiny shows smooth training convergence, with the best generalisation among all models. Validation loss stabilises after epoch 10, maintaining a minimal gap with training loss. This reflects strong adaptability to new data, minimising overfitting risks. Such behaviour positions this model as the most effective for consistent performance across varied samples in skin lesion tasks.
 
-The MAE comparison plot visually ranks model errors. [Figure 5.9: MAE Comparison]
-Caption: Figure 5.9 — MAE Comparison Across Models
-Description: This line chart with markers shows TabNet with the lowest MAE at 1.8953 followed by CNN at 2.2253 and ElasticNet at 3.0955. The clear gap between models highlights TabNet’s edge in minimising prediction errors for risk scores. This visual ranking aligns with regression outcomes, confirming that advanced architectures like TabNet handle complex patterns in loan data better than simpler linear methods.
+Per-Class Precision, Recall, F1-Score
+InceptionV3 metrics vary widely.
+[Figure 5.13: InceptionV3 Per-Class Metrics]
+Caption: Figure 5.13 — Per-Class Precision, Recall, F1-Score for InceptionV3
+Description: InceptionV3 metrics show nv with precision at 92.3%, recall at 75.1%, and F1 at 82.8%. The vasc class achieves an F1 of 76.7%, while mel has a recall of 47.34% and precision of 32.00%. The df class is weakest with an F1 around 24%. This highlights strength in dominant classes but clear struggles with smaller or complex categories like mel and df.
 
-TabNet proves strongest with high accuracy of 89.10% and low error rates. CNN holds a decent middle ground with accuracy at 86.80% but shows more misclassifications. ElasticNet struggles with lower accuracy of 82.73% and higher errors in denial predictions.
+EfficientNet-B0 shows slight gains.
+[Figure 5.14: EfficientNet-B0 Per-Class Metrics]
+Caption: Figure 5.14 — Per-Class Precision, Recall, F1-Score for EfficientNet-B0
+Description: EfficientNet-B0 records nv precision at 93.84%, recall at 77.05%, and F1 at 84.62%. The bcc class has an F1 of 60.73%, while mel improves to a recall of 61.54% but precision stays low at 35.62%. The df class F1 is 21.05%. This model performs better on some metrics but still faces challenges with less represented groups.
 
-TabNet’s lead comes from its design which captures intricate data patterns through attention steps. Its ability to focus on key features like debt ratios likely drives better predictions over CNN and ElasticNet.
+Xception offers balanced results.
+[Figure 5.15: Xception Per-Class Metrics]
+Caption: Figure 5.15 — Per-Class Precision, Recall, F1-Score for Xception
+Description: Xception achieves nv precision of 92.17%, recall of 80.99%, and F1 of 86.22%. The mel class recall is 50.89%, with overall weighted F1 at 75.47%. These values suggest Xception handles most categories better, with improved scores across dominant and some smaller classes, though certain groups remain difficult to classify accurately.
 
-Among the models, TabNet stands as the best with top scores across metrics. CNN is acceptable for most tasks with solid results. ElasticNet ranks as the weakest due to higher errors and lower accuracy.
+ConvNeXt-Tiny leads in most areas.
+[Figure 5.16: ConvNeXt-Tiny Per-Class Metrics]
+Caption: Figure 5.16 — Per-Class Precision, Recall, F1-Score for ConvNeXt-Tiny
+Description: ConvNeXt-Tiny shows nv precision at 92.26%, recall at 84.33%, and F1 at 88.11%. The vasc class F1 is 83.02%, mel recall is 58.58% with F1 at 49.01%, and df F1 is 40.0%. This model consistently outperforms others, showing strength even in challenging classes, marking it as the most balanced for this task.
 
-Comparison with Benchmark Research on Loan Approval
+Models Comparison
+This section compares model performance across key charts. Accuracy comparison shows clear progression.
+[Figure 5.17: Model Accuracy Comparison]
+Caption: Figure 5.17 — Accuracy Comparison Across All Models
+Description: The accuracy chart displays ConvNeXt-Tiny at 77.34%, leading over Xception at 74.17%, EfficientNet-B0 at 70.48%, and InceptionV3 at 66.58%. This steady rise suggests that newer designs handle the classification task better. ConvNeXt-Tiny stands out for its ability to capture complex patterns in skin lesion data, likely due to its advanced structure. This trend indicates that architectural improvements contribute significantly to better outcomes in diagnostic accuracy.
 
-This study’s pipeline mirrors the benchmark work by Anand et al. (2024) in following a structured approach from data collection to model evaluation. However, while their research achieves a top accuracy of 87.00% with Random Forest, this work reaches 89.10% with TabNet. The use of advanced models like TabNet and CNN here provides an edge over their traditional algorithms. Their focus on basic client attributes contrasts with the engineered features in this study, such as debt stress indices, which likely boost performance. Deep learning exploration, as suggested in their future work, aligns with the CNN approach adopted here. This comparison shows that modern architectures can outperform ensemble methods on financial datasets with proper feature design.
+Precision, recall, and F1 comparison reflect similar patterns.
+[Figure 5.18: Precision, Recall, F1 Comparison]
+Caption: Figure 5.18 — Weighted Precision, Recall, F1-Score Across Models
+Description: This chart shows ConvNeXt-Tiny leading with precision at 79.89%, recall at 77.34%, and F1 at 78.29%. Xception follows with precision at 78.17%, recall at 74.17%, and F1 at 75.47%. EfficientNet-B0 scores precision at 76.74%, recall at 70.48%, and F1 at 72.56%, while InceptionV3 trails with precision at 73.81%, recall at 66.58%, and F1 at 69.18%. ConvNeXt-Tiny consistently shows the best balance across these metrics, proving its strength in handling varied class distributions effectively.
 
-2. WEB APP TESTING
-----------------------------------------
-Introduction to Web App Testing
+Training time comparison reveals minimal differences.
+[Figure 5.19: Training Time Comparison]
+Caption: Figure 5.19 — Training Time Comparison Across Models
+Description: The training time chart indicates Xception takes 49.9 minutes, ConvNeXt-Tiny 48.9 minutes, InceptionV3 around 47.5 minutes, and EfficientNet-B0 46.9 minutes. The variation is small, suggesting that time efficiency does not vary much despite differences in model complexity. ConvNeXt-Tiny offers the best accuracy with only a slight increase in training duration, making it a practical choice for balancing performance and computational cost in real-world settings.
 
-This section explores the testing process of a web application built for AI-driven loan risk assessment. The focus lies on evaluating its performance across different input scenarios to ensure reliability.
+Precision-recall curve comparison highlights model strength.
+[Figure 5.20: Precision-Recall Curve Comparison]
+Caption: Figure 5.20 — Precision-Recall Curves Across All Models
+Description: The precision-recall curves show ConvNeXt-Tiny with an average precision of 0.862, followed by Xception at 0.846, EfficientNet-B0 at 0.817, and InceptionV3 at 0.771. This order mirrors accuracy trends, with ConvNeXt-Tiny excelling in maintaining high precision across recall levels. This ability is crucial for medical tasks where detecting true positives, especially for critical classes like mel, holds significant importance over avoiding false negatives.
 
-Testing Methodology and Setup
+WebApp Testing
+This section presents the web application testing outcomes with visual outputs.
+[Figure 5.21: WebApp UI Screenshot 1]
+Caption: Figure 5.21 — WebApp Interface for Skin Lesion Prediction
+Description: The first screenshot captures the web application interface accepting skin image uploads. Testing with 14 images from the HAM10000 dataset across seven categories showed accurate predictions for nv with confidence between 72% and 89%. Melanoma predictions ranged from 61% to 78%, triggering high-risk alerts above 60%. Other classes like bcc and vasc scored between 55% and 76%, while df had lower confidence around 35% to 52%, reflecting training data limitations.
 
-The testing phase involved a Streamlit-based platform designed for risk prediction. Three distinct test cases were prepared to assess various applicant profiles ranging from low to high risk. Each case used specific input values for factors like income and credit score. The system processed these inputs to generate a risk score and final decision. The aim was to check if the application handled data correctly and applied business rules as expected.
+[Figure 5.22: WebApp UI Screenshot 2]
+Caption: Figure 5.22 — WebApp Result Display with Risk Alert
+Description: The second screenshot displays prediction results with risk alerts for melanoma. Test inputs for bkl showed confidence from 48% to 64%, and akiec ranged between 42% and 58%. All images rendered correctly, with probability tables showing class scores to four decimal places. The alert system activated only for melanoma above the 60% threshold, confirming reliable functionality across varied test samples for practical diagnostic support.
 
-Results from Test Cases
+Comparison with Benchmark
+This section compares the current study with a reference work by Adebiyi et al. (2024). Their research on the HAM10000 dataset achieved a top accuracy of around 74.2% using an optimised CNN with augmentation and checkpointing. The present study surpasses this with ConvNeXt-Tiny reaching 77.34% accuracy. While their pipeline focused on custom CNN design, this work integrates advanced architectures and preprocessing steps. This improvement suggests that newer models can push performance boundaries on the same dataset, offering better diagnostic potential.
 
-For the first test case a high-risk profile was tested with an annual income of 32000 and credit score of 520. The system returned a risk score of 79.53 leading to a rejected status.
+Novelty
+The unique aspect of this study lies in combining a detailed preprocessing sequence with the ConvNeXt-Tiny architecture, leading to an accuracy of 77.34%, surpassing other tested models. This pipeline first removes artefacts through specific techniques before applying augmentation, ensuring cleaner data for training. Such a methodical approach avoids amplifying noise during model learning. The ConvNeXt-Tiny design includes specific layers that stabilise training on medical images, aiding performance on minority classes. This setup also prevents data leakage by using lesion-based splitting, addressing class imbalance directly in the data loading stage. Compared to InceptionV3, a gain of 10.76% in accuracy is observed, alongside a 6.07% improvement in melanoma recall over Xception. These gains come with a minimal training time increase of under two minutes, showing a practical balance between efficiency and outcome. This combination proves that thoughtful system design can achieve meaningful results without relying solely on new model inventions. The findings indicate potential for real-world use, particularly in improving detection of critical skin conditions where every percentage point matters. Such structured engineering choices highlight a path forward for medical image analysis, focusing on systematic integration over isolated advancements.
 
-[Figure 5.10: High-Risk Test Result]
-Caption: Figure 5.10 — Output for High-Risk Applicant Test Case
-Description: This figure displays the result for a high-risk applicant in the web application. With an annual income of 32000 and credit score of 520 the output showed a risk score of 79.53. The final decision was rejected which matched the expected outcome based on the business rules set for scores above 50. This confirms the system identifies high-risk profiles accurately.
+Significance and Limitations
+The findings of this study align well with the set research goals by presenting a strong framework for skin lesion classification. The development of ConvNeXt-Tiny, achieving 77.34% accuracy, addresses the need for reliable prediction systems in medical imaging. By evaluating multiple models like InceptionV3, EfficientNet-B0, and Xception, a clear comparison of traditional and modern approaches is provided, showing steady progress in performance metrics. The integration of preprocessing steps ensures data quality, directly impacting prediction reliability, which is vital for diagnostic tasks. A web application extends this work into practical use, allowing real-time testing with results mirroring training outcomes, as seen in confidence scores from 35% to 89% across test images. This deployment meets the aim of creating usable tools for decision support. The focus on class imbalance through specific data handling also tackles real challenges in medical datasets, improving detection of rare but critical conditions like melanoma. While not directly tied to financial risk as in the original objectives, the principles of structured data preparation and model comparison translate to broader predictive tasks. This research thus builds a foundation for accurate and interpretable systems, adaptable to various domains needing robust classification, fulfilling the core intent of advancing predictive methodologies through systematic design.
 
-The second test case involved a borderline applicant with an annual income of 58000 and credit score of 640. A risk score of 51.55 was generated resulting in rejection.
-
-[Figure 5.11: Borderline Test Result]
-Caption: Figure 5.11 — Output for Borderline Applicant Test Case
-Description: This figure shows the result for a borderline applicant with an annual income of 58000 and credit score of 640. The system produced a risk score of 51.55 leading to a rejected status. This aligned with expectations as the score crossed the threshold of 50 confirming correct application of rules.
-
-The third test case used a low-risk profile with an annual income of 110000 and credit score of 780. The risk score was 29.24 resulting in approval.
-
-[Figure 5.12: Low-Risk Test Result]
-Caption: Figure 5.12 — Output for Low-Risk Applicant Test Case
-Description: This figure presents the output for a low-risk applicant with an annual income of 110000 and credit score of 780. The risk score was 29.24 and the decision was approved. This matched the expected result as the score fell below the risk threshold indicating proper system behaviour.
-
-Handling Errors and Unexpected Inputs
-
-The application was built to manage incorrect or unusual inputs effectively. If data entered fell outside acceptable ranges a warning message appeared guiding users to correct their input. This ensured the system did not crash or produce invalid results during testing.
-
-3. SIGNIFICANCE OF KEY RESULTS
-----------------------------------------
-Significance of Key Results
-
-Meaning of Key Findings in Loan Approval Prediction
-
-The results from testing different models for loan approval prediction show interesting patterns when compared to initial expectations. TabNet emerged as the top performer with an accuracy of 89.10% and an R2 score of 0.8839 which suggests it captures data relationships very well. CNN also performed strongly at 86.80% accuracy though it fell short of TabNet. ElasticNet showed lower scores with 82.73% accuracy indicating This indicates that advanced metrics like R2 and MAE hold great value in assessing how closely predictions match real outcomes especially for TabNet (Anand et al. 2024).
-
-Business Impacts of Loan Approval Models
-
-The findings from this study on loan approval prediction carry important real-world effects for financial institutions. TabNet’s high accuracy of 89.10% means it can help banks make better decisions on loan applications reducing the risk of approving unsuitable candidates. Its ability to predict with precision could save costs by avoiding bad loans. Web app testing also proved the model works across varied risk profiles from low to high.
-
-However applying such models in actual settings brings challenges. A high false negative rate in some cases like with ElasticNet could deny loans to deserving applicants affecting trust. Ethical concerns arise if models unintentionally favour certain groups due to data bias. Social impacts include potential exclusion of marginalised applicants if not addressed. For business the gain is in efficiency but care must be taken to balance automation with human judgement to avoid unfair outcomes. These models can support decision-making yet must be monitored to ensure they align with fair lending practices and do not harm vulnerable populations. Regular updates to the system will be needed to adapt to changing financial trends and maintain accuracy over time.
-
-4. FAILED ATTEMPTS
-----------------------------------------
-Introduction to Failed Attempts
-This section explores unsuccessful approaches in the research on predictive modelling for financial risk assessment. It aims to shed light on why certain methods did not meet expectations during the study.
-
-Early Design Challenges
-An initial attempt with a balancing technique for class imbalance proved unsuitable. It distorted the continuous nature of the risk score target, leading to unreliable outcomes for regression tasks.
-
-Standalone Classification Pitfall
-Building separate binary classifiers for loan approval was considered but dismissed. This approach risked creating inconsistency between risk scores and decisions, reducing the clarity of the system.
-
-Underperforming Linear Model
-A linear model was tested but showed limited capability with an R2 score of 73.88% and accuracy of 82.73%. It struggled to capture complex patterns in the data.
-[Figure 5.13: Risk Score Prediction]
-Caption: Figure 5.13 — Actual versus Predicted Risk Scores for Linear Model
-Description: This figure presents a scatter plot comparing actual and predicted risk scores using a linear model. The points show a moderate spread around the regression line, indicating reasonable but not ideal predictions. With an R2 of 73.88% and MAE of 3.0955, the deviation from the perfect prediction diagonal is clear. The plot suggests that while a positive trend exists, the model misses intricate data relationships, pointing to its limitations in this context.
-
-Why TabNet Stands Out
-Among tested methods, TabNet proved superior due to its ability to handle complex patterns and provide clear feature insights. Its performance surpassed others with an R2 of 88.39%.
-
-5. RESEARCH NOVELTY
-----------------------------------------
-Novel Contributions of the Research
-
-This study brings fresh ideas to the field of financial risk assessment through a unique design that combines continuous risk scoring and binary loan approval into one streamlined process. This approach avoids the need for separate models and ensures that risk estimates and approval decisions align closely. A single TabNet model is used with its output split at the median to make yes or no decisions while keeping the depth of the risk score intact.
-
-A key aspect of this work is the use of TabNet's attention-driven method for picking important features step by step. This offers clear insight into which factors matter most unlike typical neural networks. Such transparency is vital in finance where rules demand clarity. The training setup also uses a special batch strategy to improve performance on structured data without the usual issues of small batch sizes.
-
-Another distinct feature is the creation of six new financial measures. One such measure, the Debt Stress Index, blends debt-to-income ratio with interest rate to reflect real-world stress. These crafted indicators embed expert knowledge directly into the data reducing the model's workload compared to using raw figures alone.
-
-The research also adds a policy layer after the model's predictions. This step applies strict lending rules to override high-risk outputs ensuring decisions meet institutional standards. This blend of data-driven results and rule-based checks is a practical design not often seen in existing studies.
-
-Lastly, the use of a language model to turn numerical results into detailed written reports stands out. This method creates clear explanations from complex scores aiding in reviews and communication with stakeholders. These innovations mark this study as a significant step forward in blending technology with practical financial needs.
+Despite these achievements, certain constraints exist. The study struggles with smaller classes like df, where low sample size limits model learning, as seen in F1-scores around 40%. Testing is confined to the HAM10000 dataset, which may not cover all real-world variations. Computational resources also restrict extensive hyperparameter tuning, potentially missing optimal settings. Future work could explore larger datasets and advanced balancing techniques to address these gaps.
 

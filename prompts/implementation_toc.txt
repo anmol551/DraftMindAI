@@ -1,0 +1,25 @@
+{pp}
+
+Table of content used for methodology chapter:
+{methodology_toc}
+
+eda summary: {a}
+
+webapp summary: {b}
+
+1: IMPORTANT: This chapter do not have data statistics and EDA headings. Include these headings in the table of content.
+2: If table of content is not having webapp whereas webapp summary is present, then add webapp in the table of content.
+3: Remove the performance measures, Research Design, Data Details from the table of content.
+4: Add Challenges heading in the last.
+5: Redesign the table of content in the similar way, it is received.
+6: This content is going to be in 2000 word count. So kindly add the word count in front of only main headings (not subheadings). Distribution should be as per the weightage of headings.
+7: EDA heading should have 300 words reserved, Preprocessing should have 250 words reserved, Models heading should have 700 words reserved and challenges should have 200 words reserved.
+8: maintain the subheadings of the methodology_toc.txt, for the considered headings.
+
+Format of the output:
+4. Implementation
+4.1. Statistical Details [word count]
+
+Note: Every heading must have word count mentioned
+
+Note: Do not write any explanation, just TOC
