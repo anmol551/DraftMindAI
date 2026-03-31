@@ -11,8 +11,8 @@ Follow the table with a {wc_table_explain}-word explanation of key findings from
 ## Structure — Per-Model Subheadings
 
 Create one subheading per model found in the results data. For each model:
-- Present every chart belonging to that model (Confusion Matrix, Training & Validation Loss,
-  Per-Class Metrics, ROC Curves, or any other chart listed for that model).
+- Present every chart belonging to that model (e.g., Performance Metrics, Distributions,
+  Loss Curves, ROC Curves, or any other chart from the Result Plot Titles for that model).
 - After each chart's figure placeholder, write a discussion paragraph covering metric values,
   patterns, and interpretation.
 - Target approximately {wc_per_model} words per model subheading (distributed across its charts).
@@ -31,8 +31,8 @@ Do not use ### or any markdown heading symbols. Write headings as plain numbered
 After all individual model subheadings, add the following sections:
 
 ### Models Comparison
-- Present each comparative chart (accuracy comparison, precision/recall/F1 comparison,
-  training time comparison, PR curve comparison, or any other comparative chart in the data).
+- Present each comparative chart (e.g., metric comparisons, time comparison, variance comparison,
+  or any other comparative chart listed in the data).
 - After each chart, write a discussion paragraph.
 - Target approximately {wc_comparison} words.
 

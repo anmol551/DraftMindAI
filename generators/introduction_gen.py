@@ -13,8 +13,8 @@ import os
 # Sections present in each format (determines which prompts to run and labels)
 FORMAT_SECTIONS = {
     1: ["BACKGROUND", "PROBLEM STATEMENT", "SIGNIFICANCE", "SCOPE AND LIMITATIONS", "STRUCTURE OF THE REPORT"],
-    2: ["BACKGROUND", "PROBLEM STATEMENT", "RESEARCH QUESTION AND OBJECTIVES", "SIGNIFICANCE", "SCOPE AND LIMITATIONS", "RESEARCH GAPS", "STRUCTURE OF THE REPORT"],
-    3: ["BACKGROUND", "PROBLEM STATEMENT", "RESEARCH QUESTION AND OBJECTIVES", "SIGNIFICANCE", "SCOPE AND LIMITATIONS", "RESEARCH GAPS", "STRUCTURE OF THE REPORT"],
+    2: ["BACKGROUND", "PROBLEM STATEMENT", "RESEARCH QUESTION AND OBJECTIVES", "SIGNIFICANCE", "SCOPE AND LIMITATIONS", "STRUCTURE OF THE REPORT"],
+    3: ["BACKGROUND", "PROBLEM STATEMENT", "RESEARCH QUESTION AND OBJECTIVES", "SIGNIFICANCE", "SCOPE AND LIMITATIONS", "STRUCTURE OF THE REPORT"],
     4: ["BACKGROUND", "PROBLEM STATEMENT", "RESEARCH QUESTION", "RESEARCH OBJECTIVES", "SIGNIFICANCE", "SCOPE AND LIMITATIONS", "STRUCTURE OF THE REPORT"],
 }
 
@@ -46,10 +46,7 @@ def generate_introduction():
         i=objectives,
     )
 
-    # Formats 2, 3, 4 also have research gaps word counts
-    if fmt in (2, 3, 4):
-        common['wc_gaps'] = counts.get('GAPS', 130)
-        common['wc_gaps_min'] = counts.get('GAPS_MIN', 100)
+
 
     # Load the format-specific prompt file
     template = gen.load_prompt(f"introduction/format_{fmt}.txt")

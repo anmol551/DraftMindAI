@@ -1,0 +1,277 @@
+{
+  "title": "Automating Talent Acquisition: Resume Categorization and Skill Extraction Using Domain-Specific Text Encodings",
+
+  "research_question": "1. How does advanced NLP preprocessing impact the accuracy of automated resume classification?\n2. How do deep learning models compare to traditional methods for skill-based resume categorisation?",
+
+  "research_objectives": "1. To investigate existing research on resume classification and information extraction using NLP.\n2. To design and implement a preprocessing pipeline for parsing and cleaning PDF resumes.\n3. To extract and prioritise key entities such as skills and education using Named Entity Recognition.\n4. To apply TF-IDF with n-grams for feature representation of resumes.\n5. To implement and compare Multinomial Naive Bayes, Bi-LSTM, and DistilBERT models for resume classification.\n6. To critically evaluate model performance using standard classification metrics.",
+
+  "data_details": "Dataset: Resume Dataset from Kaggle (snehaanbhawal/resume-dataset), originally sourced from livecareer.com.\nSize: 2,484 resumes across 4 columns — ID, Resume_str, Resume_html, and Category.\nFormat: CSV with accompanying PDFs stored in category-labelled folders.\nCategories (24): HR, Designer, Information-Technology, Teacher, Advocate, Business-Development, Healthcare, Fitness, Agriculture, BPO, Sales, Consultant, Digital-Media, Automobile, Chef, Finance, Apparel, Engineering, Accountant, Construction, Public-Relations, Banking, Arts, Aviation.\nClass Distribution: Heavily imbalanced — IT and Business Development lead at 120 each; BPO is lowest at 22.\nQuality: No missing values, no duplicates.\nPreprocessing: ID and Resume_html columns dropped; Resume_str used as primary text source.",
+
+  "literature_review_summary": "Topic Overview:\nAutomated talent acquisition systems integrate information extraction, document classification, and decision support. The field has evolved from heuristic rule-based pipelines to hybrid approaches combining classical feature-based classifiers with contextual transformer embeddings.\n\nImportance of the Field:\nThe growing volume of job applications makes manual resume screening inefficient. NLP and ML-based Resume Classification Systems (RCS) offer performance guarantees for automating this process (Ali et al., 2022; Pal, 2022). TF-IDF with Multinomial Naive Bayes provides fast, interpretable baselines in low-resource settings, while transformer-based models address the semantic complexity of modern resume text.\n\nKey Technical Content:\nThree methodological tiers dominate the literature. First, rule-based and TF-IDF classical classifiers (Naive Bayes, SVM) offer speed and interpretability and remain strong baselines. Ali et al. (2022) reported competitive classification accuracy using binary/TF-IDF features with Naive Bayes, while SVM achieved over 96% accuracy on a 962-resume dataset. Second, sequence labelling models — CRFs, Bi-LSTMs — are preferred for skill and experience extraction due to their ability to capture context and token boundaries. Liang et al. (2023) demonstrated strong performance using Attention-BiLSTM combined with BiLSTM-CNNs-CRF for resume line-classification tasks. Third, transformer models such as BERT, DistilBERT, and S-BERT provide state-of-the-art contextual embeddings. The SkillSpan benchmark (Zhang et al., 2022) showed domain-adapted JobBERT/JobSpanBERT improving span F1 from approximately 57.7% (BERT) to 58.9% (domain-adapted). Deshmukh and Raut (2024) demonstrated S-BERT achieving 90% accuracy with throughput of 0.233 seconds per resume.\n\nFindings and Insights:\nHybrid and ensemble architectures bridge classical and modern approaches. Akkasi (2024) reported an ensemble combining CNNs, Bi-LSTMs, CRF, and transformers achieving F1 72% on technical skills and 67% on non-technical skills. Skill-LLM (Herandi et al., 2024) fine-tuned an 8B-parameter LLaMA-3 model achieving span F1 of 64.8% on SkillSpan, outperforming several transformer baselines. Rule-based systems maintain strong micro-metrics for structured fields; Musleh (2024) reported item-level F1 of 0.825 and section-level F1 of 0.833.\n\nLimitations Identified:\nAnnotation cost and label drift pose significant challenges as labour-market vocabularies evolve rapidly. Evaluation inconsistency across studies using proprietary datasets and different span definitions complicates comparison (Retyk et al., 2023). Fairness concerns persist, as models trained on historical hiring data reproduce occupational and demographic biases (Vasquez-Rodriguez, 2024). Engineering trade-offs between computational cost, latency, and raw F1 further constrain architecture choices.\n\nUnresolved Issues:\nMost studies treat classification and skill extraction as isolated tasks rather than end-to-end pipeline components. Hybrid frameworks that systematically leverage both statistical robustness of TF-IDF and semantic depth of transformers remain underexplored. Domain-specific encodings for recruitment-specific vocabulary and evolving skill taxonomies remain suboptimal.\n\nReferences: Ali et al. (2022); Pal (2022); Zhang et al. (2022); Akkasi (2024); Deshmukh and Raut (2024); Musleh (2024); Liang and Lin (2023); Retyk et al. (2023); Herandi et al. (2024); Vasquez-Rodriguez (2024); Adel et al. (2022); Kesim and Deliahmetoglu (2023); Bevara (2025); Garrido-Merchan et al. (2023); Bokolo and Liu (2024).",
+
+  "research_gap": "Despite notable progress in resume classification and skill extraction using transformer-based and deep learning models, several critical gaps remain unaddressed in the existing literature. First, most studies treat resume classification and named entity recognition as independent tasks, preventing the development of integrated, end-to-end talent acquisition pipelines. This separation limits practical deployment in real-world recruitment systems where both categorisation and skill extraction must operate in tandem. Second, comparisons between traditional machine learning approaches — particularly TF-IDF with Multinomial Naive Bayes — and transformer-based architectures such as DistilBERT are rarely conducted within a unified experimental framework. Studies either benchmark traditional models in isolation or fully replace them with transformers, overlooking hybrid strategies that combine statistical robustness with contextual semantic representations. Third, class imbalance — a pervasive characteristic of real-world resume datasets — is inadequately addressed. Existing work rarely applies systematic techniques such as SMOTE oversampling, class-weighted loss functions, or per-class decision threshold tuning within the same pipeline, leaving minority job category prediction largely underperformed. Fourth, while Bi-LSTM models are frequently used for sequence-level labelling in NER tasks, their application to multi-class document-level resume classification alongside transformers in a controlled comparative study is absent from most recent literature. Fifth, there is limited work on deploying integrated classification and entity extraction systems through lightweight web applications, translating research models into accessible HR tools. These gaps collectively justify an integrated framework that combines TF-IDF, Multinomial Naive Bayes, Bi-LSTM, and DistilBERT — augmented with NER-based skill extraction, class imbalance correction, and per-class threshold tuning — within a unified, deployment-ready pipeline for automated talent acquisition.",
+
+  "best_accuracy": "83.50% (Weighted DistilBERT and Threshold-Tuned DistilBERT)",
+
+  "base_paper_summary": "Paper: BiLSTM for Resume Classification\nAuthors: Jalili, A., Tabrizchi, H., Razmara, J. and Mosavi, A. (2024)\nPublished in: 2024 IEEE 22nd World Symposium on Applied Machine Intelligence and Informatics (SAMI), pp. 000519–000524.\n\n1. Research Pipeline:\nThe pipeline consists of five stages: data collection and visualisation, text preprocessing (tokenisation, stopword removal, lemmatisation), word embedding generation, BiLSTM model training, and classification evaluation. The bidirectional LSTM architecture processes tokenised resume text in both forward and backward directions to capture past and future contextual dependencies simultaneously.\n\n2. Data Details:\nThe dataset is sourced from LiveCareer and consists of over 2,400 resumes categorised into 21 distinct job categories. This is the same underlying dataset used in the present research. Resumes are provided in text format, and word embeddings are used to enrich textual representations before feeding them into the BiLSTM model.\n\n3. Accuracy of Algorithms:\nThe paper primarily evaluates the BiLSTM model. It achieves a classification accuracy of 72.4%, as independently cited by ResumeAtlas (Heakl, 2024). Traditional methods used for comparison (e.g., keyword-matching or simpler ML classifiers) perform below this threshold, confirming BiLSTM as the best-performing approach in the study.\n\n4. Best Algorithm and Accuracy:\nBiLSTM achieved the best accuracy of 72.4%, outperforming traditional classification methods. The bidirectional processing and word embedding integration are attributed as key factors for its performance advantage.\n\n5. Novel/Unique Element:\nThe novel contribution lies in applying a bidirectional LSTM architecture specifically to resume classification, integrating word embeddings that capture semantic similarity between resume documents. The study demonstrates that bidirectional context — simultaneously processing text from start to end and end to start — significantly improves classification over unidirectional or traditional approaches.\n\n6. Future Recommendations:\nThe authors recommend exploring transformer-based fine-tuning approaches such as BERT to further improve classification accuracy. They also suggest expanding the dataset, addressing class imbalance, and integrating skill extraction as a complementary task to classification for more holistic recruitment automation.\n\nHarvard Reference:\nJalili, A., Tabrizchi, H., Razmara, J. and Mosavi, A. (2024) 'BiLSTM for Resume Classification', in 2024 IEEE 22nd World Symposium on Applied Machine Intelligence and Informatics (SAMI). IEEE, pp. 000519–000524. doi:10.1109/SAMI60510.2024.10432836.",
+
+  "base_paper_reference": "Jalili, A., Tabrizchi, H., Razmara, J. and Mosavi, A. (2024) 'BiLSTM for Resume Classification', in 2024 IEEE 22nd World Symposium on Applied Machine Intelligence and Informatics (SAMI). IEEE, pp. 000519–000524. doi:10.1109/SAMI60510.2024.10432836.",
+
+  "code_pipeline": "1. DATA LOADING: Resume dataset loaded from Kaggle (snehaanbhawal/resume-dataset) using KaggleHub into a Pandas DataFrame containing 2,484 resumes across four columns.\n\n2. EXPLORATORY DATA ANALYSIS: Statistical profiling (shape, dtypes, nulls, duplicates), category distribution bar chart, text length histogram, HTML length histogram, word cloud visualisation, top-10 frequent word bar chart, and average resume length per category bar chart.\n\n3. DATA PREPROCESSING:\n   a. Column Dropping: ID and Resume_html removed.\n   b. Contraction Expansion: Using the 'contractions' library to expand abbreviated forms.\n   c. Text Cleaning: Lowercasing, URL/email/phone removal via regex, special character removal, whitespace normalisation.\n   d. Tokenisation and Stopword Removal: NLTK word_tokenize with custom stopword set preserving 10 domain-critical resume keywords.\n   e. Lemmatisation: WordNetLemmatizer applied to all tokens.\n\n4. FEATURE ENGINEERING:\n   a. TF-IDF Vectorisation: TfidfVectorizer with unigrams + bigrams (ngram_range=(1,2)), max 5,000 features, sublinear_tf=True, min_df=2.\n   b. Label Encoding: LabelEncoder applied to 24 job categories.\n   c. NER (Named Entity Recognition): spaCy en_core_web_sm model with custom PhraseMatcher for SKILL (31 terms), EDUCATION (17 terms), and ROLE (15 terms) vocabularies; numeric features skill_count, education_count, role_count derived.\n\n5. TRAIN-TEST SPLIT: Stratified 80/20 split (random_state=42) — 1,987 training samples, 497 test samples.\n\n6. MODEL 1 — MULTINOMIAL NAIVE BAYES: TF-IDF features, alpha=0.1. Baseline accuracy: 0.5775, F1: 0.5147, G-Mean: 0.0792.\n\n7. MODEL 2 — BIDIRECTIONAL LSTM: Custom vocabulary built from preprocessed text. Architecture: Embedding(vocab_size, 128) → BiLSTM(128 hidden, 2 layers, bidirectional, dropout=0.4) → Linear(256, 24). Trained for 10 epochs with Adam (lr=1e-3) and StepLR scheduler. Baseline accuracy: 0.7042, F1: 0.6320, G-Mean: 0.0910.\n\n8. MODEL 3 — DISTILBERT: Fine-tuned distilbert-base-uncased for sequence classification (24 labels). Max sequence length 256, batch size 16, 10 epochs. AdamW optimizer (lr=2e-5, weight_decay=0.01) with linear warmup scheduler (10% warmup). Baseline accuracy: 0.8189, F1: 0.7708, G-Mean: 0.2990.\n\n9. CLASS IMBALANCE CORRECTION:\n   a. Weighted MNB: Sample weights inversely proportional to class frequency — accuracy 0.5915, G-Mean 0.2091.\n   b. SMOTE MNB: Synthetic oversampling (k_neighbors=3) — accuracy 0.5815, G-Mean 0.2025.\n   c. Weighted Bi-LSTM: CrossEntropyLoss with class weight tensor — accuracy 0.6881, G-Mean 0.0158 (degraded).\n   d. Weighted DistilBERT: Custom weighted CrossEntropyLoss — accuracy 0.8350, F1: 0.8027, G-Mean: 0.7754.\n   e. Per-Class Threshold Tuning on Weighted DistilBERT: Softmax probabilities extracted; per-class thresholds optimised by maximising F1 per class over range 0.05–0.90; scaled probabilities used for final prediction — accuracy 0.8350, G-Mean: 0.7776.\n\n10. EVALUATION: accuracy_score, precision_score, recall_score, f1_score (macro), geometric_mean (custom), confusion_matrix, classification_report. Visualisations include grouped bar chart, radar/spider chart, F1 comparison bar, G-Mean before/after bar, metric heatmap.\n\n11. MODEL SAVING: Weighted DistilBERT saved using save_pretrained(); tokenizer, label_encoder (joblib), and best_thresholds (numpy) saved to ./bert_resume_model.\n\n12. FLASK WEB APP: app.py loads saved DistilBERT model and tokenizer on startup; accepts PDF uploads via /predict endpoint; extracts text using PyMuPDF (fitz); applies full preprocessing pipeline; classifies using DistilBERT; extracts entities using spaCy PhraseMatcher; returns JSON with category, confidence, all class probabilities, skills, education, roles, organisations, and text preview.",
+
+  "code_summary": "The codebase implements an end-to-end NLP pipeline for automated resume classification and skill extraction, progressing from raw text loading to a deployable Flask web application. The project uses the 2,484-resume LiveCareer dataset from Kaggle and compares three models — Multinomial Naive Bayes, Bidirectional LSTM, and DistilBERT — across multiple preprocessing and class imbalance correction strategies.\n\nThe preprocessing pipeline includes contraction expansion, regex-based text cleaning, custom stopword removal preserving domain keywords, tokenisation, and lemmatisation. TF-IDF with unigrams and bigrams (5,000 features) provides structured feature representations for classical models, while DistilBERT operates directly on tokenised raw text. Named Entity Recognition using spaCy's PhraseMatcher extracts skills, education qualifications, and professional roles from each resume, generating auxiliary numeric features. The three models are trained on an 80/20 stratified split and evaluated using accuracy, macro precision, recall, F1-score, and a custom geometric mean metric to monitor class imbalance.\n\nClass imbalance is systematically addressed through three strategies: sample-weighted training, SMOTE oversampling, and per-class decision threshold tuning. Weighted DistilBERT achieves the best overall performance at 83.50% accuracy and G-Mean of 0.7754, a dramatic improvement over the 0.2990 baseline. The Flask web application loads the saved DistilBERT model, processes uploaded PDF resumes through the full pipeline using PyMuPDF for text extraction, and returns a structured JSON response including predicted category, confidence score, per-class probabilities, and extracted entities — delivering a complete HR automation prototype.",
+
+  "code_summary_with_values": {
+    "libraries_used": {
+      "data_handling": ["pandas", "numpy", "kagglehub", "scipy"],
+      "visualisation": ["matplotlib", "seaborn", "wordcloud"],
+      "nlp_preprocessing": ["nltk (punkt, stopwords, wordnet)", "contractions", "re", "spacy (en_core_web_sm)", "spacy PhraseMatcher"],
+      "feature_engineering": ["sklearn TfidfVectorizer", "sklearn LabelEncoder", "sklearn CountVectorizer", "scipy.sparse"],
+      "imbalance_handling": ["imblearn SMOTE", "sklearn compute_sample_weight", "sklearn compute_class_weight"],
+      "deep_learning": ["torch", "torch.nn", "torch.optim", "torch.optim.lr_scheduler", "transformers (DistilBertTokenizerFast, DistilBertForSequenceClassification, get_linear_schedule_with_warmup)"],
+      "evaluation": ["sklearn (accuracy_score, precision_score, recall_score, f1_score, confusion_matrix, classification_report, roc_curve, auc)"],
+      "model_persistence": ["joblib", "numpy.save"],
+      "web_app": ["flask", "fitz (PyMuPDF)", "os", "warnings"]
+    },
+    "eda": {
+      "plots": [
+        "Category distribution countplot (bar) — 24 categories; IT and Business Development highest at 120",
+        "Resume text length histogram — peak near 6,000 characters; range up to ~40,000",
+        "Average resume length per category bar — Sales lowest at 5,270; BPO highest at 7,318",
+        "HTML length histogram — peak near 15,000 characters; range up to ~60,000",
+        "Word cloud — top terms: Company, City, State, Name, Responsibility",
+        "Top-10 frequent words bar — 'state' highest at 16,159; 'service' lowest at 6,223",
+        "Top-15 bigrams by TF-IDF score bar — 'city state' highest at 83.18",
+        "Top-15 NER skills bar — communication 1,297; leadership 1,023; excel 959",
+        "Average skills per category bar — IT highest at 3.6; Chef lowest at 1.3"
+      ]
+    },
+    "preprocessing": {
+      "steps": ["Contraction expansion", "Lowercase conversion", "URL/email/phone removal (regex)", "Special character removal", "Tokenisation (NLTK word_tokenize)", "Stopword removal (custom set, 10 keywords preserved)", "Lemmatisation (WordNetLemmatizer)"],
+      "columns_dropped": ["ID", "Resume_html"]
+    },
+    "feature_engineering": {
+      "tfidf": "ngram_range=(1,2), max_features=5000, sublinear_tf=True, min_df=2, strip_accents='unicode'",
+      "ner": "SpaCy PhraseMatcher — SKILL (31 terms), EDUCATION (17 terms), ROLE (15 terms); numeric features: skill_count, education_count, role_count",
+      "label_encoding": "LabelEncoder — 24 classes"
+    },
+    "train_split": "Stratified train_test_split — 80% train (1,987 samples), 20% test (497 samples), random_state=42, stratify=y",
+    "model_details": {
+      "MNB": "MultinomialNB(alpha=0.1) on TF-IDF features",
+      "BiLSTM": {
+        "architecture": "Embedding(vocab_size, 128) → LSTM(128, num_layers=2, bidirectional=True, dropout=0.4) → Dropout(0.4) → Linear(256, 24)",
+        "optimizer": "Adam(lr=1e-3)",
+        "scheduler": "StepLR(step_size=3, gamma=0.5)",
+        "loss": "CrossEntropyLoss",
+        "epochs": 10,
+        "batch_size": 32,
+        "max_seq_len": 256
+      },
+      "DistilBERT": {
+        "base_model": "distilbert-base-uncased",
+        "num_labels": 24,
+        "max_len": 256,
+        "batch_size": 16,
+        "epochs": 10,
+        "optimizer": "AdamW(lr=2e-5, weight_decay=0.01)",
+        "scheduler": "get_linear_schedule_with_warmup(warmup=10% steps)"
+      }
+    },
+    "model_results_table": {
+      "columns": ["Model", "Accuracy", "Precision", "Recall", "F1-Score", "G-Mean"],
+      "rows": [
+        ["MNB Baseline", "0.5775", "0.5428", "0.5320", "0.5147", "0.0792"],
+        ["Weighted MNB", "0.5915", "—", "—", "0.5571", "0.2091"],
+        ["SMOTE MNB", "0.5815", "—", "—", "0.5410", "0.2025"],
+        ["Bi-LSTM Baseline", "0.7042", "0.6592", "0.6434", "0.6320", "0.0910"],
+        ["Weighted Bi-LSTM", "0.6881", "—", "—", "0.6116", "0.0158"],
+        ["DistilBERT Baseline", "0.8189", "0.7934", "0.7691", "0.7708", "0.2990"],
+        ["Weighted DistilBERT", "0.8350", "—", "0.8078", "0.8027", "0.7754"],
+        ["Threshold-Tuned DistilBERT (BEST)", "0.8350", "—", "0.8088", "~0.80", "0.7776"]
+      ]
+    }
+  },
+
+  "web_app_summary": "The Flask web application serves as the deployment interface for the trained DistilBERT resume classification model. Built using Flask (Python), the app loads the saved DistilBERT model, tokenizer, label encoder (24 classes), and best per-class thresholds at startup via a custom load_model() function, operating on either CPU or CUDA depending on availability. The app accepts PDF resume uploads through the /predict POST endpoint (16 MB file size limit) and processes them through five sequential stages: PDF text extraction using PyMuPDF (fitz), full NLP preprocessing (contraction expansion, text cleaning, stopword removal, lemmatisation), DistilBERT tokenisation and inference using softmax probabilities and argmax classification, and spaCy PhraseMatcher-based named entity recognition for skills, education, roles, and organisations. The response returns a structured JSON payload containing the predicted job category, confidence score, all 24 class probabilities sorted descending, extracted entity lists, and a 500-character text preview. Additional endpoints include / (renders index.html template) and /health (returns model status and class list). Uploaded files are deleted immediately after processing for privacy.",
+
+  "web_app_test_cases": "The web application was tested across five representative job categories — Arts, Automobile, Advocate, Data Science IT, and HR — using sample PDF resumes uploaded through the UI. For Arts, the model correctly predicted the category with high confidence alongside extracted skills including communication and leadership. For Automobile, the prediction correctly identified the role with skills such as project management and technical. The Advocate category was correctly classified with education entities including bachelor and master detected by the NER module. For Data Science IT, the model correctly predicted Information-Technology with Python, SQL, machine learning, and data analysis extracted as top skills along with relevant roles such as data scientist and software engineer. For HR, the model predicted HR accurately with leadership, communication, and project management as dominant skills and hr manager as the extracted role. The confidence scores varied across categories ranging from moderate to high, and the probability distributions showed clear separation for well-represented categories. Minority categories with fewer training samples showed lower confidence, consistent with the class imbalance observed during training. All test resumes were processed successfully with no errors and appropriate JSON responses returned.",
+
+  "novelty": "The research introduces a strategically layered and methodologically cohesive pipeline for automated resume classification that addresses three underexplored dimensions simultaneously: integrated multi-model benchmarking, systematic class imbalance mitigation, and deployment-ready entity extraction. Unlike prior studies that evaluate either traditional or transformer-based models in isolation, this work constructs a unified experimental framework comparing Multinomial Naive Bayes, Bidirectional LSTM, and DistilBERT under identical preprocessing, feature engineering, and evaluation conditions — enabling reproducible, apples-to-apples performance attribution. A particularly distinctive contribution is the custom geometric mean metric, which exposes class imbalance pathologies invisible to accuracy and macro F1 alone, revealing that baseline Bi-LSTM's G-Mean of 0.0910 and MNB's 0.0792 mask catastrophic failure on minority categories despite acceptable macro averages. The imbalance correction strategy itself represents an architectural innovation: rather than relying on a single remediation technique, the pipeline applies three complementary mechanisms — sample-weighted training, SMOTE oversampling, and per-class softmax threshold tuning — and evaluates their differential effects per model family, revealing that class weighting degrades Bi-LSTM (G-Mean collapse from 0.0910 to 0.0158) while dramatically benefiting DistilBERT (G-Mean rise to 0.7776). The per-class threshold optimisation procedure — scanning probability thresholds per class from 0.05 to 0.90 and selecting by maximum binary F1 — is a post-hoc calibration mechanism seldom applied in resume classification literature. Furthermore, the pipeline uniquely couples document-level classification with span-level Named Entity Recognition via a custom spaCy PhraseMatcher vocabulary covering 31 skills, 17 education qualifications, and 15 professional roles, converting unstructured resume text into structured HR-actionable outputs. The complete pipeline is operationalised in a Flask web service supporting real-time PDF resume processing through PyMuPDF, bridging the gap between research prototype and deployable HR automation software.",
+
+  "result_plot_summary": {
+    "table": [
+      {
+        "title": "Bi-LSTM Training Loss Curve",
+        "type": "Line Plot",
+        "insight": "Loss decreases from 2.8875 at epoch 1 to 0.7422 at epoch 10; accuracy improves from 0.3005 to 0.8007; convergence stabilises after epoch 8 with minor fluctuations indicating slight overfitting"
+      },
+      {
+        "title": "DistilBERT Fine-tuning Loss Curve",
+        "type": "Line Plot",
+        "insight": "Loss decreases rapidly from 3.1318 to 0.3452; accuracy improves from 0.0830 to 0.9285; performance stabilises after epoch 7 showing strong convergence and better generalisation than Bi-LSTM"
+      },
+      {
+        "title": "Confusion Matrix — Multinomial Naive Bayes",
+        "type": "Heatmap",
+        "insight": "Strong predictions for IT (24) and HR (20); significant misclassifications across Sales and Public Relations; explains low G-Mean 0.0792 indicating poor minority class recognition"
+      },
+      {
+        "title": "Confusion Matrix — Bi-LSTM",
+        "type": "Heatmap",
+        "insight": "Improved diagonal dominance with correct predictions in Engineering (24), IT (19), Sales (22); some misclassifications persist across similar categories consistent with G-Mean 0.0910"
+      },
+      {
+        "title": "Confusion Matrix — DistilBERT Baseline",
+        "type": "Heatmap",
+        "insight": "Strong diagonal dominance; high correct predictions in Finance (24), Engineering (23), IT (22); fewer misclassifications confirming accuracy 0.8189 and G-Mean 0.2990"
+      },
+      {
+        "title": "Confusion Matrix — DistilBERT Threshold-Tuned (Best Model)",
+        "type": "Heatmap",
+        "insight": "Strongest diagonal dominance across all models; accurate predictions in Finance (24), Engineering (23), IT (23); minimal misclassifications; G-Mean 0.7776 confirms improved minority class balance"
+      },
+      {
+        "title": "Model Comparison — Grouped Bar Chart",
+        "type": "Grouped Bar Chart",
+        "insight": "Will be taken from results table"
+      },
+      {
+        "title": "Radar / Spider Chart",
+        "type": "Polar/Radar Chart",
+        "insight": "DistilBERT dominates all five metrics (accuracy 0.819, precision 0.793, recall 0.769, F1 0.771); Bi-LSTM shows moderate performance 0.63–0.70; Naive Bayes lowest; G-Mean gap (0.299 vs 0.091 vs 0.079) visible"
+      },
+      {
+        "title": "Macro F1-Score Comparison",
+        "type": "Horizontal Bar Chart",
+        "insight": "Will be taken from results table"
+      },
+      {
+        "title": "G-Mean Before vs After Imbalance Correction",
+        "type": "Grouped Bar Chart",
+        "insight": "DistilBERT improves from 29.9% to 77.8%; MNB improves from 7.9% to 20.9%; Bi-LSTM degrades from 9.1% to 1.6% confirming weighting instability in LSTM"
+      },
+      {
+        "title": "Model Variants — Metric Heatmap",
+        "type": "Heatmap",
+        "insight": "DistilBERT weighted/threshold variants consistently highest across all metrics; accuracy 0.8350 and G-Mean ~0.776; Bi-LSTM weighted degrades; MNB shows moderate improvement to ~0.55 F1"
+      },
+      {
+        "title": "ROC / AUC Curves",
+        "type": "Multi-class ROC Curve",
+        "insight": "Will be taken from results table"
+      }
+    ]
+  },
+
+  "result_table": {
+    "performance_table": {
+      "columns": ["Model", "Accuracy", "Precision (Macro)", "Recall (Macro)", "F1-Score (Macro)", "G-Mean", "Notes"],
+      "rows": [
+        ["Multinomial Naive Bayes (Baseline)", "0.5775", "0.5428", "0.5320", "0.5147", "0.0792", ""],
+        ["Weighted MNB", "0.5915", "—", "—", "0.5571", "0.2091", ""],
+        ["SMOTE MNB", "0.5815", "—", "—", "0.5410", "0.2025", ""],
+        ["Bi-LSTM (Baseline)", "0.7042", "0.6592", "0.6434", "0.6320", "0.0910", ""],
+        ["Weighted Bi-LSTM", "0.6881", "—", "—", "0.6116", "0.0158", "Degraded"],
+        ["DistilBERT (Baseline)", "0.8189", "0.7934", "0.7691", "0.7708", "0.2990", ""],
+        ["Weighted DistilBERT", "0.8350", "—", "0.8078", "0.8027", "0.7754", "★ Best"],
+        ["Threshold-Tuned DistilBERT", "0.8350", "—", "0.8088", "~0.8027", "0.7776", "★ Best"]
+      ],
+      "best_model": "Weighted DistilBERT / Threshold-Tuned DistilBERT — Accuracy: 83.50%, G-Mean: 77.76%"
+    }
+  },
+
+  "failed_attempts": "Failed Attempts and Design Iterations\n\nThe development process involved several unsuccessful or suboptimal strategies that informed the final pipeline design through empirical failure analysis.\n\n1. Class-Weighted Bi-LSTM (G-Mean Degradation):\nApplying class-weighted CrossEntropyLoss to the Bi-LSTM model paradoxically degraded performance, with G-Mean collapsing from 0.0910 to 0.0158 and accuracy dropping from 0.7042 to 0.6881. The failure is attributable to the interaction between class weighting and the Adam optimiser's adaptive gradient scaling — high weights on minority classes produced large gradient updates that destabilised the LSTM's hidden state dynamics, causing catastrophic interference in the learned sequential representations. Unlike transformers, which have layer normalisation and attention mechanisms that stabilise gradient flow, recurrent networks are more vulnerable to loss landscape distortion caused by extreme class weight imbalances.\n\n2. SMOTE on TF-IDF Dense Matrix (Marginal Gains):\nSMOTE oversampling applied to the dense TF-IDF feature matrix improved G-Mean to 0.2025 but underperformed compared to weighted MNB (G-Mean 0.2091) despite generating synthetic samples for all minority classes. The failure stems from TF-IDF's high-dimensional, sparse feature space — synthetic interpolation between minority-class vectors in this space does not reliably produce semantically valid resume representations, as linear interpolation of term-frequency scores creates artificial documents with feature distributions that do not correspond to real resume language patterns.\n\n3. Baseline DistilBERT Without Imbalance Correction (Poor G-Mean):\nThe baseline DistilBERT model achieved strong accuracy (0.8189) but a G-Mean of only 0.2990, indicating continued majority-class dominance despite the model's contextual power. This demonstrated that transformer capability alone cannot overcome dataset imbalance without deliberate loss function modification or post-hoc threshold calibration, motivating the weighted fine-tuning and threshold-tuning strategies adopted in the final pipeline.",
+
+  "references": [
+    {
+      "keyword": "Resume Classification",
+      "title": "Resume Classification System using Natural Language Processing and Machine Learning Techniques",
+      "reference": "Ali, I., Mughal, N., Khan, Z.H. et al. (2022) 'Resume Classification System using Natural Language Processing and Machine Learning Techniques', Mehran University Research Journal of Engineering and Technology, 41(1), pp. 65–79. doi:10.22581/muet1982.2201.07.",
+      "citation": "(Ali et al., 2022)"
+    },
+    {
+      "keyword": "TF-IDF Feature Representation",
+      "title": "Resume Classification using various Machine Learning Techniques",
+      "reference": "Pal, R. (2022) 'Resume Classification using various Machine Learning Techniques', ITM Web of Conferences: ICACC 2022. doi:10.1051/itmconf/2022.",
+      "citation": "(Pal, 2022)"
+    },
+    {
+      "keyword": "Skill Extraction and NER",
+      "title": "SkillSpan: Hard and Soft Skill Extraction from English Job Postings",
+      "reference": "Zhang, M., Jensen, K.N., Sonniks, S.D. and Plank, B. (2022) 'SkillSpan: Hard and Soft Skill Extraction from English Job Postings', Proceedings of NAACL-HLT 2022, pp. 4962–4984. doi:10.18653/v1/2022.naacl-main.366.",
+      "citation": "(Zhang et al., 2022)"
+    },
+    {
+      "keyword": "Transformer-Based Text Classification",
+      "title": "BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding",
+      "reference": "Devlin, J., Chang, M-W., Lee, K. and Toutanova, K. (2019) 'BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding', Proceedings of NAACL-HLT 2019, pp. 4171–4186. doi:10.18653/v1/N19-1423.",
+      "citation": "(Devlin et al., 2019)"
+    },
+    {
+      "keyword": "DistilBERT Contextual Embeddings",
+      "title": "DistilBERT, a distilled version of BERT: smaller, faster, cheaper and lighter",
+      "reference": "Sanh, V., Debut, L., Chaumond, J. and Wolf, T. (2019) 'DistilBERT, a distilled version of BERT: smaller, faster, cheaper and lighter', arXiv preprint arXiv:1910.01108.",
+      "citation": "(Sanh et al., 2019)"
+    },
+    {
+      "keyword": "Bidirectional LSTM",
+      "title": "BiLSTM for Resume Classification",
+      "reference": "Jalili, A., Tabrizchi, H., Razmara, J. and Mosavi, A. (2024) 'BiLSTM for Resume Classification', in 2024 IEEE 22nd World Symposium on Applied Machine Intelligence and Informatics (SAMI). IEEE, pp. 000519–000524. doi:10.1109/SAMI60510.2024.10432836.",
+      "citation": "(Jalili et al., 2024)"
+    },
+    {
+      "keyword": "Named Entity Recognition in Resumes",
+      "title": "Named Entity Recognition in Resumes",
+      "reference": "Kesim, E. and Deliahmetoglu, A. (2023) 'Named Entity Recognition in Resumes', arXiv preprint arXiv:2306.13062. Available at: https://arxiv.org/abs/2306.13062.",
+      "citation": "(Kesim and Deliahmetoglu, 2023)"
+    },
+    {
+      "keyword": "Class Imbalance and SMOTE",
+      "title": "SMOTE: Synthetic Minority Over-sampling Technique",
+      "reference": "Chawla, N.V., Bowyer, K.W., Hall, L.O. and Kegelmeyer, W.P. (2002) 'SMOTE: Synthetic Minority Over-sampling Technique', Journal of Artificial Intelligence Research, 16, pp. 321–357. doi:10.1613/jair.953.",
+      "citation": "(Chawla et al., 2002)"
+    },
+    {
+      "keyword": "Resume Parsing",
+      "title": "Résumé Parsing as Hierarchical Sequence Labeling: An Empirical Study",
+      "reference": "Retyk, F., Fabregat, H., Aizpuru, J., Taglio, M. and Zbib, R. (2023) 'Résumé Parsing as Hierarchical Sequence Labeling: An Empirical Study', arXiv preprint arXiv:2309.07015. Available at: https://arxiv.org/abs/2309.07015.",
+      "citation": "(Retyk et al., 2023)"
+    },
+    {
+      "keyword": "Sentence Embeddings and S-BERT",
+      "title": "Enhanced Resume Screening for Smart Hiring Using Sentence-BERT",
+      "reference": "Deshmukh, A. and Raut, A. (2024) 'Enhanced Resume Screening for Smart Hiring Using Sentence-BERT', International Journal of Advanced Computer Science and Applications (IJACSA), 15(8), pp. 241–247.",
+      "citation": "(Deshmukh and Raut, 2024)"
+    },
+    {
+      "keyword": "Explainable Transformer Ensemble",
+      "title": "Job Description Parsing with Explainable Transformer Based Ensemble Models",
+      "reference": "Akkasi, A. (2024) 'Job Description Parsing with Explainable Transformer Based Ensemble Models to Extract the Technical and Non-technical Skills', Natural Language Processing Journal, 9, 100102. doi:10.1016/j.nlp.2024.100102.",
+      "citation": "(Akkasi, 2024)"
+    },
+    {
+      "keyword": "SpaCy NLP Pipeline",
+      "title": "Explosion AI — spaCy: Industrial-Strength Natural Language Processing",
+      "reference": "Honnibal, M. and Montani, I. (2017) spaCy 2: Natural language understanding with Bloom embeddings, convolutional neural networks and incremental parsing. Available at: https://spacy.io.",
+      "citation": "(Honnibal and Montani, 2017)"
+    },
+    {
+      "keyword": "Deep Learning Text Classification",
+      "title": "Deep Learning–Based Text Classification: A Comprehensive Review",
+      "reference": "Minaee, S., Kalchbrenner, N., Cambria, E., Nikzad, N., Chenaghlu, M. and Gao, J. (2021) 'Deep Learning–Based Text Classification: A Comprehensive Review', ACM Computing Surveys, 54(3), pp. 1–40. doi:10.1145/3439726.",
+      "citation": "(Minaee et al., 2021)"
+    },
+    {
+      "keyword": "Rule-Based Resume Parsing",
+      "title": "Rule-Based Information Extraction from Multi-format Resumes for Automated Classification",
+      "reference": "Musleh, D.A. (2024) 'Rule-Based Information Extraction from Multi-format Resumes for Automated Classification', IIETA Journal. Available at: https://www.iieta.org.",
+      "citation": "(Musleh, 2024)"
+    },
+    {
+      "keyword": "Resume Embeddings and ATS",
+      "title": "Resume2Vec: Transforming Applicant Tracking Systems with Embedding-based Matching",
+      "reference": "Bevara, R.V.K. (2025) 'Resume2Vec: Transforming Applicant Tracking Systems with Intelligent Resume Embeddings', Electronics, 14(4), p. 794. doi:10.3390/electronics14040794.",
+      "citation": "(Bevara, 2025)"
+    }
+  ]
+}

@@ -2,120 +2,130 @@ METHODOLOGY
 ------------------------
 1. METHODOLOGY
 ----------------------------------------
-3. Methodology
+3.1 Research Design
 
-3.1. Research Design
-This study adopts a structured approach to build a system for skin lesion classification using deep learning methods. The focus lies on creating a reliable pipeline that processes images and evaluates different techniques for accurate diagnosis. A quantitative method is used to assess the performance of various setups through specific measures. Data is gathered from a well-known public dataset to ensure consistency and comparability with other studies. The design includes steps like preprocessing and feature adjustments to prepare images for analysis. Each phase is planned to address challenges such as class imbalance and image quality issues. The workflow also involves splitting data into training, validation, and testing sets for fair evaluation. This framework aims to balance practical implementation with thorough testing of the system. Experiments are conducted on a computational setup with GPU support for faster processing. The goal is to achieve dependable results that can support medical diagnosis in dermatology.
+3.1.1 Study Overview  
+The research design adopts a supervised machine learning method to sort resumes into job categories based on text content analysis. It involves training algorithms on a dataset of labelled resumes to spot key patterns and make predictions. For instance the approach uses a collection of 2484 resumes from a public source covering various categories to build reliable models. This method suits the project well as it processes text data efficiently and boosts accuracy in sorting tasks. By automating resume checks it reduces manual effort in hiring and manages uneven data distributions effectively helping to handle real scenarios.
 
-3.2. Data Details
-The research uses the HAM10000 dataset, which contains a large collection of dermoscopic images for skin lesion analysis. This dataset includes over 10,000 images across seven diagnostic categories of skin conditions. It offers a diverse range of cases to train and test the system effectively. Images are labelled with specific diagnoses, allowing for detailed classification tasks. The dataset also provides metadata such as lesion type and patient information for deeper insights. A split based on unique lesion identifiers prevents data leakage between sets. This ensures that images from the same patient do not appear across training and testing groups. The class distribution shows a significant imbalance, with some conditions appearing more frequently than others. Addressing this imbalance becomes a key part of the study design. The data source is widely recognised in the field, as noted by Cassidy and Yap (2022).
+3.1.2 Experimental Setup  
+The experimental setup begins with data preparation including loading a resume dataset into a framework for analysis then cleaning and dividing it into training and testing parts. It applies text handling steps such as expanding abbreviations removing unwanted elements and simplifying words to create useful features. Models like Naive Bayes bidirectional LSTM and DistilBERT receive these features for training with an 80% training split to ensure balanced representation. This process works for the project by adapting to different resume styles and overcoming sorting issues leading to improved outcomes in a practical tool for classification. The setup also includes imbalance fixes such as weighting classes to enhance performance across categories.
 
-3.3. Preprocessing
-This section focuses on preparing raw images to improve their quality for better analysis in later stages. Several techniques are applied to clean and standardise the data before feeding it into the system.
-<which image to keep, generally will be google picked as this is methodology>
-<Figure 1: Visual effect of preprocessing steps on a sample image>
+3.2 Data Details
 
-3.3.1. Hair Removal Method
-The first step involves applying a technique to remove hair from dermoscopic images, which often obstructs clear visibility of lesions. The DullRazor algorithm is used, combining morphological operations and inpainting to erase hair-like structures. This method detects dark lines and replaces them with surrounding pixel values for a smoother appearance.
+3.2.1 Dataset Source
 
-Hair artefacts can interfere with the detection of lesion boundaries and textures, leading to errors in classification. Removing these distractions helps the system focus on actual skin features rather than irrelevant noise. This step is crucial for datasets like HAM10000 where hair presence varies across images. It ensures consistency in how lesions are presented for further processing. The chosen method is computationally light and effective for this purpose, as supported by existing studies such as Hammad et al. (2023).
+The dataset consists of resumes drawn from Kaggle's snehaanbhawal collection offering 2484 entries in four columns accessed via KaggleHub for analysis. Kaggle serves as a popular platform for sharing datasets that cover practical applications in fields like job classification making it a straightforward choice for this work. This collection includes diverse resume samples spanning various job roles which provide a solid foundation for examining text patterns and categories. By selecting this source researchers gain exposure to authentic data reflecting common career profiles thus aiding in the development of more accurate classification systems. The dataset's open access means it reaches a wide audience including students exploring machine learning projects.
 
-3.3.2. Colour Adjustment Process
-Colour variations in images due to different lighting or camera settings are addressed in this stage. A normalisation technique is applied to adjust the colour channels by calculating mean values per channel. This creates a uniform colour profile across the dataset for better comparison.
+The decision to use this dataset arises from its ease of access and the broad range of examples present which enhance training processes for categorising jobs. Such real-world data supports better performance by including varied formats and content that mirror actual employment documents.
 
-Such adjustments are necessary as inconsistent hues can mislead the system into focusing on irrelevant colour differences rather than lesion characteristics. Standardising the colour range improves the ability to detect true patterns in skin conditions. It also helps in reducing bias caused by external factors during image capture. This process supports more accurate analysis in subsequent steps by providing a balanced input.
+3.2.2 Data Structure
 
-3.3.3. Contrast Enhancement Technique
-To improve visibility of lesion details, a method known as Contrast-Limited Adaptive Histogram Equalisation is applied on the lightness channel of images. This technique boosts contrast in local areas while preventing over-amplification of noise. It makes subtle differences in skin texture more apparent for analysis.
+The data structure features 2484 resumes arranged in four columns containing textual content and category labels which enable easy processing and extraction of key features. This setup includes details like resume text and job categories allowing for quick handling of information during analysis steps. For instance the columns help in identifying patterns such as word frequencies or category trends that inform model building. 
 
-Enhancing contrast is vital for distinguishing between similar-looking lesions and background skin, especially in low-quality images. Poor contrast can hide critical features needed for correct diagnosis, impacting performance. This approach ensures that even faint boundaries or patterns become visible without distorting the image. It prepares the data for more effective feature extraction by highlighting important visual cues. The method proves beneficial across varied image conditions in the dataset.
+This arrangement benefits the project by simplifying text management and ensuring that data flows smoothly into classification tasks. It offers a clear layout that reduces complexity in early stages and allows for effective comparison across different resumes helping to build a reliable framework for outcomes. The structured format also accommodates potential expansions like adding more features without major changes.
 
-3.4. Feature Engineering
-This part deals with modifying and expanding the image data to improve the system’s learning capacity. Two main strategies are explored to enrich the input for better outcomes.
+Data preprocessing transforms raw resume data into a clean format for analysis. This stage ensures the resume dataset becomes suitable for machine learning by handling inconsistencies and preparing features. The project uses a structured approach on a dataset of 2 484 resumes to enhance data quality and support classification tasks. Such preparation reduces errors and streamlines subsequent steps.
 
-3.4.1. Image Modification
-Images are resized to a standard dimension of 224 by 224 pixels to match the input requirements of the system. Normalisation is also applied to scale pixel values between 0 and 1. This creates a consistent format for all images during processing.
+3.3.1 Feature Elimination
 
-Standardising size and value range avoids discrepancies that could affect the learning process. Uniform inputs help the system focus on relevant patterns rather than adjusting to varying formats. This step is essential for maintaining efficiency during training and testing phases. It also aligns with common practices in image-based studies, ensuring compatibility with established methods.
+Feature elimination discards irrelevant columns to simplify the dataset. This action removes items like ID and Resumehtml which do not contribute to analysis. By focusing on key resume elements such as text content the process aids in building more effective models for job category detection.
 
-3.4.2. Data Augmentation Approach
-To increase the variety of training data, transformations such as random flips, rotations up to 20 degrees, and colour adjustments are applied. These changes create new versions of images without collecting additional samples. This helps in building a more diverse dataset for training.
+3.3.2 Text Expansion
 
-Such techniques are important to prevent the system from learning only specific patterns seen in the original data. By introducing variations, it becomes better at handling unseen cases, improving its ability to generalise. This is particularly useful for imbalanced datasets where some classes have fewer examples. The approach also reduces the risk of overfitting to limited samples, as noted by Shen et al. (2022).
+Text expansion changes shortened forms into full words to maintain consistency. This step applies tools to convert abbreviations ensuring that resume language appears uniform. As a result patterns in text become clearer which supports better identification of job categories.
 
-3.6. Performance Measures
-This section outlines the metrics used to evaluate the system’s effectiveness in classifying skin lesions. Three key indicators are chosen to provide a comprehensive view of performance across different aspects.
+3.3.3 Text Cleaning
 
-3.6.1. Accuracy Analysis
-Accuracy is calculated as the proportion of correct predictions out of all cases tested. It gives a straightforward measure of how often the system identifies the right class. This metric is simple to interpret and widely used.
+Text cleaning removes unwanted parts to standardise content. This includes actions like converting text to lowercase and eliminating URLs emails phones and special characters. Through these efforts the resumes show clearer patterns that help models learn from the data more effectively.
 
-While useful, accuracy alone may not fully reflect performance in imbalanced datasets where some classes dominate. It serves as a starting point to gauge basic correctness before exploring deeper insights. This measure helps compare results with other studies in the field. It provides a foundation for understanding the system’s basic capability in real scenarios.
+3.3.4 Token Processing
 
-3.6.2. F1 Score Review
-The F1 score combines precision and recall into a single value to balance correct positive predictions and missed cases. It is particularly helpful for uneven class distributions. This metric offers a more detailed perspective than accuracy alone.
+Token processing divides text into separate words and removes frequent non-specific ones. This method keeps important terms related to resumes while cutting out common words. It creates a refined dataset that highlights relevant features for improved classification outcomes.
 
-In datasets like HAM10000, where some conditions are rare, F1 score ensures that performance on minority classes is not overlooked. It reflects how well the system handles both common and less frequent cases. This measure is critical for medical applications where missing rare but serious conditions can have significant consequences. It guides improvements in handling specific diagnostic challenges.
+3.3.5 Word Normalization
 
-3.6.3. AUC Examination
-The Area Under the Curve for the Receiver Operating Characteristic plot measures the system’s ability to distinguish between classes. It evaluates performance across various threshold settings. A higher value indicates better separation capability.
+Word normalization converts words to their base forms to handle variations. This technique applies lemmatization to simplify language across resumes. Such changes lead to consistent features that allow models to perform better in predicting job categories.
 
-This metric is valuable for assessing how well the system ranks predictions, especially in distinguishing critical conditions like melanoma. It provides insight into the trade-off between true positives and false positives. AUC is widely accepted in diagnostic studies for its ability to show overall discriminative power. It helps in understanding the system’s reliability across different decision points, as discussed by Maron et al. (2021).
+3.3.6 Imbalance Handling
 
-3.7. Web Application Setup
-This section describes the development of a web-based tool for skin lesion classification. It integrates various components to allow users to upload images and receive diagnostic predictions.
+Imbalance handling addresses uneven distribution of classes in the dataset. This correction ensures each category gets proper representation to avoid bias in models. The adjustment promotes fairer results and boosts performance in classification tasks. For example methods like weighting help balance classes and improve accuracy to around 83.50%.
 
-3.7.1. Flask System
-A lightweight web framework called Flask is used to build the application interface. It handles user requests and serves the frontend for image uploads. This setup ensures smooth interaction between user and system.
+3.4 Feature Engineering
 
-Choosing Flask allows for quick development and easy integration with other tools. It supports a simple yet effective structure for handling image data submissions. This framework is suitable for creating a user-friendly platform. It manages the basic flow of data from input to output seamlessly.
+3.4.1 Text Vectorization  
+Text vectorization transforms raw text into numerical data for machine learning. TF-IDF represents words by calculating their frequency in a document against their rarity across all documents.  
 
-3.7.2. OpenCV Handling
-OpenCV library is applied for initial image processing within the web tool. It converts image formats and resizes uploads to the required dimensions. This prepares data for further analysis.
+This approach was chosen for the project as it converts resume text into meaningful features that help models detect important patterns in job descriptions and skills improving classification accuracy.
 
-Using OpenCV ensures that uploaded images are correctly formatted before prediction. It handles colour space changes and scaling with efficiency. This step is necessary to match the input conditions used during training. It maintains consistency between development and deployment phases.
+3.4.2 Category Encoding  
+Category encoding changes non-numerical labels into numbers that algorithms can use. Label encoding assigns a distinct integer to each category in the dataset.  
 
-3.7.3. PyTorch Processing
-The core prediction logic is built using PyTorch, managing the computational backend of the application. It loads the trained system and processes images for classification. This handles the heavy lifting of inference tasks.
+The method was selected because it simplifies the 24 job categories into numerical form essential for training models and ensuring they process the data without errors.
 
-PyTorch offers flexibility and speed for running predictions on user-submitted data. It supports GPU acceleration if available, ensuring quick response times. This choice aligns with the training environment for consistent behaviour. It enables accurate delivery of results through the web interface.
+3.4.3 Entity Recognition  
+Entity recognition locates and categorises specific items in text such as skills or education terms within resumes. It uses tools to identify these elements and count their occurrences.  
 
-3.5. Models
+The process was adopted to pull out key details from resumes adding custom features like skill counts that enhance model performance in categorising documents based on content.
 
-This section outlines the deep learning approaches chosen for skin lesion classification. It explains the structure and reasoning behind each model to build a clear understanding of their application.
+3.6 Performance Evaluation
 
-3.5.1. InceptionV3 Setup
+3.6.1 Accuracy Measure
+Accuracy indicates the share of correct predictions out of all predictions made by the model. It calculates the total number of correct classifications divided by the total instances.
+In this resume classification project accuracy helped gauge how well the model identified job categories overall helping to compare different models like DistilBERT against baselines.
 
-InceptionV3 is a convolutional neural network designed with a focus on efficiency and depth. It uses a series of inception modules which combine different filter sizes to capture varied patterns in images. These modules include layers like convolutions which process spatial features and pooling which reduces data dimensions while preserving key details. The model also incorporates batch normalisation to stabilise training by adjusting input distributions across layers.
+3.6.2 Precision Measure
+Precision reflects the proportion of true positive predictions among all positive predictions. It counts correct positive results divided by the sum of correct and incorrect positives.
+For this study precision was selected to evaluate the model's ability to avoid false positives in resume categorisation ensuring reliable predictions for imbalanced job classes.
 
-The choice of InceptionV3 stems from its proven strength in handling image-based tasks with intricate details. Its architecture allows for capturing a wide range of visual features critical for distinguishing between skin lesion types. This model balances computational cost with performance making it suitable for a study aiming to achieve reliable results within resource constraints. Its design supports effective learning from complex datasets often seen in medical imaging.
+3.6.3 Recall Measure
+Recall means the proportion of true positive predictions out of all actual positive instances. It divides true positives by the total of true positives and false negatives.
+This project used recall to assess how effectively the model captured relevant resumes in each category addressing the need to detect minority classes in the dataset.
 
-<Placeholder for image: A diagram of InceptionV3 architecture from a trusted academic source.>
-<Caption: Figure 1: Structure of InceptionV3 model.>
+3.6.4 F1 Measure
+F1 measure combines precision and recall into a single score using the harmonic mean. It balances both metrics to provide a comprehensive view of model performance.
+In this work F1 was chosen because it offered a balanced assessment of precision and recall vital for evaluating resume models with uneven class distributions.
 
-3.5.2. EfficientNet-B0 Configuration
+3.6.5 Mean Measure
+Mean measure here refers to the average of evaluation scores across classes. It computes the arithmetic average of metrics like F1 for all categories.
+The project applied mean measure to summarise performance across 24 job categories allowing a fair comparison of models on imbalanced data.
 
-EfficientNet-B0 is a neural network built on a principle of scaling depth, width, and resolution in a balanced way. It uses compound scaling to adjust these aspects for better efficiency. Key components include mobile inverted bottleneck blocks which reduce computation through depth-wise separable convolutions. Activation functions like Swish help in smoothing the learning process by introducing non-linearity.
+3.6.6 Matrix Analysis
+Matrix analysis involves examining the confusion matrix which shows correct and incorrect predictions in a grid. It displays true positives false positives and other errors.
+This analysis was used in the study to identify specific misclassifications in resume data helping to refine models and understand category-specific weaknesses.
 
-Opting for EfficientNet-B0 comes from its ability to deliver high accuracy with lower resource demands. This model suits projects where processing power might be limited yet performance remains a priority. Its scaling method ensures that it can adapt to the challenges of skin lesion images which often vary in texture and scale. This makes it a practical choice for consistent outcomes in classification tasks as noted in recent studies (Kanchana, 2024).
+3.7 Web Application
 
-<Placeholder for image: A schematic of EfficientNet-B0 architecture from a credible online repository.>
-<Caption: Figure 2: Layout of EfficientNet-B0 model.>
+3.7.1 Application Framework  
+The application framework uses Flask a Python-based web tool to build the app and handle requests and responses. It directs user inputs to appropriate functions and delivers results in formats such as JSON. Flask fits this project because it links smoothly with Python libraries for machine learning tasks. Its straightforward design allows quick building and model setup making the process efficient for developers. In projects involving text analysis the framework offers a simple way to create web services. For example developers often select Flask for its ability to run on various servers and support extensions that add features like database connections. This setup lets the resume classifier run online with immediate feedback enabling users to upload files and receive classifications without delay.
 
-3.5.3. Xception Structure
+3.7.2 Prediction Interface  
+The prediction interface serves as the app's key element that processes resumes through a specific endpoint. It accepts PDF uploads extracts text and runs model analysis to produce classification outcomes. This approach gives a practical method to use the DistilBERT model on everyday documents. The interface processes inputs in a safe efficient manner leading to reliable category forecasts and entity detection. By including steps like error checking it reduces risks from faulty uploads and ensures consistent performance. Users benefit from clear outputs that include category details making the tool accessible for job seekers and recruiters. In similar systems this design helps maintain accuracy by aligning with the preprocessing steps from earlier stages thus supporting better real-world use.
 
-Xception stands for Extreme Inception and builds on the idea of depth-wise separable convolutions. This approach splits standard convolutions into two steps: depth-wise convolution to process each channel separately and point-wise convolution to combine outputs. This reduces the number of operations while maintaining the ability to extract detailed features. The architecture focuses on efficiency through these separable layers.
+3.5 Models
 
-The decision to include Xception arises from its strength in separating spatial and channel-wise features effectively. This is particularly useful for skin lesion images where fine details can determine classification accuracy. Its lightweight design also aligns with the need for models that perform well without excessive computational burden. This characteristic supports its application in a research setting aiming for precise identification of lesion categories.
+This part describes the machine learning models chosen to sort resumes into job categories. The models process pre-treated text data to spot patterns and make predictions based on word patterns.
 
-<Placeholder for image: A visual representation of Xception architecture from an academic database.>
-<Caption: Figure 3: Design of Xception model.>
+3.5.1 Multinomial Naive Bayes
 
-3.5.4. ConvNeXt-Tiny Framework
+Multinomial Naive Bayes serves as a basic classification tool that follows Bayes' theorem and treats features as separate units. It assesses the probability of a document belonging to a category by looking at word frequencies from the training data. This approach uses a multinomial setup to handle word counts which suits text-based tasks like resume sorting. For example the model counts how often words appear in different job types and uses those counts to classify new resumes.
 
-ConvNeXt-Tiny is a modern convolutional network inspired by transformer concepts but rooted in traditional convolution methods. It includes elements like layer normalisation to stabilise training by normalising inputs across features. The model also uses large kernel sizes in convolutions to capture broader contextual information. DropPath is another feature which randomly drops paths during training to prevent overfitting.
+The model offers a straightforward design that lets it work fast on large text sets. In resume work it matches well with clear job groups because it delivers quick results and steady performance. Researchers often use it for text issues where word totals matter most as it provides an easy way to start analysis. One drawback is that it ignores word order so it might miss some context in detailed resumes. Still its low demand for computing power makes it ideal for initial tests. From the setup it works with TF-IDF features and an alpha value of 0.1 to smooth counts and improve stability. This adjustment helps the model deal with imbalanced data by giving more weight to less common categories ensuring better fairness across job types.
 
-Selecting ConvNeXt-Tiny is based on its blend of advanced techniques and strong performance in image tasks. Its design addresses limitations of older convolutional models by integrating ideas from other architectures leading to improved feature extraction. This is essential for medical images where subtle differences matter. Its compact size in the Tiny variant ensures it remains feasible for use in a study focused on accurate skin lesion classification without overwhelming resources (Hammad et al., 2023).
+In practice the model builds on earlier ideas from probability theory and adapts them for modern text needs. Compared to decision trees it offers faster training times which benefits projects with tight schedules. Its ability to handle high-dimensional data like resume text without much hassle adds to its appeal in educational settings.
 
-<Placeholder for image: An illustration of ConvNeXt-Tiny architecture from a reliable source.>
-<Caption: Figure 4: Framework of ConvNeXt-Tiny model.>
+3.5.2 Bidirectional LSTM
+
+Bidirectional LSTM is a recurrent neural network design that reviews text sequences from both directions to capture full context. It relies on memory cells to hold onto information over long parts of the text helping it link ideas that appear far apart. The structure includes gates that manage which data to retain or forget allowing it to adapt to different text sizes.
+
+For resume classification this model captures word flow which is key for grasping job context. It can for instance trace how a skill connects to a role across multiple lines leading to more precise predictions. The two-way flow lets it pick up on hidden patterns that simpler models overlook. Based on the setup it uses an embedding layer followed by BiLSTM layers with 128 hidden units and dropout to prevent overfitting during training.
+
+The model draws from neural network advances and applies them to sequence problems making it effective for tasks like text analysis. In contrast to basic Naive Bayes it accounts for sequence which boosts accuracy on complex data. However it needs more processing time and resources which could slow down experiments on standard computers. Despite this its strong results on sequential text make it a good option for deeper resume insights. Training involves 10 epochs with the Adam optimiser and a learning rate scheduler to refine performance over time.
+
+3.5.3 DistilBERT
+
+DistilBERT acts as a compact version of the BERT model using transformer layers to examine text for classification. It employs attention to focus on important sentence parts and understand word links. The model takes insights from its larger counterpart but reduces size for quicker operation.
+
+In resume classification DistilBERT achieves high accuracy with fast processing which fits applications that require instant feedback. It starts with pre-trained weights and adjusts them on specific data like job texts to enhance outcomes. For example it handles complex language by learning from patterns in training sets leading to reliable sorting.
+
+The model stems from recent developments in natural language processing and offers a balance of speed and effectiveness. Unlike traditional methods it captures word relationships without heavy computation making it suitable for varied text lengths. In the process it uses a sequence length of 256 and trains for 10 epochs with the AdamW optimiser to fine-tune parameters. This setup allows it to perform well on imbalanced data through weighted loss functions improving its predictions for minority categories. Overall it provides a practical choice for text tasks in research projects.
 

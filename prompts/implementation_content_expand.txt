@@ -1,0 +1,38 @@
+{pp}
+
+## Task
+The following implementation section content is too short. Rewrite and expand it to reach EXACTLY {words} words.
+
+## Section Reference
+{section}
+
+## Current Content (too short):
+{content}
+
+## Word Count Information
+- Target: {words} words
+- Currently: {current_words} words
+- You need to ADD approximately {gap} more words
+
+---
+
+## How to Expand (implementation-specific)
+
+1. **Deepen technical detail** — add exact parameter values, tensor/array shapes, data types, library function
+   signatures, loop logic, or configuration settings pulled from the code pipeline below.
+2. **Elaborate on each step** — if a paragraph describes one operation, expand it by explaining the input
+   format, the transformation applied, and the output format.
+3. **Add edge-case handling** — describe any conditional logic, error handling, or special cases dealt with
+   in the code.
+4. **Keep existing figure placeholders intact** — do NOT remove `<Insert Figure>` blocks.
+5. **Do NOT add new subheadings** — only expand existing paragraphs.
+
+## Rules
+- British English, student tone, straightforward vocabulary.
+- Avoid: "Moreover", "Additionally", "employ", "leverage", "utilise".
+- Do NOT print word count brackets in headings.
+- Output the COMPLETE expanded section (not just the additions).
+- Your output MUST be approximately {words} words. This is non-negotiable.
+
+## Code Pipeline (use for technical details):
+{pipeline}

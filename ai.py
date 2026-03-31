@@ -1,13 +1,12 @@
 from openai import OpenAI
 import os 
 # from dotenv import load_dotenv
-import streamlit as st
-
-
 # load_dotenv()
-key = st.secrets["GROK_API_KEY"]
 # key = os.getenv("GROK_API_KEY")
 # key = os.getenv("OPENAI_API_KEY")
+
+import streamlit as st
+key = st.secrets["GROK_API_KEY"]
 
 def generate_content(prompt):
 
@@ -19,7 +18,7 @@ def generate_content(prompt):
   )
 
   chat_completion = client.chat.completions.create(
-      model="grok-3", #"gpt-4o-mini", "grok-3-mini"
+      model="grok-3-mini", #"gpt-4o-mini", "grok-3-mini"
       messages=[
           {
               "role": "user",

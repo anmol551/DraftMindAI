@@ -1,1 +1,7 @@
-The HAM10000 ('Human Against Machine with 10000 training images') dataset consists of 10,015 dermatoscopic images collected from different populations, acquired and stored by different modalities. Cases include seven diagnostic categories: Actinic keratoses and intraepithelial carcinoma/Bowen's disease (akiec), basal cell carcinoma (bcc), benign keratosis-like lesions (bkl), dermatofibroma (df), melanoma (mel), melanocytic nevi (nv), and vascular lesions (vasc). Ground truth is confirmed through histopathology (>50%), follow-up examination, expert consensus, or in-vivo confocal microscopy. Images are 600×450 pixels saved in JPEG format. The dataset is highly class-imbalanced; nv is the dominant class (6,705 images) while df is the smallest (115 images). The dataset is sourced from Kaggle (https://www.kaggle.com/datasets/kmader/skin-cancer-mnist-ham10000).
+Dataset: Resume Dataset from Kaggle (snehaanbhawal/resume-dataset), originally sourced from livecareer.com.
+Size: 2,484 resumes across 4 columns — ID, Resume_str, Resume_html, and Category.
+Format: CSV with accompanying PDFs stored in category-labelled folders.
+Categories (24): HR, Designer, Information-Technology, Teacher, Advocate, Business-Development, Healthcare, Fitness, Agriculture, BPO, Sales, Consultant, Digital-Media, Automobile, Chef, Finance, Apparel, Engineering, Accountant, Construction, Public-Relations, Banking, Arts, Aviation.
+Class Distribution: Heavily imbalanced — IT and Business Development lead at 120 each; BPO is lowest at 22.
+Quality: No missing values, no duplicates.
+Preprocessing: ID and Resume_html columns dropped; Resume_str used as primary text source.

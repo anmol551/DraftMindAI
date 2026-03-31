@@ -192,21 +192,62 @@ def get_citation_info(paper_title, paper_url):
 
 # get_ref_citation()
 
-def get_ref_citation(references: list):
+def get_ref_citation(references):
     output_csv_path = config['PAPER_CITATION']
  
     output_data = []
+    
+    import json
+    with open("Temp/debug_references_type.txt", "w") as f:
+        f.write(f"Type: {type(references)}\n")
+        try:
+            f.write(json.dumps(references, indent=2))
+        except:
+            f.write(str(references))
+
+    # If the LLM returned a string instead of a list, skip generation
+    if isinstance(references, list):
+        pass # Expected format
+    elif isinstance(references, dict):
+        if len(references) > 0 and isinstance(list(references.values())[0], dict):
+            # The LLM generated a dict of dicts like: {"1": {"keyword":...}, "2": {...}}
+            references = list(references.values())
+        else:
+            # It's a single dictionary like: {"keyword": "...", ...}
+            # Or perhaps a dictionary of strings. Let's wrap it in a list to iterate over it safely.
+            # But wait, if it's {"0": "...", "1": "..."}, wrapped in list is [{"0": "..."}]
+            references = [references]
+    else:
+        print(f"Warning: Expected a list or dict of dictionaries for 'references', got: {type(references)}")
+        references = []
+
     for item in references:
-        output_data.append({
-            "keywords"  : item.get("keyword", ""),
-            "title"     : item.get("title", ""),
-            "references": item.get("reference", ""),
-            "citation"  : item.get("citation", ""),
-        })
+        if isinstance(item, dict):
+            # Sometimes 'reference' can be under a different key, handle both.
+            output_data.append({
+                "keywords"  : item.get("keyword", "") or item.get("keywords", ""),
+                "title"     : item.get("title", ""),
+                "references": item.get("reference", ""),
+                "citation"  : item.get("citation", ""),
+            })
+        elif isinstance(item, str):
+            # Just a string reference
+            output_data.append({
+                "keywords": "string_item",
+                "title": "",
+                "references": item,
+                "citation": ""
+            })
+        else:
+            print(f"Skipping badly formed reference item: {item}")
  
     output_data_sorted = sorted(output_data, key=lambda x: x['keywords'].lower())
  
-    df = pd.DataFrame(output_data_sorted)
+    if not output_data_sorted:
+        df = pd.DataFrame(columns=["keywords", "title", "references", "citation"])
+    else:
+        df = pd.DataFrame(output_data_sorted)
+        
     df.to_csv(output_csv_path, index=False, encoding='utf-8')
  
     print(f"\n✅ {len(output_data_sorted)} references saved to {output_csv_path}")

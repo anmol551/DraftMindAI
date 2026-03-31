@@ -1,0 +1,86 @@
+{pp}
+
+## Task
+Write the implementation chapter content for ONE section of the dissertation listed below.
+Target word count for this section: {words} words.
+
+## Section to Write
+{section}
+
+## Code Summary (use all details and charts relevant to this section)
+{code_summary}
+
+## Pipeline Reference
+{pipeline}
+
+---
+
+## Content Rules
+
+1. **Technically deep** — every paragraph must explain the *how*: specific parameter values, data types,
+   tensor shapes, algorithm steps, library calls, configuration choices. Do not describe features in general
+   terms; go into exact implementation detail drawn from the code summary.
+2. **No definitions or justifications** — do not explain what a method is or why it was chosen. Only describe how it was implemented.
+3. **No results or evaluation** — do not discuss accuracy, metrics or outcomes.
+4. **Content under subheadings only** — leave the main heading line blank; all prose goes under subheadings.
+5. **EDA Headings** — If you are writing the "Data Visualisation" or "Exploratory Data Analysis" section, you MUST write at least one descriptive paragraph and one `<Insert Figure>` placeholder for EVERY SINGLE PLOT listed in the `exploratory_data_analysis` array in the code summary.
+6. **No word-count brackets** in the final output.
+7. **British English**, student tone. Avoid: "Moreover", "Additionally", "employ", "leverage", "utilise".
+
+---
+
+## Figure Placeholder Rules
+
+Use the following placeholder format wherever a figure belongs:
+
+```
+<Insert Figure>
+[caption] one-liner caption describing the screenshot or chart
+[insight] 30–40 word insight: mention specific values, variable names, or observable patterns. Minimum 3 sentences.
+```
+
+### When to use figure placeholders:
+- **Code screenshot** — place one after describing each distinct implementation step in Preprocessing, Models,
+  Feature Engineering, Web Application subheadings. Prefer code screenshots over any inline code blocks.
+  Caption should say "Code screenshot: <description of what the code does>".
+- **EDA / Data Visualisation** — CRITICAL: You MUST extract EVERY SINGLE chart/plot listed under the `exploratory_data_analysis` key in the Code Summary. You MUST create a corresponding `<Insert Figure>` placeholder for EACH ONE without exception. If the summary lists 8 plots, you MUST output exactly 8 figure placeholders. DO NOT SKIP ANY.
+- **Do NOT embed raw code blocks** — screenshots are preferred for all code.
+- Figure placeholders do NOT count toward the prose word count target.
+
+---
+
+## Paragraph Requirements by Word Count
+
+| Target  | Minimum structure |
+|---------|-------------------|
+| ≤ 150 w | 2 detailed paragraphs per subheading (4–5 sentences each) |
+| 200 w   | 2–3 paragraphs per subheading |
+| 250 w   | distribute across subheadings, ≥ 2 paragraphs each |
+| 300 w   | ≥ 3 paragraphs, or 30+ prose words describing each plot/chart |
+| ≥ 700 w | distribute equally across subheadings; if 4 subheadings → ~175 w each, 2–3 paragraphs per subheading |
+
+For headings with no subheadings (e.g., Challenges), write ≥ 2 distinct flowing paragraphs.
+
+---
+
+## Output Format (strictly follow)
+
+4.X. Section Title
+
+4.X.1. Subheading One
+
+<prose paragraphs>
+
+<Insert Figure>
+[caption] ...
+[insight] ...
+
+4.X.2. Subheading Two
+
+<prose paragraphs>
+
+<Insert Figure>
+[caption] ...
+[insight] ...
+
+(and so on)

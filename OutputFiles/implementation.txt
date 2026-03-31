@@ -1,151 +1,239 @@
-IMPLEMENTATION
-------------------------
-1. IMPLEMENTATION
-----------------------------------------
-3. Implementation
+4.1 Statistical Details
 
-3.1 Statistical Analysis of Loan Data
+4.1.1 Overview of statistics
 
-This section presents a detailed statistical overview of the loan dataset used in the research. The dataset comprises 20,000 records with 37 features capturing financial and personal attributes of applicants. Numerical columns such as AnnualIncome show a mean of 75012.25, standard deviation of 37495.50, minimum of 15000.00, maximum of 149999.00, and quartiles at 45006.00, 75012.25, and 105018.50. Similarly, CreditScore has a mean of 699.78, standard deviation of 99.95, minimum of 300.00, maximum of 850.00, and quartiles at 624.00, 700.00, and 775.00. LoanAmount records a mean of 24997.35, standard deviation of 14428.60, minimum of 1000.00, maximum of 50000.00, and quartiles at 12998.50, 24997.35, and 36996.25. These values reflect wide variability in financial profiles, providing a rich basis for risk assessment.
+The exploratory data analysis process involved loading the resume dataset into a Pandas DataFrame and performing initial statistical checks such as shape dtypes nulls and duplicates. This step used libraries like Pandas and NumPy to handle the data. The analysis then generated various plots to visualise distributions and patterns in the dataset.
 
-3.2 Exploratory Data Analysis of Loan Applicant Profiles
+The process included creating bar charts histograms and word clouds to examine text lengths categories and frequent terms. These visual elements drew from the preprocessed data to provide insights into resume characteristics across different job categories.
 
-Following the initial statistical overview, this section delves into visual explorations of the loan dataset to uncover patterns and relationships among variables. A set of pie charts was created to examine the distribution of categorical attributes like EmploymentStatus, MaritalStatus, HomeOwnershipStatus, and LoanPurpose.  
-[Figure 4.1: Categorical Distributions]  
-Caption: Figure 4.1 — Distribution of Categorical Features across EmploymentStatus, MaritalStatus, HomeOwnershipStatus, and LoanPurpose  
-Description: This visualisation captures the proportional breakdown of key categorical variables in the dataset of 20,000 records. Employed applicants form the dominant group in employment status with a share of 68%, while married individuals account for 52% of marital status. Renting emerges as the most common home ownership status at 47%, and personal loans top the loan purpose category at 34%, followed by auto loans at 28%. These distributions suggest a dataset skewed towards mid-income working individuals with varied financial needs.
+<Insert Figure>
+[caption] Category distribution countplot showing resume categories
+[insight] The countplot illustrates 24 categories with IT and Business Development each at 120 the highest. This pattern suggests greater data availability for these areas. Such imbalance could influence subsequent analysis steps in the project.
 
-Next, a histogram was generated to assess the distribution of applicant ages across the dataset.  
-[Figure 4.2: Age Distribution]  
-Caption: Figure 4.2 — Histogram of Applicant Age with 30 Bins  
-Description: The histogram reveals a right-skewed distribution of ages among the 20,000 applicants, indicating a higher concentration of younger individuals. The peak frequency occurs between 25 and 35 years, with a sharp decline beyond 50 years. Approximately 62% of applicants fall below 40 years, reflecting a workforce-age dominant pool. This pattern suggests that younger applicants may drive loan demand, potentially due to career establishment needs or limited savings for large purchases.
+<Insert Figure>
+[caption] Resume text length histogram displaying character counts
+[insight] The histogram peaks near 6 000 characters with a range up to about 40 000. Most resumes fall in the lower end indicating concise formats. This distribution helps identify typical text sizes for processing.
 
-Histograms were also produced for multiple financial metrics to understand their spread across applicants.  
-[Figure 4.3: Financial Metrics Distribution Group 1]  
-Caption: Figure 4.3 — Histograms of MonthlyDebtPayments, CreditCardUtilizationRate, PaymentHistory, TotalAssets, and TotalLiabilities  
-Description: This set of histograms illustrates the distribution of five financial indicators across the dataset. MonthlyDebtPayments show a right skew with a mean of 499.85 and 70% of values below 600.00. TotalAssets also exhibit right skew, with a mean of 124987.50 and 65% below 100000.00. PaymentHistory is left-skewed, with 78% of applicants having scores above 80.00, indicating strong repayment records. These patterns highlight that most applicants carry moderate debt and asset levels with reliable payment behaviour.
+<Insert Figure>
+[caption] Average resume length per category bar chart
+[insight] The bar chart shows Sales with the lowest average at 5 270 characters and BPO at the highest 7 318. This variation highlights differences in content volume by category. Such details aid in understanding data heterogeneity.
 
-Another group of histograms captured additional financial attributes for deeper insight.  
-[Figure 4.4: Financial Metrics Distribution Group 2]  
-Caption: Figure 4.4 — Histograms of UtilityBillsPaymentHistory, NetWorth, InterestRate, MonthlyIncome, and Other Features  
-Description: This visualisation covers the spread of further financial variables among the 20,000 records. NetWorth shows a wide range with a mean of 74993.20 and 60% of values below 60000.00. MonthlyIncome mirrors this variability with a mean of 6251.02 and 58% below 5000.00. InterestRate appears narrowly distributed with a mean of 10.25 and 85% of values between 5.00 and 15.00. UtilityBillsPaymentHistory is left-skewed, with 82% above 75.00, confirming consistent payment habits across most applicants.
+<Insert Figure>
+[caption] HTML length histogram for resume files
+[insight] The histogram reaches a peak near 15 000 characters and extends to around 60 000. This spread reflects diverse HTML structures in resumes. Analysing these lengths reveals potential challenges in text extraction.
 
-A grouped bar chart was developed to explore loan approval rates based on bankruptcy history.  
-[Figure 4.5: Approval by Bankruptcy History]  
-Caption: Figure 4.5 — Loan Approval Rates by Bankruptcy History  
-Description: This chart compares approval rates between applicants with and without bankruptcy records in the dataset. Applicants with no bankruptcy history, coded as 0, achieve an approval rate of 28%, while those with a history, coded as 1, see only 12% approval. This stark contrast across the 20,000 records underscores bankruptcy as a critical risk indicator. The visual clearly shows that past financial distress heavily influences lending decisions, aligning with expected underwriting practices.
+<Insert Figure>
+[caption] Word cloud of frequent terms in resumes
+[insight] The word cloud features top terms like Company City State Name and Responsibility as the most prominent. These words dominate due to their common occurrence in resume texts. The visualisation underscores key lexical patterns in the dataset.
 
-A heatmap was constructed to analyse loan approval rates across different loan purposes.  
-[Figure 4.6: Approval by Loan Purpose]  
-Caption: Figure 4.6 — Heatmap of Loan Approval Rates by Loan Purpose Categories  
-Description: This heatmap displays approval and denial rates across various loan purposes for all 20,000 applicants. Auto loans record a denial rate of 75.7% against an approval rate of 24.3%. Debt consolidation shows a denial rate of 76.5% and approval of 23.5%. Personal loans follow a similar trend with 77.2% denied. These values, annotated on the heatmap, indicate a conservative approach to lending regardless of purpose, reflecting stringent risk assessment criteria.
+<Insert Figure>
+[caption] Top-10 frequent words bar chart
+[insight] The bar chart lists 'state' as the highest at 16 159 occurrences and 'service' at the lowest 6 223. This ranking shows term frequency variations across resumes. Such frequencies point to thematic emphases in the data.
 
-Another grouped bar chart examined the relationship between credit inquiries and approval outcomes.  
-[Figure 4.7: Approval by Credit Inquiries]  
-Caption: Figure 4.7 — Loan Approval Rates by Number of Credit Inquiries  
-Description: This chart reveals a declining trend in approval rates as the number of credit inquiries increases across the dataset. Applicants with zero inquiries achieve a 32% approval rate, dropping to 18% for those with three or more inquiries. Among the 20,000 records, 55% have fewer than two inquiries. This pattern suggests that frequent credit checks signal financial stress or overextension, leading to higher denial rates in the lending process.
+<Insert Figure>
+[caption] Top-15 bigrams by TF-IDF score bar chart
+[insight] The bar chart identifies 'city state' with the highest TF-IDF score at 83.18. Other bigrams follow in descending order of importance. This scoring reveals significant phrase combinations in the text corpus.
 
-A joint scatter plot with marginal histograms was created to study income and loan amount relationships.  
-[Figure 4.8: Income vs Loan Amount]  
-Caption: Figure 4.8 — Scatter Plot of Loan Amount against Annual Income with Marginal Histograms  
-Description: This plot illustrates a positive correlation between AnnualIncome and LoanAmount across 20,000 records. Applicants with incomes above 100000.00 often request loans exceeding 30000.00, while those below 50000.00 typically seek under 20000.00. Outliers appear with low-income applicants requesting high loans, comprising about 5% of cases. The marginal histograms confirm right-skewed distributions for both variables, with income peaking around 75000.00 and loan amounts around 25000.00, highlighting income as a key determinant of borrowing capacity.
+<Insert Figure>
+[caption] Top-15 NER skills bar chart
+[insight] The bar chart ranks communication at 1 297 the top NER skill followed by leadership at 1 023 and excel at 959. These figures indicate skill prevalence in resumes. The data highlights common professional attributes mentioned.
 
-Finally, a vertical bar chart was prepared to assess the balance of loan approval outcomes.  
-[Figure 4.9: Approval Status Distribution]  
-Caption: Figure 4.9 — Distribution of Loan Approval Status as Approved or Denied  
-Description: This bar chart displays the imbalance in loan outcomes across the dataset. Out of 20,000 records, 15220 are denied, and 4780 are approved, translating to a 76% denial rate against a 24% approval rate. This significant skew indicates a cautious lending environment where denials dominate. Such imbalance necessitates careful consideration of evaluation metrics during model development to ensure fair assessment of minority class outcomes like approvals.
+<Insert Figure>
+[caption] Average skills per category bar chart
+[insight] The bar chart displays IT with the highest average of 3.6 skills per resume and Chef at the lowest 1.3. This metric varies by category reflecting skill density differences. Such insights inform feature considerations in analysis.
 
-3.3 Data Preprocessing for Loan Risk Assessment
+4.2 Data Visualisation
 
-This section outlines the steps taken to prepare the loan dataset for modelling. Various techniques were applied to ensure data quality and compatibility with predictive algorithms.
+4.2.1 Distribution of Resume Categories
 
-3.3.1 Column Removal  
-The first step involved removing irrelevant data from the dataset. The ApplicationDate column was dropped as it held no predictive value for risk assessment. This action reduced the feature count from 37 to 36 across the 20,000 records.  
+The analysis began with visualising the distribution of 24 job categories in the dataset. This involved creating a bar chart to show counts for each category with seaborn library. The chart used the category column from the dataframe and set parameters like hue for better differentiation. Key values emerged from the data such as IT and Business Development categories each showing around 120 entries.
 
-Eliminating such non-informative elements streamlined the dataset. It ensured that subsequent processes focused only on attributes directly tied to financial behaviour and risk evaluation.
+<Insert Figure>
+[caption] Bar chart of category distribution across 24 job types
+[insight] The bar chart displays 24 categories with IT and Business Development topping the list at approximately 120 entries each. Other categories vary widely in frequency which suggests uneven representation in the dataset. This pattern highlights potential challenges for models trained on imbalanced data.
 
-3.3.2 One-Hot Encoding of Categorical Variables  
-Categorical features required transformation into a numerical format for model compatibility. OneHotEncoder with sparseoutput set to False was applied to EmploymentStatus, HomeOwnershipStatus, MaritalStatus, and LoanPurpose.  
+4.2.2 Examination of Text and HTML Lengths
 
-This process converted each category into binary indicator columns, expanding the feature matrix. The dense array output facilitated integration with machine learning algorithms, capturing the distinct characteristics of each categorical value without implying any ordinal relationship.
+Visualisation extended to histograms for resume text lengths using matplotlib. The code processed the text column to calculate character counts and plotted a histogram with bins to capture the range. A separate bar chart depicted average lengths per category by grouping and averaging the data. Another histogram covered HTML lengths from the relevant column.
 
-3.3.3 Label Encoding of Ordinal Data  
-For ordinal data, a different approach was adopted. LabelEncoder with default parameters was used on EducationLevel to assign integer codes to each unique category.  
+<Insert Figure>
+[caption] Histogram of resume text lengths
+[insight] The histogram peaks around 6000 characters for most resumes and extends up to about 40000 characters indicating varied content depth. Shorter resumes might reflect concise formats while longer ones contain detailed experiences. This distribution helps identify outliers that could affect text processing steps.
 
-This transformation resulted in a single integer column replacing the original text labels. It preserved the inherent order of education levels, making the data suitable for models that can interpret numerical sequences meaningfully.
+<Insert Figure>
+[caption] Bar chart of average resume lengths by category
+[insight] Sales category shows the shortest average at 5270 characters suggesting brief descriptions. In contrast BPO has the highest at 7318 characters possibly due to complex roles. These differences point to category-specific patterns that influence feature extraction processes.
 
-3.4 Feature Selection with Recursive Feature Elimination
+<Insert Figure>
+[caption] Histogram of HTML lengths
+[insight] The histogram for HTML content peaks near 15000 characters and reaches up to roughly 60000 characters showing greater variability than plain text. This spread indicates additional markup elements in some resumes. Such insights reveal how structured data might complicate analysis compared to raw text.
 
-Feature selection was a critical step to refine the dataset for improved model performance. Recursive Feature Elimination, known as RFE, was implemented using RandomForestRegressor with the parameter nfeaturestoselect set to 10. This method iteratively removed the least important features based on their contribution to the model until only the top 10 remained. The selected features were AnnualIncome, LoanAmount, LoanDuration, DebtToIncomeRatio, TotalAssets, MonthlyIncome, NetWorth, InterestRate, TotalDebtToIncomeRatio, and RiskScore.
+4.2.3 Word Frequency and Bigrams
 
-The outcome of this process narrowed down the dataset to the most influential variables. Visualisations were created to support the selection.  
-[Figure 4.10: Feature Importance Chart]  
-Caption: Figure 4.10 — Bar Chart of Feature Importance for RFE-Selected Features  
-Description: This bar chart displays the importance scores of the 10 features chosen through RFE across the dataset. TotalDebtToIncomeRatio emerges as the top predictor with a score of 0.22, followed by RiskScore at 0.18 and DebtToIncomeRatio at 0.15. AnnualIncome and MonthlyIncome also rank high at 0.12 and 0.11 respectively. These values indicate that debt-related metrics and income stability are key drivers of risk assessment, guiding the focus for subsequent predictive modelling.
+The process included generating a word cloud from the text data with wordcloud library. This visualisation highlighted frequent terms based on word counts in the corpus. A bar chart displayed the top 10 words using calculated frequencies from processed text. Another bar chart focused on the top 15 bigrams derived from TF-IDF scores.
 
-3.5 Feature Engineering for Enhanced Risk Indicators
+<Insert Figure>
+[caption] Word cloud of common terms in resumes
+[insight] The word cloud features prominent terms like Company City State Name and Responsibility at the centre based on their high occurrence. These words dominate due to their repetitive use in personal details. The visualisation underscores key elements that recur across resumes and could guide feature selection.
 
-To enrich the dataset with meaningful derived metrics, several new features were calculated. Six engineered variables were created: IncomeStabilityRatio as MonthlyIncome multiplied by 12 divided by AnnualIncome plus 1; NetWorthtoIncome as NetWorth divided by AnnualIncome plus 1; DebtStressIndex as DebtToIncomeRatio multiplied by InterestRate; CreditExperienceScore as CreditScore multiplied by the natural logarithm of LengthOfCreditHistory plus 1; HistoricalRiskFlag as the sum of BankruptcyHistory and PreviousLoanDefaults; and CompositeRiskIndex as 0.4 times 1 minus CreditScore divided by 850 plus 0.3 times DebtToIncomeRatio plus 0.2 times InterestRate plus 0.1 times HistoricalRiskFlag.
+<Insert Figure>
+[caption] Bar chart of top 10 frequent words
+[insight] The bar for state reaches the highest count at 16159 occurrences reflecting its common use in addresses. Service appears at the lower end with 6223 counts possibly linked to job descriptions. This ranking shows how certain words like state far outpace others in frequency across the dataset.
 
-These derived features aimed to capture complex financial relationships. They provided deeper insights into applicant stability, debt burden, and historical risk patterns. Such metrics allowed models to assess risk beyond raw data, focusing on composite indicators that reflect real-world financial dynamics and applicant creditworthiness.
+<Insert Figure>
+[caption] Bar chart of top 15 bigrams by TF-IDF score
+[insight] The bigram city state leads with a TF-IDF score of 83.18 indicating strong contextual pairing. Other bigrams follow with lower scores based on their relevance in the text. This order reveals combinations that carry more weight in resume content and could inform advanced text modelling.
 
-3.6 Data Scaling for Numerical Features
+4.2.4 Skills and NER Analysis
 
-To ensure uniformity in feature magnitudes, scaling was applied to numerical data. StandardScaler was used on 13 continuous features including AnnualIncome, CreditScore, DebtToIncomeRatio, LengthOfCreditHistory, MonthlyIncome, NetWorth, InterestRate, TotalDebtToIncomeRatio, IncomeStabilityRatio, NetWorthtoIncome, DebtStressIndex, CreditExperienceScore, and CompositeRiskIndex. This method adjusted the data to a zero mean and unit variance. The fitted scaler was saved as scaler.pkl for future transformations.
+Visualisation covered NER skills through a bar chart of the top 15 skills extracted via spaCy. The code used PhraseMatcher to identify and count skills from the text. A further bar chart showed average skills per category calculated from the NER output.
 
-Scaling prevented features with larger ranges from dominating the model learning process. It ensured equal contribution from all variables, improving the stability and performance of predictive algorithms during training and testing phases across the dataset of 20,000 records.
+<Insert Figure>
+[caption] Bar chart of top 15 NER skills
+[insight] Communication tops the list with 1297 occurrences making it the most cited skill in resumes. Leadership follows at 1023 while excel sits at 959 showing technical versus soft skills. These figures illustrate the prevalence of certain competencies that define job profiles.
 
-3.7 Train-Test Data Split
+<Insert Figure>
+[caption] Bar chart of average skills per category
+[insight] IT category records the highest average at 3.6 skills per resume suggesting rich skill sets in tech fields. Chef category has the lowest at 1.3 indicating simpler requirements. This variation across categories highlights how skill density correlates with job complexity.
 
-The dataset was divided into training and testing subsets to support model development and evaluation. The traintestsplit method was applied with testsize set to 0.2 and randomstate set to 42. This resulted in 16000 samples for training, representing 80% of the data, and 4000 samples for testing, accounting for the remaining 20%.
+4.3 Data Preprocessing
 
-This split provided a robust foundation for model training on a majority of the data while reserving a significant portion for unbiased evaluation. Maintaining a consistent randomstate ensured reproducibility of the split, allowing consistent comparisons across different model experiments and configurations.
+4.3.1 Feature Elimination
+The dataset began with feature elimination by removing unnecessary columns. The code applied the pandas library to the DataFrame and dropped the ID and Resumehtml columns directly. This process reduced the data structure to essential elements for subsequent steps.
+The operation used the drop method with specific parameters to modify the DataFrame in place.
 
-3.8 Model Training for Risk Prediction
+<Insert Figure>
+[caption] Code screenshot: Dropping ID and Resumehtml columns from the dataset
+[insight] The code loads the DataFrame using pandas and specifies the columns for removal. It applies the drop function with inplace set to True ensuring permanent changes. This step streamlines data handling by focusing on key attributes while eliminating redundant information for efficient processing.
 
-This section describes the training process for three distinct models developed to predict loan risk scores. Each model was built with specific configurations to address the complexity of the task.
+4.3.2 Text Expansion
+The text underwent expansion to handle abbreviations. The code incorporated the contractions library to process the resume text and replace shortened forms with full versions. This transformation applied to the entire text column in the DataFrame.
+The function iterated through the text ensuring all instances received expansion before further processing.
 
-3.8.1 ElasticNet Regressor  
-The first model trained was ElasticNet Regressor. It was configured with maxiter set to 10000 and randomstate set to 42. Hyperparameter tuning was conducted using RandomizedSearchCV with niter as 50, cv as 5, scoring based on r2, njobs as -1, and randomstate as 42. The best parameters identified were alpha as 0.0005336699231206312 and l1ratio as 0.9387755102040816.
+<Insert Figure>
+[caption] Code screenshot: Expanding contractions in resume text
+[insight] The code imports the contractions library and defines a function to expand text. It processes each string in the DataFrame by applying the fix function. This approach ensures comprehensive abbreviation handling leading to more accurate text analysis in later stages.
 
-This setup combined L1 and L2 regularisation to balance feature selection and coefficient shrinkage. The tuning process aimed to optimise predictive accuracy by exploring a wide range of parameter combinations, ensuring the model captured key patterns in the training data of 16000 samples without overfitting.
+4.3.3 Text Cleaning
+Text cleaning involved several operations on the resume content. The code converted all text to lowercase and used regex patterns to remove URLs emails and phone numbers. It then stripped special characters from the strings.
+The process normalised whitespace in the text to create a clean version ready for tokenisation.
 
-3.8.2 CNN Regressor  
-The second model was a 1D Convolutional Neural Network, referred to as CNN Regressor, built using a sequential architecture. It included Conv1D with 32 filters, kernelsize as 2, activation as relu, and inputshape as 16 by 1; followed by BatchNormalization; then Conv1D with 64 filters, kernelsize as 2, activation as relu; another BatchNormalization; Flatten; Dense with 64 units, activation as relu; Dropout with rate as 0.3; and Dense with 1 unit for linear output. Training parameters were epochs as 50, batchsize as 32, validationsplit as 0.2, optimizer as Adam, loss as mse, and metrics including mae.  
-[Figure 4.11: CNN Learning Curves]  
-Caption: Figure 4.11 — Training and Validation Loss with MAE for CNN Regressor  
-Description: This plot tracks the training and validation loss along with mean absolute error over 50 epochs for the CNN model on 16000 training samples. Training loss decreases steadily from 25.00 to below 5.00 by epoch 30, while validation loss stabilises around 6.50 after epoch 20. MAE for training drops from 4.00 to 1.50, with validation MAE hovering at 1.80. These trends indicate effective learning with minor overfitting, as validation metrics remain close to training values.
+<Insert Figure>
+[caption] Code screenshot: Cleaning text by lowercasing and removing unwanted elements
+[insight] The code uses the re module for regex-based removal of patterns like URLs. It applies lower case conversion to every character in the text strings. This method results in purified data that enhances subsequent processing steps by eliminating noise.
 
-3.8.3 TabNet Regressor  
-The third model, TabNet Regressor, was designed with specific parameters: nd as 32, na as 32, nsteps as 5, gamma as 1.5, lambdasparse as 0.0001, optimizerfn as torch.optim.Adam, learning rate as 0.02, masktype as entmax, maxepochs as 100, patience as 20, batchsize as 512, virtualbatchsize as 128, and evalmetric as mae. Its architecture featured sequential attention steps using entmax sparse masking across five decision steps with shared and step-specific fully connected layers.  
-[Figure 4.12: TabNet Learning Curve]  
-Caption: Figure 4.12 — Training and Validation MAE for TabNet Regressor  
-Description: This learning curve displays the mean absolute error for training and validation over 100 epochs for the TabNet model with 16000 training samples. Training MAE declines from 5.20 to 1.90 by epoch 50, stabilising thereafter. Validation MAE follows a similar trend, dropping to 2.10 by epoch 40 with slight fluctuations. The close alignment of training and validation errors suggests good generalisation, with early stopping at patience of 20 preventing unnecessary computation after convergence.
+4.3.4 Token Processing
+Token processing split the text into individual words. The code employed NLTK's wordtokenize function on the cleaned text to generate tokens. It then removed stopwords using a custom set while preserving 10 specific keywords related to resumes.
+The token list underwent filtering to exclude common words and retain meaningful ones.
 
-3.9 LLM Integration for Underwriting Reports
+<Insert Figure>
+[caption] Code screenshot: Tokenising and removing stopwords from text
+[insight] The code imports NLTK tools and defines a custom stopword list. It tokenises the text then filters out stopwords except for the preserved keywords. This step breaks down text into manageable units improving the quality of data for advanced analysis.
 
-To enhance decision-making with detailed explanations, a language model was integrated into the workflow. The OpenAI GPT-4o-mini API was used with a structured prompt to generate formal underwriting reports. Key parameters included temperature set to 0.7 for balanced creativity and maxtokens set to 500 to limit response length. The prompt outlined sections such as risk interpretation, financial strengths, risk drivers, and recommendations.
+4.3.5 Word Normalization
+Word normalization reduced words to their base forms. The code applied WordNetLemmatizer from NLTK to each token in the processed list. This lemmatisation occurred after token processing to handle variations effectively.
+The function processed tokens sequentially ensuring consistent forms across the dataset.
 
-Input preparation involved loading the saved TabNet model, scaler, and threshold, then applying feature engineering on sample data to predict a risk score. The API returned a structured text report based on the score and business rules, which was displayed as part of the decision output. This integration bridged numerical predictions with narrative insights, aiding stakeholders in understanding risk assessments.
+<Insert Figure>
+[caption] Code screenshot: Lemmatising tokens in the text data
+[insight] The code initialises WordNetLemmatizer and applies it to the token array. It lemmatises each word based on its part of speech where possible. This technique standardises vocabulary making the data more uniform for feature extraction.
 
-3.10 Web Application Development for Loan Risk Assessment
+4.3.6 Imbalance Handling
+Imbalance handling addressed class distribution issues in the dataset. The code used imblearn's SMOTE technique to generate synthetic samples for minority classes. It also incorporated sklearn functions to compute sample weights based on class frequencies.
+The process applied these methods to the training data before model training.
 
-A web-based platform was developed to provide an interactive interface for loan risk evaluation. Streamlit was chosen as the framework, configured with default settings for rapid deployment. The user interface featured 10 numeric input fields for financial attributes like AnnualIncome, CreditScore, DebtToIncomeRatio, BankruptcyHistory, PreviousLoanDefaults, LengthOfCreditHistory, MonthlyIncome, NetWorth, InterestRate, and TotalDebtToIncomeRatio. Upon submission, the system processed inputs through feature engineering and scaling, predicted a risk score, applied a business rule flagging scores above 50 as high risk with a final decision of rejected, and generated an AI-driven report.
+<Insert Figure>
+[caption] Code screenshot: Applying SMOTE and sample weighting for imbalance
+[insight] The code imports imblearn and sklearn libraries then fits SMOTE to the data. It calculates weights inversely proportional to class sizes and applies them to samples. This balances the dataset allowing models to learn from all classes more effectively.
 
-The output displayed the predicted risk score, model decision, business flag, final decision, and the full narrative report inline. This setup ensured accessibility for non-technical users to input data and receive comprehensive risk evaluations.  
-[Figure 4.13: Web Application Interface]  
-Caption: Figure 4.13 — Screenshot of Streamlit Web Application for Loan Risk Prediction  
-Description: This screenshot captures the Streamlit-based loan risk assessment platform interface. It shows 10 numeric input fields for applicant financial data, a submission button, and output sections displaying risk score, model decision, business flag, final decision, and a detailed AI-generated underwriting report. The layout is clean, with inputs on the left and results on the right, covering all 20,000 dataset-derived features. This visual reflects an intuitive design for end-users to interact with complex risk models effortlessly.
+4.4 Feature Engineering
 
-3.11 Testing of the Loan Risk Prediction System
+4.4.1 Text Vectorization
 
-To validate the system under different scenarios, testing was conducted with varied applicant profiles. Three test cases were designed: a high-risk applicant yielding a risk score of 79.53, resulting in rejection; a borderline applicant with a score of 51.55, also rejected due to the threshold of 50; and a low-risk applicant scoring 29.24, leading to approval.
+The process began by applying TfidfVectorizer from the sklearn library to convert resume text into numerical features. This involved setting ngramrange to (1,2) to include unigrams and bigrams while limiting features to a maximum of 5000. Sublineartf was enabled and set to True alongside mindf at 2 to filter infrequent terms and strip accents using the unicode option.
 
-These tests confirmed the system’s ability to handle diverse inputs and apply business rules consistently. Each case was processed through the full pipeline, from data input to final decision, ensuring that risk scores aligned with expected outcomes and governance policies were enforced accurately.
+The vectorizer processed the preprocessed text column producing a sparse matrix for efficient handling of high-dimensional data. This step transformed raw text into TF-IDF weighted vectors ready for model input.
 
-3.12 Challenges and Solutions in Development
+<Insert Figure>
+[caption] Code screenshot: TF-IDF vectorization with specified parameters
+[insight] The code uses TfidfVectorizer to create a matrix from text data. It includes unigrams and bigrams with maxfeatures limited to 5000 which helps control dimensionality. Patterns show most terms receive weights based on frequency and rarity across documents.
 
-Several technical hurdles emerged during the project’s execution. Handling the class imbalance in loan approvals, with 76% denials, posed a significant issue. Weighted evaluation metrics were adopted to address this, prioritising minority class performance without using oversampling methods like SMOTE, which were incompatible with regression targets. Another challenge was feature collinearity, especially between AnnualIncome and MonthlyIncome, as noted in research by Jemai and Zarrad (2023). Recursive Feature Elimination was applied to mitigate redundancy by selecting only the most impactful variables.
+4.4.2 Category Encoding
 
-Model training with deep learning architectures also demanded high computational resources. Early stopping with patience set to 20 for TabNet and validation splits for CNN resolved overfitting risks, as supported by insights from Arik and Pfister (2021). These solutions ensured a balanced approach to data and model challenges.
+The implementation used LabelEncoder from sklearn to handle the 24 job categories in the dataset. This converted categorical labels into numerical integers starting from 0 up to 23 based on the unique classes present.
 
+Fit and transform methods were applied to the target column ensuring each category received a unique integer value. The encoded labels facilitated compatibility with classification algorithms that require numerical inputs.
+
+<Insert Figure>
+[caption] Code screenshot: Label encoding for categories
+[insight] The code applies LabelEncoder to transform 24 categories into integers. This results in a simple array where each class maps to a number from 0 to 23. The process ensures balanced representation without altering the original data distribution.
+
+4.4.3 Entity Recognition
+
+The approach employed SpaCy’s encorewebsm model along with PhraseMatcher to identify entities in resume text. This targeted specific vocabularies including 31 terms for skills 17 for education and 15 for roles to extract relevant phrases.
+
+Derived features included counts for skills education and roles calculated from matched entities in each document. These numeric features such as skillcount were added to the dataset as new columns for enhanced model performance.
+
+<Insert Figure>
+[caption] Code screenshot: Entity recognition using SpaCy PhraseMatcher
+[insight] The code loads the SpaCy model and matches phrases against predefined lists for skills and roles. It generates counts like skillcount which range from entity occurrences in text. This reveals patterns where certain categories show higher entity densities compared to others.
+
+4.5 Models
+
+4.5.1 Multinomial Naive Bayes
+
+The process started by loading the resume dataset from Kaggle into a Pandas DataFrame with 2484 entries across four columns. This data underwent preprocessing that included removing unnecessary columns dropping ID and Resumehtml and expanding contractions using the contractions library. Text cleaning followed with lowercasing URL email and phone removal via regex and special character stripping along with whitespace normalisation. Tokenisation used NLTK wordtokenize to split text into words while removing stopwords but keeping 10 domain-specific keywords. Lemmatisation applied WordNetLemmatiser to refine tokens. Feature engineering then created TF-IDF vectors using TfidfVectorizer set with ngramrange of 1 to 2 maxfeatures at 5000 sublineartf enabled and mindf at 2. This vectoriser turned preprocessed text into a sparse matrix of shape 1987 rows by up to 5000 columns where each row represented a training sample.
+
+The model relied on Scikit-learn's MultinomialNB class configured with alpha set to 0.1 for smoothing probabilities and preventing zero counts. Fitting occurred on the training set of 1987 samples split stratify based on labels ensuring proportional class representation. Input to the fit method included the TF-IDF sparse matrix and encoded labels from LabelEncoder applied to 24 job categories. During fitting the code incorporated sample weights calculated inversely proportional to class frequencies to manage imbalances. For instance if a class had fewer occurrences it received higher weights to balance the learning process. Edge cases such as words appearing less than the mindf threshold of 2 were automatically excluded from the vocabulary reducing noise in the matrix. The training process executed in a single pass as the model does not use epochs though it handled the input as a dense array internally for computation.
+
+<Insert Figure>
+[caption] Code screenshot showing MultinomialNB model fitting with TF-IDF features
+[insight] The code uses alpha value of 0.1 in MultinomialNB to smooth probabilities and avoid zero counts. It processes 1987 training samples into a sparse matrix with up to 5000 features. This step ensures balanced handling of imbalanced classes through weight adjustments during fitting.
+
+4.5.2 Bidirectional LSTM
+
+The implementation began by deriving a custom vocabulary from the preprocessed tokenised and lemmatised text data which formed the basis for the Embedding layer. This vocabulary contained unique tokens from the dataset with the Embedding layer set to 128 dimensions to represent each token as a vector. The model architecture in PyTorch stacked an Embedding layer followed by a bidirectional LSTM layer with 128 hidden units two layers and dropout at 0.4 to capture forward and backward sequence dependencies. After the LSTM a Dropout layer with rate 0.4 reduced overfitting risks before a Linear layer mapped from 256 units to 24 output classes corresponding to the job categories.
+
+Training employed the Adam optimiser with learning rate of 1e-3 and a StepLR scheduler that reduced the rate by gamma of 0.5 every 3 epochs. The setup processed 10 epochs with batch size of 32 and truncated sequences to a maximum of 256 tokens. Input sequences padded to this length ensured uniform processing while the CrossEntropyLoss function managed multi-class predictions. For edge cases the code included checks for sequences shorter than 256 tokens by padding them with zeros and skipped any batches with errors in tokenisation. This approach helped maintain consistent training flow across the 1987 samples.
+
+<Insert Figure>
+[caption] Code screenshot depicting BiLSTM model architecture and training loop
+[insight] The code defines the LSTM with two bidirectional layers and 128 units to capture sequence dependencies in both directions. It sets dropout at 0.4 to prevent overfitting across 10 epochs. Training processes batches of 32 samples each with sequences up to 256 tokens long.
+
+4.5.3 DistilBERT
+
+The implementation loaded the pre-trained distilbert-base-uncased model from the Transformers library and modified it for sequence classification with 24 labels. Input sequences first went through tokenisation using DistilBertTokenizerFast that set a maximum length of 256 tokens converting text into token IDs and attention masks. The model fine-tuning applied the AdamW optimiser with learning rate of 2e-5 and weight decay of 0.01 to regularise weights. A linear scheduler warmed up the learning rate over 10% of total steps before decaying it gradually.
+
+Training ran for 10 epochs using batch size of 16 on the 1987 samples with the forward pass computing logits for the 24 classes. The CrossEntropyLoss calculated the loss based on these logits and true labels. Edge case handling involved monitoring for gradient explosions by clipping gradients and adjusting for any sequences exactly at the token limit. This ensured stable training without interruptions.
+
+<Insert Figure>
+[caption] Code screenshot illustrating DistilBERT fine-tuning process
+[insight] The code configures AdamW with a 2e-5 learning rate and 0.01 weight decay to optimise the model. It processes sequences up to 256 tokens in batches of 16 over 10 epochs. The scheduler warms up for 10% of steps to stabilise early training adjustments.
+
+4.6 Web Application
+
+4.6.1 Application Framework
+
+The web application uses Flask to create a server that handles resume classification. The app initialises by importing necessary libraries including Flask fitz and os. It loads the pre-trained DistilBERT model and tokenizer from a saved directory along with the label encoder and thresholds. The main script sets up routes and configures the app to run on a local host with a specified port.
+
+The app defines a core function to manage file uploads and processing. This function reads the saved model files using the model's load method and prepares the environment by suppressing warnings with the warnings library. The framework ensures that all dependencies are in place before accepting user inputs.
+
+<Insert Figure>
+[caption] Code screenshot: Flask app initialisation and model loading
+[insight] The code shows the import statements for Flask and fitz to set up the server and text extraction. It includes model loading with specific paths like ./bertresumemodel. This setup handles PDF inputs efficiently by integrating NLP tools in a single entry point. Three sentences outline how the app starts and prepares for predictions.
+
+4.6.2 Prediction Interface
+
+The prediction interface operates through a Flask route named /predict that accepts POST requests with PDF files. The app uses fitz to open and extract text from uploaded PDFs converting pages to strings. It then applies the preprocessing steps including tokenisation and lemmatisation using NLTK tools on the extracted text.
+
+The interface feeds the processed text into the DistilBERT model for classification. It uses the model's predict function with a batch size of one and extracts entities via spaCy's PhraseMatcher on the input data. The response formats results into JSON including the predicted category and counts of skills.
+
+<Insert Figure>
+[caption] Code screenshot: Prediction endpoint in Flask app
+[insight] The code defines the /predict route with request handling for PDF files using fitz for text extraction. It applies preprocessing functions in sequence before model inference. This step ensures accurate entity detection with PhraseMatcher yielding structured outputs in JSON format.
+
+4.7 Challenges
+
+During data preprocessing the process involved managing inconsistent text formats which complicated steps like URL and email removal using regex patterns from the 're' library. This step needed careful targeting of specific strings to avoid changing core content and thus prevent data loss for instance when dealing with embedded numbers or special symbols. Further text cleaning included lowercasing strings and expanding contractions with the 'contractions' library while tokenisation used NLTK's wordtokenize on texts up to 40000 characters requiring extra computational power. A custom stopword set also preserved 10 key resume terms during stopword removal and lemmatisation applied WordNetLemmatizer to tokens.
+
+In model training class imbalance created issues especially with SMOTE using kneighbors set to 3 to generate synthetic samples from minority classes. This method needed smooth linking to the stratified 80% train-test split with 1987 training samples to keep balance. Setting up Bi-LSTM networks with dropout at 0.4 added more hurdles as it involved adjusting layer sizes such as 128 hidden units across two layers and batch processing to limit overfitting on uneven data. Other models like DistilBERT faced similar tuning demands for example with a learning rate of 2e-5 and 10 epochs which helped improve accuracy to 81.89% but required handling variable sequence lengths up to 256 tokens. Error checks in the code pipeline ensured that edge cases such as null values or duplicate entries did not disrupt feature engineering processes like TF-IDF vectorisation with ngramrange of 1 to 2.

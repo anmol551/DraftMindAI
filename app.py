@@ -3,8 +3,8 @@ import streamlit as st
 import streamlit.components.v1 as components
 from utils import save_text_file, strip_markdown
 from generators.introduction_gen import generate_introduction
-from generators.methodology_gen import generate_methodology
-from generators.implementation_gen import generate_implementation
+from generators.methodology_gen import generate_methodology_toc, generate_methodology_content
+from generators.implementation_gen import generate_implementation_toc, generate_implementation_content
 from generators.abstract_gen import generate_abstract
 from generators.result_gen import generate_result_conclusion
 from keywords import generate_keywords
@@ -773,9 +773,13 @@ def _extract_result_plot_summary(val):
     if isinstance(val, dict) and "table" in val:
         rows = []
         for row in val["table"]:
+            title = row.get('Title') or row.get('title', '')
+            ptype = row.get('Type') or row.get('type', '')
+            insight = row.get('Insights') or row.get('insight', '')
+            pnum = row.get('Plot_Number') or row.get('plot_number', '')
+            
             rows.append(
-                f"Plot {row.get('Plot_Number','')}: {row.get('Title','')} | "
-                f"Type: {row.get('Type','')} | Insights: {row.get('Insights','')}"
+                f"Plot {pnum}: {title} | Type: {ptype} | Insights: {insight}"
             )
         return "\n\n".join(rows)
     return _list_to_str(val)
@@ -1173,6 +1177,8 @@ _ED_PROMPT_RAW = (
     "5. What is the novel or unique element in the research\n"
     "6. What are the future recommendations of the research paper?\n"
     "All in 500 words. Provide reference in Harvard style.\n\n"
+    "## CODE PIPELINE\n"
+    "Analyze the code notebook and webapp code and write the pipeline by using all the tech used from start to end\n\n"
     "## CODE SUMMARY\n"
     "Summarize the following code into 2-3 concise paragraphs while preserving all essential technical details. Summary must include: Overview, Key Components, Execution Flow, Core Logic, Web App Elements (if any). Format: Paragraph-based, 15-20% of original length. Word count: 300 words.\n\n"
     "## CODE SUMMARY WITH VALUES\n"
@@ -1202,6 +1208,7 @@ _ED_PROMPT_RAW = (
     "  'best_accuracy': <acc_value>,\n"
     "  'base_paper_summary': <summary>,\n"
     "  'base_paper_reference': <reference>,\n"
+    "  'code_pipeline': <code pipeline>,\n"
     "  'code_summary': <code summary>,\n"
     "  'code_summary_with_values': <code summary with values>,\n"
     "  'web_app_summary': <web app summary>,\n"
@@ -1388,8 +1395,8 @@ with tab_gen:
         (lambda: get_ref_citation(st.session_state["json_data"]["references"]),  "citations",      "Step 2/7 \u00b7 Generating citations\u2026"),
         (generate_abstract,                                                      "abstract",       "Step 3/7 \u00b7 Generating abstract\u2026"),
         (generate_introduction,                                                  "introduction",   "Step 4/7 \u00b7 Generating introduction\u2026"),
-        (generate_methodology,                                                   "methodology",    "Step 5/7 \u00b7 Generating methodology\u2026"),
-        (generate_implementation,                                                "implementation", "Step 6/7 \u00b7 Generating implementation\u2026"),
+        (None,                                                   "methodology",    "Step 5/7 \u00b7 Generating methodology\u2026"),
+        (None,                                                   "implementation", "Step 6/7 \u00b7 Generating implementation\u2026"),
         (generate_result_conclusion,                                             "results",        "Step 7/7 \u00b7 Generating results & conclusion\u2026"),
     ]
 
@@ -1399,14 +1406,79 @@ with tab_gen:
         st.markdown('</div>', unsafe_allow_html=True)
 
         if _is_running and 0 <= _cur_step < 7:
-            fn, key, label = _step_funcs[_cur_step]
-            with st.spinner(label):
-                fn()
-            st.session_state.sections_generated[key] = True
-            st.session_state.generation_step = _cur_step + 1
-            if _cur_step + 1 >= 7:
-                st.session_state.generation_running = False
-            st.rerun()
+            if _cur_step == 4:
+                # Methodology TOC step
+                if "methodology_toc_pending" not in st.session_state:
+                    with st.spinner("Step 5/7 · Generating methodology TOC..."):
+                        toc = generate_methodology_toc()
+                    st.session_state.methodology_toc_pending = toc
+                    st.rerun()
+
+                st.markdown("### Methodology Table of Contents")
+                st.info("Review and edit the Table of Contents below. Click 'Approve & Continue' when ready, or 'Regenerate TOC' if you want a new one.")
+                
+                toc_text = st.text_area("Review/Edit TOC", value=st.session_state.methodology_toc_pending, height=300, key="meth_toc_area")
+
+                col1, col2 = st.columns(2)
+                with col1:
+                    if st.button("Regenerate TOC", use_container_width=True):
+                        del st.session_state.methodology_toc_pending
+                        st.rerun()
+                with col2:
+                    st.markdown('<div class="primary-btn">', unsafe_allow_html=True)
+                    if st.button("Approve & Continue", use_container_width=True):
+                        with st.spinner("Step 5/7 · Generating methodology content..."):
+                            generate_methodology_content(toc_text)
+                        
+                        del st.session_state.methodology_toc_pending
+                        st.session_state.sections_generated["methodology"] = True
+                        st.session_state.generation_step = 5
+                        st.rerun()
+                    st.markdown('</div>', unsafe_allow_html=True)
+                
+                # Stop execution while waiting for user interaction on step 4
+                st.stop()
+            elif _cur_step == 5:
+                # Implementation TOC step
+                if "implementation_toc_pending" not in st.session_state:
+                    with st.spinner("Step 6/7 · Generating implementation TOC..."):
+                        toc = generate_implementation_toc()
+                    st.session_state.implementation_toc_pending = toc
+                    st.rerun()
+
+                st.markdown("### Implementation Table of Contents")
+                st.info("Review and edit the Table of Contents below. Click 'Approve & Continue' when ready, or 'Regenerate TOC' if you want a new one.")
+                
+                toc_text = st.text_area("Review/Edit TOC", value=st.session_state.implementation_toc_pending, height=300, key="impl_toc_area")
+
+                col1, col2 = st.columns(2)
+                with col1:
+                    if st.button("Regenerate TOC", use_container_width=True, key="regen_impl_toc"):
+                        del st.session_state.implementation_toc_pending
+                        st.rerun()
+                with col2:
+                    st.markdown('<div class="primary-btn">', unsafe_allow_html=True)
+                    if st.button("Approve & Continue", use_container_width=True, key="approve_impl_toc"):
+                        with st.spinner("Step 6/7 · Generating implementation content..."):
+                            generate_implementation_content(toc_text)
+                        
+                        del st.session_state.implementation_toc_pending
+                        st.session_state.sections_generated["implementation"] = True
+                        st.session_state.generation_step = 6
+                        st.rerun()
+                    st.markdown('</div>', unsafe_allow_html=True)
+                
+                # Stop execution while waiting for user interaction on step 5
+                st.stop()
+            else:
+                fn, key, label = _step_funcs[_cur_step]
+                with st.spinner(label):
+                    fn()
+                st.session_state.sections_generated[key] = True
+                st.session_state.generation_step = _cur_step + 1
+                if _cur_step + 1 >= 7:
+                    st.session_state.generation_running = False
+                st.rerun()
 
         elif start_clicked and not _is_running:
             st.session_state.generation_running = True

@@ -1,30 +1,37 @@
-3. Methodology
+3.1 Research Design [200 words]
+3.1.1 Study Overview
+3.1.2 Experimental Setup
 
-3.1. Research Design [200]
+3.2 Data Details [200 words]
+3.2.1 Dataset Source
+3.2.2 Data Structure
 
-3.2. Data Details [200]
+3.3 Data Preprocessing [350 words]
+3.3.1 Feature Elimination
+3.3.2 Text Expansion
+3.3.3 Text Cleaning
+3.3.4 Token Processing
+3.3.5 Word Normalization
+3.3.6 Imbalance Handling
 
-3.3. Preprocessing [300]
-3.3.1. Hair Removal Method
-3.3.2. Colour Adjustment Process
-3.3.3. Contrast Enhancement Technique
+3.4 Feature Engineering [200 words]
+3.4.1 Text Vectorization
+3.4.2 Category Encoding
+3.4.3 Entity Recognition
 
-3.4. Feature Engineering [200]
-3.4.1. Image Modification
-3.4.2. Data Augmentation Approach
+3.5 Models [600 words]
+3.5.1 Multinomial Naive Bayes
+3.5.2 Bidirectional LSTM
+3.5.3 DistilBERT
 
-3.5. Models [600]
-3.5.1. InceptionV3 Setup
-3.5.2. EfficientNet-B0 Configuration
-3.5.3. Xception Structure
-3.5.4. ConvNeXt-Tiny Framework
+3.6 Performance Evaluation [200 words]
+3.6.1 Accuracy Measure
+3.6.2 Precision Measure
+3.6.3 Recall Measure
+3.6.4 F1 Measure
+3.6.5 Mean Measure
+3.6.6 Matrix Analysis
 
-3.6. Performance Measures [300]
-3.6.1. Accuracy Analysis
-3.6.2. F1 Score Review
-3.6.3. AUC Examination
-
-3.7. Web Application Setup [200]
-3.7.1. Flask System
-3.7.2. OpenCV Handling
-3.7.3. PyTorch Processing
+3.7 Web Application [200 words]
+3.7.1 Application Framework
+3.7.2 Prediction Interface

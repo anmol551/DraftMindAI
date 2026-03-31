@@ -1,234 +1,184 @@
 {
-  "libraries_used": [
-    "numpy",
-    "pandas",
-    "torch",
-    "torchvision",
-    "timm",
-    "opencv-python (cv2)",
-    "matplotlib",
-    "seaborn",
-    "scikit-learn",
-    "tqdm",
-    "PIL (Pillow)",
-    "pathlib",
-    "itertools",
-    "time",
-    "random"
-  ],
-  "statistical_analysis": [
-    {
-      "function": "value_counts()",
-      "purpose": "Count images per class and per lesion_id",
-      "outcome": "Class distribution table; nv=6705, mel=1113, bkl=1099, bcc=514, akiec=327, vasc=142, df=115"
+  "libraries_used": {
+    "data_handling": [
+      "pandas",
+      "numpy",
+      "kagglehub",
+      "scipy"
+    ],
+    "visualisation": [
+      "matplotlib",
+      "seaborn",
+      "wordcloud"
+    ],
+    "nlp_preprocessing": [
+      "nltk (punkt, stopwords, wordnet)",
+      "contractions",
+      "re",
+      "spacy (en_core_web_sm)",
+      "spacy PhraseMatcher"
+    ],
+    "feature_engineering": [
+      "sklearn TfidfVectorizer",
+      "sklearn LabelEncoder",
+      "sklearn CountVectorizer",
+      "scipy.sparse"
+    ],
+    "imbalance_handling": [
+      "imblearn SMOTE",
+      "sklearn compute_sample_weight",
+      "sklearn compute_class_weight"
+    ],
+    "deep_learning": [
+      "torch",
+      "torch.nn",
+      "torch.optim",
+      "torch.optim.lr_scheduler",
+      "transformers (DistilBertTokenizerFast, DistilBertForSequenceClassification, get_linear_schedule_with_warmup)"
+    ],
+    "evaluation": [
+      "sklearn (accuracy_score, precision_score, recall_score, f1_score, confusion_matrix, classification_report, roc_curve, auc)"
+    ],
+    "model_persistence": [
+      "joblib",
+      "numpy.save"
+    ],
+    "web_app": [
+      "flask",
+      "fitz (PyMuPDF)",
+      "os",
+      "warnings"
+    ]
+  },
+  "eda": {
+    "plots": [
+      "Category distribution countplot (bar) \u2014 24 categories; IT and Business Development highest at 120",
+      "Resume text length histogram \u2014 peak near 6,000 characters; range up to ~40,000",
+      "Average resume length per category bar \u2014 Sales lowest at 5,270; BPO highest at 7,318",
+      "HTML length histogram \u2014 peak near 15,000 characters; range up to ~60,000",
+      "Word cloud \u2014 top terms: Company, City, State, Name, Responsibility",
+      "Top-10 frequent words bar \u2014 'state' highest at 16,159; 'service' lowest at 6,223",
+      "Top-15 bigrams by TF-IDF score bar \u2014 'city state' highest at 83.18",
+      "Top-15 NER skills bar \u2014 communication 1,297; leadership 1,023; excel 959",
+      "Average skills per category bar \u2014 IT highest at 3.6; Chef lowest at 1.3"
+    ]
+  },
+  "preprocessing": {
+    "steps": [
+      "Contraction expansion",
+      "Lowercase conversion",
+      "URL/email/phone removal (regex)",
+      "Special character removal",
+      "Tokenisation (NLTK word_tokenize)",
+      "Stopword removal (custom set, 10 keywords preserved)",
+      "Lemmatisation (WordNetLemmatizer)"
+    ],
+    "columns_dropped": [
+      "ID",
+      "Resume_html"
+    ]
+  },
+  "feature_engineering": {
+    "tfidf": "ngram_range=(1,2), max_features=5000, sublinear_tf=True, min_df=2, strip_accents='unicode'",
+    "ner": "SpaCy PhraseMatcher \u2014 SKILL (31 terms), EDUCATION (17 terms), ROLE (15 terms); numeric features: skill_count, education_count, role_count",
+    "label_encoding": "LabelEncoder \u2014 24 classes"
+  },
+  "train_split": "Stratified train_test_split \u2014 80% train (1,987 samples), 20% test (497 samples), random_state=42, stratify=y",
+  "model_details": {
+    "MNB": "MultinomialNB(alpha=0.1) on TF-IDF features",
+    "BiLSTM": {
+      "architecture": "Embedding(vocab_size, 128) \u2192 LSTM(128, num_layers=2, bidirectional=True, dropout=0.4) \u2192 Dropout(0.4) \u2192 Linear(256, 24)",
+      "optimizer": "Adam(lr=1e-3)",
+      "scheduler": "StepLR(step_size=3, gamma=0.5)",
+      "loss": "CrossEntropyLoss",
+      "epochs": 10,
+      "batch_size": 32,
+      "max_seq_len": 256
     },
-    {
-      "function": "accuracy_score()",
-      "purpose": "Overall classification accuracy",
-      "outcome": "InceptionV3: 66.58%, EfficientNet-B0: 70.48%, Xception: 74.17%, ConvNeXt-Tiny: 77.34%"
-    },
-    {
-      "function": "classification_report()",
-      "purpose": "Per-class precision, recall, F1-score, support",
-      "outcome": "Detailed per-class metrics for all four models"
-    },
-    {
-      "function": "confusion_matrix()",
-      "purpose": "True vs predicted label matrix per model",
-      "outcome": "Raw count heatmaps for all four models"
-    },
-    {
-      "function": "roc_curve() + auc()",
-      "purpose": "One-vs-Rest ROC curves and AUC per class",
-      "outcome": "InceptionV3 micro-AUC: 0.941; EfficientNet-B0: 0.955; ConvNeXt-Tiny: 0.9665"
-    },
-    {
-      "function": "precision_recall_curve() + average_precision_score()",
-      "purpose": "Multi-class PR curves",
-      "outcome": "AP: InceptionV3=0.771, EfficientNet-B0=0.817, Xception=0.846, ConvNeXt-Tiny=0.862"
-    },
-    {
-      "function": "cohen_kappa_score()",
-      "purpose": "Inter-rater agreement beyond chance",
-      "outcome": "Best for ConvNeXt-Tiny"
-    },
-    {
-      "function": "precision_recall_fscore_support()",
-      "purpose": "Per-class metric decomposition",
-      "outcome": "Weighted and macro averages per model"
+    "DistilBERT": {
+      "base_model": "distilbert-base-uncased",
+      "num_labels": 24,
+      "max_len": 256,
+      "batch_size": 16,
+      "epochs": 10,
+      "optimizer": "AdamW(lr=2e-5, weight_decay=0.01)",
+      "scheduler": "get_linear_schedule_with_warmup(warmup=10% steps)"
     }
-  ],
-  "eda": [
-    {
-      "plot_type": "Bar Chart",
-      "title": "Class Distribution of Skin Lesion Diagnoses",
-      "x": "Diagnosis Category",
-      "y": "Image Count",
-      "insight": "nv dominates with 6,705 images; df is smallest with 115; severe imbalance drives need for weighted sampling"
-    },
-    {
-      "plot_type": "Bar Chart",
-      "title": "Binary Classification: Melanoma vs Non-Melanoma",
-      "x": "Binary Label",
-      "y": "Count",
-      "insight": "Non-melanoma vastly outnumbers melanoma; highlights clinical triage challenge"
-    },
-    {
-      "plot_type": "Image Grid",
-      "title": "Sample Images per Lesion Class (2 per class)",
-      "x": "N/A",
-      "y": "N/A",
-      "insight": "Visual diversity within classes confirms challenge; vasc and df show distinct morphology"
-    },
-    {
-      "plot_type": "Line/Area Chart",
-      "title": "RGB Channel Intensity Histogram (200 random images)",
-      "x": "Pixel Intensity (0-255)",
-      "y": "Frequency",
-      "insight": "Red channel skewed higher; blue channel lower \u2014 reflects skin tone bias in imaging"
-    },
-    {
-      "plot_type": "Bar Chart",
-      "title": "Average Pixel Intensity per Class",
-      "x": "Diagnosis Class",
-      "y": "Mean Intensity",
-      "insight": "Melanoma images tend to be darker; vasc images brighter \u2014 colour informs classification"
-    },
-    {
-      "plot_type": "Scatter Plot",
-      "title": "Image Resolution Distribution",
-      "x": "Width (pixels)",
-      "y": "Height (pixels)",
-      "insight": "Nearly uniform 600\u00d7450 resolution across dataset; minimal preprocessing needed for resizing"
-    },
-    {
-      "plot_type": "Box Plot",
-      "title": "Brightness Distribution per Class",
-      "x": "Diagnosis Class",
-      "y": "Brightness Value",
-      "insight": "Outlier brightness values exist in several classes; CLAHE preprocessing justified"
-    },
-    {
-      "plot_type": "Scatter Plot (Color Clusters)",
-      "title": "Mean RGB Colour Distribution (150 samples)",
-      "x": "Mean Red",
-      "y": "Mean Green (bubble=Blue)",
-      "insight": "Classes cluster in colour space but overlap \u2014 colour alone insufficient for classification"
-    },
-    {
-      "plot_type": "Image Grid",
-      "title": "Edge Detection Demonstration (Canny)",
-      "x": "N/A",
-      "y": "N/A",
-      "insight": "Edges reveal lesion borders and hair artefacts; motivates DullRazor preprocessing"
-    },
-    {
-      "plot_type": "Image Grid",
-      "title": "Preprocessing Pipeline Visualisation per Class",
-      "x": "N/A",
-      "y": "N/A",
-      "insight": "Demonstrates sequential effect of hair removal, colour normalisation, and CLAHE on each lesion class"
-    }
-  ],
-  "data_preprocessing": [
-    {
-      "function": "dull_razor(img)",
-      "purpose": "Hair removal via morphological blackhat + inpainting",
-      "parameters": "kernel size=(9,9), MORPH_RECT; inpaint radius=6, INPAINT_TELEA"
-    },
-    {
-      "function": "colour_normalise(img)",
-      "purpose": "Per-channel mean normalisation",
-      "parameters": "Divides each BGR channel by its mean; scales to [0,255]"
-    },
-    {
-      "function": "apply_clahe(img)",
-      "purpose": "Contrast-limited adaptive histogram equalisation",
-      "parameters": "clipLimit=2.0, tileGridSize=(8,8) on LAB L-channel"
-    },
-    {
-      "function": "resize_normalise(img, size=224)",
-      "purpose": "Resize and scale pixel values",
-      "parameters": "size=224; scale to [0,1] float32"
-    },
-    {
-      "function": "transforms.Normalize()",
-      "purpose": "ImageNet mean/std normalisation",
-      "parameters": "mean=[0.485,0.456,0.406], std=[0.229,0.224,0.225]"
-    }
-  ],
-  "feature_engineering": "No explicit feature selection; full image pixels used. Lesion-level split by lesion_id prevents leakage. WeightedRandomSampler applied using inverse class frequency weights computed from training labels.",
-  "train_split": "Lesion-ID-based split: 70% train, 15% validation, 15% test. Total unique lesions split to avoid patient-level leakage. Train: ~7,010 images; Val: ~1,502 images; Test: 1,514 images.",
-  "model_details": [
-    {
-      "model": "InceptionV3",
-      "architecture": "Pretrained InceptionV3 backbone (ImageNet). Backbone frozen. Custom FC head: Linear(2048\u21927). Auxiliary classifier disabled.",
-      "parameters": "Optimizer: Adam (lr=0.001, weight_decay=1e-4), Loss: CrossEntropyLoss, Scheduler: StepLR, Batch: 32, Epochs: 20"
-    },
-    {
-      "model": "EfficientNet-B0",
-      "architecture": "Pretrained EfficientNetB0 backbone. Frozen layers. Custom classifier head: Linear(1280\u21927).",
-      "parameters": "Optimizer: Adam (lr=0.001, weight_decay=1e-4), Loss: CrossEntropyLoss, Scheduler: StepLR, Batch: 32, Epochs: 20"
-    },
-    {
-      "model": "Xception",
-      "architecture": "Pretrained Xception via timm. Frozen backbone. Global average pooling + custom Linear(2048\u21927).",
-      "parameters": "Optimizer: Adam (lr=0.001, weight_decay=1e-4), Loss: CrossEntropyLoss, Scheduler: StepLR, Batch: 32, Epochs: 20"
-    },
-    {
-      "model": "ConvNeXt-Tiny",
-      "architecture": "Pretrained ConvNeXt-Tiny backbone. Custom classifier: Flatten \u2192 LayerNorm(768) \u2192 Linear(768\u2192512) \u2192 ReLU \u2192 Dropout(0.5) \u2192 Linear(512\u21927).",
-      "parameters": "Optimizer: Adam (lr=0.001, weight_decay=1e-4), Loss: CrossEntropyLoss, Scheduler: StepLR, Batch: 32, Epochs: 20"
-    }
-  ],
-  "model_results": {
-    "metrics_used": [
+  },
+  "model_results_table": {
+    "columns": [
+      "Model",
       "Accuracy",
-      "Precision (Weighted)",
-      "Recall (Weighted)",
-      "F1-Score (Weighted)",
-      "ROC-AUC (Micro)",
-      "Average Precision (AP)",
-      "Cohen's Kappa"
+      "Precision",
+      "Recall",
+      "F1-Score",
+      "G-Mean"
     ],
-    "performance_table": [
-      {
-        "Model": "InceptionV3",
-        "Accuracy": "66.58%",
-        "Precision": "73.81%",
-        "Recall": "66.58%",
-        "F1-Score": "69.18%",
-        "ROC-AUC (Micro)": "0.941",
-        "AP": "0.771"
-      },
-      {
-        "Model": "EfficientNet-B0",
-        "Accuracy": "70.48%",
-        "Precision": "76.74%",
-        "Recall": "70.48%",
-        "F1-Score": "72.56%",
-        "ROC-AUC (Micro)": "0.955",
-        "AP": "0.817"
-      },
-      {
-        "Model": "Xception",
-        "Accuracy": "74.17%",
-        "Precision": "78.17%",
-        "Recall": "74.17%",
-        "F1-Score": "75.47%",
-        "ROC-AUC (Micro)": "~0.962",
-        "AP": "0.846"
-      },
-      {
-        "Model": "ConvNeXt-Tiny \u2605",
-        "Accuracy": "77.34%",
-        "Precision": "79.89%",
-        "Recall": "77.34%",
-        "F1-Score": "78.29%",
-        "ROC-AUC (Micro)": "0.9665",
-        "AP": "0.862"
-      }
-    ],
-    "best_model": "ConvNeXt-Tiny \u2014 highest on all metrics"
+    "rows": [
+      [
+        "MNB Baseline",
+        "0.5775",
+        "0.5428",
+        "0.5320",
+        "0.5147",
+        "0.0792"
+      ],
+      [
+        "Weighted MNB",
+        "0.5915",
+        "\u2014",
+        "\u2014",
+        "0.5571",
+        "0.2091"
+      ],
+      [
+        "SMOTE MNB",
+        "0.5815",
+        "\u2014",
+        "\u2014",
+        "0.5410",
+        "0.2025"
+      ],
+      [
+        "Bi-LSTM Baseline",
+        "0.7042",
+        "0.6592",
+        "0.6434",
+        "0.6320",
+        "0.0910"
+      ],
+      [
+        "Weighted Bi-LSTM",
+        "0.6881",
+        "\u2014",
+        "\u2014",
+        "0.6116",
+        "0.0158"
+      ],
+      [
+        "DistilBERT Baseline",
+        "0.8189",
+        "0.7934",
+        "0.7691",
+        "0.7708",
+        "0.2990"
+      ],
+      [
+        "Weighted DistilBERT",
+        "0.8350",
+        "\u2014",
+        "0.8078",
+        "0.8027",
+        "0.7754"
+      ],
+      [
+        "Threshold-Tuned DistilBERT (BEST)",
+        "0.8350",
+        "\u2014",
+        "0.8088",
+        "~0.80",
+        "0.7776"
+      ]
+    ]
   }
 }

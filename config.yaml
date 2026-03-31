@@ -1,12 +1,12 @@
-BASE_PAPER_CITATION: "Hammad, M., P\u0142awiak, P., ElAffendi, M., Abd El-Latif, A.A.\
-  \ and Abdel Latif, A.A. (2023) 'Enhanced deep learning approach for accurate eczema\
-  \ and psoriasis skin detection', Sensors, 23(16), p. 7295. doi: 10.3390/s23167295."
+BASE_PAPER_CITATION: "Jalili, A., Tabrizchi, H., Razmara, J. and Mosavi, A. (2024)\
+  \ 'BiLSTM for Resume Classification', in 2024 IEEE 22nd World Symposium on Applied\
+  \ Machine Intelligence and Informatics (SAMI). IEEE, pp. 000519\u2013000524. doi:10.1109/SAMI60510.2024.10432836."
 BASE_PAPER_SUMMARY_PATH: InputFiles/bps.txt
 CODE_SUMMARY_PATH: InputFiles/cs.txt
 CODE_SUMMARY_VAL_SPECIFIC_PATH: InputFiles/csvs.txt
 DATA_DETAILS_PATH: InputFiles/dd.txt
 FAILED_ATTEMPT_PATH: InputFiles/fa.txt
-FORMAT: '2'
+FORMAT: '3'
 KEYWORD_FILE: InputFiles/keywords.txt
 LITERATURE_REVIEW_SUMMARY_PATH: InputFiles/lrs.txt
 METHODOLOGY: OutputFiles/methodology.txt
@@ -15,37 +15,30 @@ PAPER_CITATION: InputFiles/papers_result.csv
 PIPELINE: InputFiles/pipeline.txt
 PROMPT: ed.txt
 RESEARCH_GAPS: InputFiles/rg.txt
-RESEARCH_OBJECTIVES: 'To investigate previous research on deep learning applications
-  for skin disease classification, with a focus on eczema/atopic dermatitis detection
-  and binary vs. multi-class strategies.
+RESEARCH_OBJECTIVES: '1. To investigate existing research on resume classification
+  and information extraction using NLP.
 
-  To preprocess and prepare a public multi-class skin disease image dataset by merging
-  the nine non-eczema classes into a single ''other'' category for binary classification
-  (eczema vs. non-eczema).
+  2. To design and implement a preprocessing pipeline for parsing and cleaning PDF
+  resumes.
 
-  To analyse, design, and implement a deep learning model using transfer learning
-  (e.g., pre-trained CNN architectures such as EfficientNet, ResNet, or DenseNet)
-  with data augmentation techniques to handle class imbalance and image variability.
+  3. To extract and prioritise key entities such as skills and education using Named
+  Entity Recognition.
 
-  To explore the possibilities of advanced techniques (e.g., attention mechanisms,
-  ensemble methods, or fine-tuning strategies) for improving binary classification
-  performance on eczema detection.
+  4. To apply TF-IDF with n-grams for feature representation of resumes.
 
-  To critically evaluate the end product through quantitative metrics (accuracy, precision,
-  recall, F1-score, AUC-ROC) and qualitative analysis (confusion matrices, misclassification
-  examples), comparing binary vs. multi-class baselines where feasible.
+  5. To implement and compare Multinomial Naive Bayes, Bi-LSTM, and DistilBERT models
+  for resume classification.
 
-  To discuss limitations, ethical implications, and potential real-world deployment
-  scenarios for the developed model.'
-RESEARCH_QUESTION: To what extent can a deep learning-based binary classification
-  model accurately distinguish eczema from other common skin diseases using dermoscopic
-  images, and how does consolidating diverse non-eczema classes into a single category
-  impact model performance, robustness, and generalization compared to traditional
-  multi-class approaches?
+  6. To critically evaluate model performance using standard classification metrics.'
+RESEARCH_QUESTION: '1. How does advanced NLP preprocessing impact the accuracy of
+  automated resume classification?
+
+  2. How do deep learning models compare to traditional methods for skill-based resume
+  categorisation?'
 RESEARCH_QUESTION_OBJECTIVES: InputFiles/rqo.txt
 RESULT_SUMMARY_PATH: InputFiles/rs.txt
-TITLE: A Deep Learning Framework for the Classification of Eczema Versus Other Dermatological
-  Conditions from Dermoscopic Images
+TITLE: 'Automating Talent Acquisition: Resume Categorization and Skill Extraction
+  Using Domain-Specific Text Encodings'
 WEB_APP_DEVELOPMENT: InputFiles/wad.txt
 WEB_APP_SUMMARY_PATH: InputFiles/ws.txt
 WEB_APP_TESTING_RESULTS: InputFiles/wat.txt

@@ -1,12 +1,17 @@
-StandardScaler
-OneHotEncoder
-Custom CNN
-EfficientNetB0
-ResNet50
-Conv2D
-BatchNorm
-MaxPool
-GlobalAveragePooling2D
-Dense
+Contraction expansion
+Lowercase conversion
+URL/email/phone removal
+Special character removal
+Tokenisation
+Stopword removal
+Lemmatisation
+TfidfVectorizer
+LabelEncoder
+MultinomialNB
+BiLSTM
+DistilBERT
+Embedding
+LSTM
 Dropout
+Linear
 Flask

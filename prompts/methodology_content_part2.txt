@@ -18,9 +18,10 @@ What to write-
 Randomly choose: content under models should be in paragraphs or bullet points (not always same).
 
 
-## FIGURE RULE PLACEHOLDER FOR EACH MODEL
-<which image to keep, generally will be google picked as this is methodology>
-<one liner caption with figure number>
+## Figure Rule
+Where relevant, insert:
+[FIGURE: brief description of a suitable diagram]
+[CAPTION: Figure X.X — one-line caption]
 
 ## Finalized Table of Contents:
 {toc}
@@ -34,22 +35,12 @@ Example-
 3.z.1. model 1 [Subheading]
 <two paragraphs> 
 <first para: define the method (weightage 40%)>
-<second para: justification (weightage 60%)>
+<second para: justification with technical depth (weightage 60%)>
 
 3.z.2. model 2 [Subheading]
 <two paragraphs> 
 <first para: define the method (weightage 40%)>
-<second para: justification (weightage 60%)>
-
-Instructions:
-1. Do not output the definition or anything else apart from headings, subheadings, and content.
-2. Do not output the word count next to the heading or subheading.
-3. Write content in British English.
-4. Content should be humanised, student tone with simple english.
-5. Avoid: Moreover, Additionally, employ, leverage, etc.
-6. Maintain numbering of headings and subheadings as given in the table of contents.
-7. Verify the word count of each heading, write content until it is close to the given word count (main models should have 600 words minimum).
-8. ONLY output the Models section.
+<second para: justification with technical depth (weightage 60%)>
 
 Output:
 Well written methodology content exclusively for the Models section. Do not print the table of contents separately.

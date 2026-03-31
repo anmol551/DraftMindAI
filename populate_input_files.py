@@ -1,10 +1,10 @@
 import os
 import json
-import sys
 
-# Ensure we can import from the parent directory
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from utils import save_text_file
+def save_text_file(content, filepath):
+    with open(filepath, 'w', encoding='utf-8') as f:
+        f.write(content)
+    print(f"Saved: {filepath}")
 
 def _list_to_str(val):
     if isinstance(val, list):
@@ -53,15 +53,18 @@ def _extract_code_summary_with_values(val):
     return _list_to_str(val)
 
 def main():
-    json_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "Temp", "research_output.json")
+    json_path = os.path.join("Temp", "dissertation_analysis.json")
     
+    if not os.path.exists(json_path):
+        json_path = os.path.join("Temp", "output.json")
+        if not os.path.exists(json_path):
+            print("Error: Could not find Temp/dissertation_analysis.json or Temp/output.json")
+            return
+
     try:
         with open(json_path, "r", encoding="utf-8") as f:
             json_data = json.load(f)
         print(f"Successfully loaded {json_path}")
-    except FileNotFoundError:
-        print(f"Error: JSON file not found at {json_path}")
-        return
     except json.JSONDecodeError as e:
         print(f"Error parsing JSON: {e}")
         return
@@ -93,9 +96,10 @@ def main():
     result_table_summary      = default("result_table", transform=_extract_result_table)
     failed_attempt_summary    = default("failed_attempts")
 
-    output_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "InputFiles")
+    output_dir = "InputFiles"
     os.makedirs(output_dir, exist_ok=True)
     
+    print("\nExtracting and saving files to InputFiles/...")
     save_text_file(data_details,      os.path.join(output_dir, "dd.txt"))
     save_text_file(pipeline_val,      os.path.join(output_dir, "pipeline.txt"))
     save_text_file(literature_review_summary, os.path.join(output_dir, "lrs.txt"))
@@ -109,23 +113,7 @@ def main():
     save_text_file(result_plot_summary + "\n\n" + result_table_summary, os.path.join(output_dir, "rs.txt"))
     save_text_file(result_plot_summary + "\n\n" + failed_attempt_summary, os.path.join(output_dir, "fa.txt"))
 
-    print(f"Successfully extracted data from JSON and saved to {output_dir}")
+    print("\n✅ Successfully updated all required InputFiles from the UI JSON.")
 
 if __name__ == "__main__":
     main()
-
-"""
-Extracting and saving files to InputFiles/...
-Saved: InputFiles/dd.txt
-Saved: InputFiles/pipeline.txt
-Saved: InputFiles/lrs.txt
-Saved: InputFiles/rg.txt
-Saved: InputFiles/bps.txt
-Saved: InputFiles/cs.txt
-Saved: InputFiles/csvs.txt
-Saved: InputFiles/ws.txt
-Saved: InputFiles/wat.txt
-Saved: InputFiles/novelty.txt
-Saved: InputFiles/rs.txt
-Saved: InputFiles/fa.txt
-"""

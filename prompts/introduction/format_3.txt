@@ -88,16 +88,7 @@ Note: Not less than {wc_scope} words. Continuous paragraphs as per thesis format
 Use the code summary with values and data details file:
 {c} {f} {a}
 
----SECTION_BREAK---
 
-##-- GAPS OF THE REPORT --##
-Write the Research Gaps section in approximately {wc_gaps} words. Use the research gaps file provided.
-
-Note: Not less than {wc_gaps_min} words. Continuous paragraphs as per thesis format.
-
-{b}
-
----SECTION_BREAK---
 
 ##-- STRUCTURE OF THE REPORT --##
 Write the Organisation of the Report section in approximately {wc_struct} words for the research paper. Summarise the purpose and content of each of the six chapters below to guide the reader through the document.

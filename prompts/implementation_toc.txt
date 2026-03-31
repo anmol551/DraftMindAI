@@ -17,8 +17,10 @@ webapp summary: {b}
 8: maintain the subheadings of the methodology_toc.txt, for the considered headings.
 
 Format of the output:
-4. Implementation
-4.1. Statistical Details [word count]
+4.1 Statistical Details [word count]
+4.2 Data Visualisation [300]
+4.3 Data Preprocessing [word count]
+
 
 Note: Every heading must have word count mentioned
 

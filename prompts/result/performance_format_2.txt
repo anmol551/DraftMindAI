@@ -23,32 +23,22 @@ All subheadings MUST be numbered starting from 5.1. Use the format "5.X. Heading
 - 5.N+4. Significance and Limitations
 Do not use ### or any markdown heading symbols. Write headings as plain numbered text.
 
-Group charts by type across all models. For each chart type, create one subheading:
+Group charts by logical type or category (e.g., Distribution Plots, Performance Metrics, 
+Loss Curves) based ONLY on the actual charts listed in the Result Plot Titles. 
+Do not make up charts or assume standard classification charts exist if they are not listed.
 
-### Confusion Matrix
-- Present the Confusion Matrix chart for each model, one after another.
-- After EACH model's chart, write a separate discussion paragraph covering that specific
-  model's true positives, false positives, misclassifications, and patterns.
+For each chart type present in the data, create one subheading (e.g., *5.1. Distribution Plots*, *5.2. Metric Comparisons*, etc.):
+
+### [Chart Type Name]
+- Present the chart(s) matching this type for each model (or overall), one after another.
+- After EACH chart, write a separate discussion paragraph covering key values,
+  class-wise separation, or any notable behaviours/patterns.
 - Target approximately {wc_per_chart_type} words total for this subheading.
 
-### ROC Curves
-- Present the ROC Curve chart for each model, one after another.
-- After EACH model's chart, write a separate discussion paragraph covering AUC values,
-  class-wise separation, and discrimination ability.
-- Target approximately {wc_per_chart_type} words total.
-
-### Training and Validation Loss
-- Present the Training & Validation Loss chart for each model, one after another.
-- After EACH model's chart, write a separate discussion paragraph covering convergence,
-  overfitting/underfitting, and generalisation behaviour.
-- Target approximately {wc_per_chart_type} words total.
-
-If additional per-model chart types exist in the data (e.g., Per-Class Precision/Recall/F1,
-PR Curves), create a subheading for each and follow the same pattern.
+Repeat this structure for EVERY category of chart listed in the data so that NO chart is left out.
 
 ### Models Comparison
-- Present each comparative chart (accuracy comparison, precision/recall/F1 comparison,
-  training time comparison, PR curve comparison, or any other comparative chart).
+- Present each comparative chart matching Multiple Models (e.g., metric comparisons, time comparison, variance comparison, or any other comparative chart listed in the data).
 - After each chart, write a discussion paragraph.
 - Target approximately {wc_comparison} words.
 

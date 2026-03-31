@@ -1,0 +1,31 @@
+{pp}
+
+## Task
+The following methodology section content is too short. You MUST rewrite and expand it to reach EXACTLY {words} words.
+
+## Section:
+{section}
+
+## Current Content (too short):
+{content}
+
+## Word Count Information:
+- Target: {words} words
+- Currently: {current_words} words
+- You need to ADD approximately {gap} more words
+
+## How to Expand
+1. Make each existing paragraph LONGER by adding more explanation, context, reasoning, or elaboration.
+2. Add a new paragraph if needed — for example, add historical context of the method, or compare it with an alternative method, or discuss its advantages and limitations.
+3. For headings WITHOUT subheadings, write multiple flowing paragraphs to fill the target.
+4. DO NOT add new subheadings. Only expand existing content.
+
+## Rules
+- British English, student tone, straightforward vocabulary.
+- Avoid: "Moreover", "Additionally", "employ", "leverage", "utilise".
+- Do NOT print the word count bracket in headings.
+- Output the COMPLETE expanded section (not just the additions).
+- Your output MUST be approximately {words} words. This is non-negotiable.
+
+## Attachments:
+Code Pipeline: {a}

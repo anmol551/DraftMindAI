@@ -1,0 +1,93 @@
+Type: <class 'list'>
+[
+  {
+    "keyword": "Resume Classification",
+    "title": "Resume Classification System using Natural Language Processing and Machine Learning Techniques",
+    "reference": "Ali, I., Mughal, N., Khan, Z.H. et al. (2022) 'Resume Classification System using Natural Language Processing and Machine Learning Techniques', Mehran University Research Journal of Engineering and Technology, 41(1), pp. 65\u201379. doi:10.22581/muet1982.2201.07.",
+    "citation": "(Ali et al., 2022)"
+  },
+  {
+    "keyword": "TF-IDF Feature Representation",
+    "title": "Resume Classification using various Machine Learning Techniques",
+    "reference": "Pal, R. (2022) 'Resume Classification using various Machine Learning Techniques', ITM Web of Conferences: ICACC 2022. doi:10.1051/itmconf/2022.",
+    "citation": "(Pal, 2022)"
+  },
+  {
+    "keyword": "Skill Extraction and NER",
+    "title": "SkillSpan: Hard and Soft Skill Extraction from English Job Postings",
+    "reference": "Zhang, M., Jensen, K.N., Sonniks, S.D. and Plank, B. (2022) 'SkillSpan: Hard and Soft Skill Extraction from English Job Postings', Proceedings of NAACL-HLT 2022, pp. 4962\u20134984. doi:10.18653/v1/2022.naacl-main.366.",
+    "citation": "(Zhang et al., 2022)"
+  },
+  {
+    "keyword": "Transformer-Based Text Classification",
+    "title": "BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding",
+    "reference": "Devlin, J., Chang, M-W., Lee, K. and Toutanova, K. (2019) 'BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding', Proceedings of NAACL-HLT 2019, pp. 4171\u20134186. doi:10.18653/v1/N19-1423.",
+    "citation": "(Devlin et al., 2019)"
+  },
+  {
+    "keyword": "DistilBERT Contextual Embeddings",
+    "title": "DistilBERT, a distilled version of BERT: smaller, faster, cheaper and lighter",
+    "reference": "Sanh, V., Debut, L., Chaumond, J. and Wolf, T. (2019) 'DistilBERT, a distilled version of BERT: smaller, faster, cheaper and lighter', arXiv preprint arXiv:1910.01108.",
+    "citation": "(Sanh et al., 2019)"
+  },
+  {
+    "keyword": "Bidirectional LSTM",
+    "title": "BiLSTM for Resume Classification",
+    "reference": "Jalili, A., Tabrizchi, H., Razmara, J. and Mosavi, A. (2024) 'BiLSTM for Resume Classification', in 2024 IEEE 22nd World Symposium on Applied Machine Intelligence and Informatics (SAMI). IEEE, pp. 000519\u2013000524. doi:10.1109/SAMI60510.2024.10432836.",
+    "citation": "(Jalili et al., 2024)"
+  },
+  {
+    "keyword": "Named Entity Recognition in Resumes",
+    "title": "Named Entity Recognition in Resumes",
+    "reference": "Kesim, E. and Deliahmetoglu, A. (2023) 'Named Entity Recognition in Resumes', arXiv preprint arXiv:2306.13062. Available at: https://arxiv.org/abs/2306.13062.",
+    "citation": "(Kesim and Deliahmetoglu, 2023)"
+  },
+  {
+    "keyword": "Class Imbalance and SMOTE",
+    "title": "SMOTE: Synthetic Minority Over-sampling Technique",
+    "reference": "Chawla, N.V., Bowyer, K.W., Hall, L.O. and Kegelmeyer, W.P. (2002) 'SMOTE: Synthetic Minority Over-sampling Technique', Journal of Artificial Intelligence Research, 16, pp. 321\u2013357. doi:10.1613/jair.953.",
+    "citation": "(Chawla et al., 2002)"
+  },
+  {
+    "keyword": "Resume Parsing",
+    "title": "R\u00e9sum\u00e9 Parsing as Hierarchical Sequence Labeling: An Empirical Study",
+    "reference": "Retyk, F., Fabregat, H., Aizpuru, J., Taglio, M. and Zbib, R. (2023) 'R\u00e9sum\u00e9 Parsing as Hierarchical Sequence Labeling: An Empirical Study', arXiv preprint arXiv:2309.07015. Available at: https://arxiv.org/abs/2309.07015.",
+    "citation": "(Retyk et al., 2023)"
+  },
+  {
+    "keyword": "Sentence Embeddings and S-BERT",
+    "title": "Enhanced Resume Screening for Smart Hiring Using Sentence-BERT",
+    "reference": "Deshmukh, A. and Raut, A. (2024) 'Enhanced Resume Screening for Smart Hiring Using Sentence-BERT', International Journal of Advanced Computer Science and Applications (IJACSA), 15(8), pp. 241\u2013247.",
+    "citation": "(Deshmukh and Raut, 2024)"
+  },
+  {
+    "keyword": "Explainable Transformer Ensemble",
+    "title": "Job Description Parsing with Explainable Transformer Based Ensemble Models",
+    "reference": "Akkasi, A. (2024) 'Job Description Parsing with Explainable Transformer Based Ensemble Models to Extract the Technical and Non-technical Skills', Natural Language Processing Journal, 9, 100102. doi:10.1016/j.nlp.2024.100102.",
+    "citation": "(Akkasi, 2024)"
+  },
+  {
+    "keyword": "SpaCy NLP Pipeline",
+    "title": "Explosion AI \u2014 spaCy: Industrial-Strength Natural Language Processing",
+    "reference": "Honnibal, M. and Montani, I. (2017) spaCy 2: Natural language understanding with Bloom embeddings, convolutional neural networks and incremental parsing. Available at: https://spacy.io.",
+    "citation": "(Honnibal and Montani, 2017)"
+  },
+  {
+    "keyword": "Deep Learning Text Classification",
+    "title": "Deep Learning\u2013Based Text Classification: A Comprehensive Review",
+    "reference": "Minaee, S., Kalchbrenner, N., Cambria, E., Nikzad, N., Chenaghlu, M. and Gao, J. (2021) 'Deep Learning\u2013Based Text Classification: A Comprehensive Review', ACM Computing Surveys, 54(3), pp. 1\u201340. doi:10.1145/3439726.",
+    "citation": "(Minaee et al., 2021)"
+  },
+  {
+    "keyword": "Rule-Based Resume Parsing",
+    "title": "Rule-Based Information Extraction from Multi-format Resumes for Automated Classification",
+    "reference": "Musleh, D.A. (2024) 'Rule-Based Information Extraction from Multi-format Resumes for Automated Classification', IIETA Journal. Available at: https://www.iieta.org.",
+    "citation": "(Musleh, 2024)"
+  },
+  {
+    "keyword": "Resume Embeddings and ATS",
+    "title": "Resume2Vec: Transforming Applicant Tracking Systems with Embedding-based Matching",
+    "reference": "Bevara, R.V.K. (2025) 'Resume2Vec: Transforming Applicant Tracking Systems with Intelligent Resume Embeddings', Electronics, 14(4), p. 794. doi:10.3390/electronics14040794.",
+    "citation": "(Bevara, 2025)"
+  }
+]

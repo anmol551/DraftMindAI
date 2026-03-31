@@ -1,31 +1,36 @@
-| # | Plot Title | Plot Type | Insights |
-|---|-----------|-----------|----------|
-| 1 | InceptionV3 – Confusion Matrix (Raw Counts) | Heatmap | nv: 743 correct; 121 misclassified as mel; mel: 80 correct; 35 shifted to nv; df weakest with 4 correct; vasc: 23 correct with minimal errors |
-| 2 | InceptionV3 – Training and Validation Loss | Line Chart | Training loss drops from 1.20 to 0.49; validation loss oscillates 0.85–1.10; divergence after epoch 8–11 indicates mild overfitting |
-| 3 | InceptionV3 – Per-Class Precision, Recall, F1-Score | Grouped Bar Chart | NV: precision 92.3%, recall 75.1%, F1 82.8%; VASC: F1 76.7%; MEL: recall 47.34%, precision 32.00%; DF weakest at ~24% F1 |
-| 4 | InceptionV3 – ROC Curves (One-vs-Rest) | Line Chart | VASC AUC 0.993; AKIEC 0.937; BCC 0.934; NV 0.910; DF 0.856; BKL 0.842; MEL lowest at 0.804; Micro-AUC 0.941 |
-| 5 | EfficientNet-B0 – Confusion Matrix (Raw Counts) | Heatmap | NV: 762 correct; 133 misclassified as mel; MEL: 104 correct; BCC: 58 correct; DF: 4 correct; VASC: 20 correct |
-| 6 | EfficientNet-B0 – Training and Validation Loss | Line Chart | Training loss 1.10 to 0.36; validation minimum ~0.74 at epoch 10; mild overfitting after epoch 11 |
-| 7 | EfficientNet-B0 – Per-Class Precision, Recall, F1-Score | Grouped Bar Chart | NV: precision 93.84%, recall 77.05%, F1 84.62%; BCC F1 60.73%; MEL recall 61.54% precision 35.62%; DF F1 21.05% |
-| 8 | EfficientNet-B0 – ROC Curves (One-vs-Rest) | Line Chart | VASC AUC 0.993; BCC 0.970; AKIEC 0.934; NV 0.932; DF 0.903; BKL 0.878; MEL 0.856; Micro-AUC 0.955 |
-| 9 | Xception – Confusion Matrix (Raw Counts) | Heatmap | NV: strong with 80.99% recall; MEL: 50.89% recall F1 42.68%; BKL: 71.98% recall; DF remains weak |
-| 10 | Xception – Training and Validation Loss | Line Chart | Stable convergence; validation loss controlled; mild gap between training and validation post epoch 10 |
-| 11 | Xception – Per-Class Precision, Recall, F1-Score | Grouped Bar Chart | NV: 92.17% precision, 80.99% recall, 86.22% F1; MEL: recall 50.89%; overall weighted F1 75.47% |
-| 12 | Xception – ROC Curves (One-vs-Rest) | Line Chart | Micro-AUC ~0.962; VASC and BCC highest; MEL remains challenging |
-| 13 | ConvNeXt-Tiny – Confusion Matrix (Raw Counts) | Heatmap | MEL: 99 correct out of 169; NV: 834 correct; BKL: 128 correct; 39 melanoma cases shifted to NV |
-| 14 | ConvNeXt-Tiny – Training and Validation Loss | Line Chart | Smooth training convergence; best generalisation among all four models; validation loss stable post epoch 10 |
-| 15 | ConvNeXt-Tiny – Per-Class Precision, Recall, F1-Score | Grouped Bar Chart | NV: 92.26% precision, 84.33% recall, 88.11% F1; VASC: 83.02% F1; MEL: 58.58% recall, 49.01% F1; DF: 40.0% F1 |
-| 16 | ConvNeXt-Tiny – ROC Curves (One-vs-Rest) | Line Chart | Micro-AUC 0.9665; highest overall; MEL improved vs all other models |
-| 17 | Model Accuracy Comparison | Bar Chart | InceptionV3: 66.58%; EfficientNet-B0: 70.48%; Xception: 74.17%; ConvNeXt-Tiny: 77.34% — steady progression |
-| 18 | Precision / Recall / F1 Comparison | Grouped Bar Chart | Will be taken from table |
-| 19 | Training Time Comparison (Dot Plot) | Dot/Lollipop Plot | EfficientNet-B0: 46.9 min; InceptionV3: ~47.5 min; ConvNeXt-Tiny: 48.9 min; Xception: 49.9 min — minimal variation |
-| 20 | Precision–Recall Curve Comparison | Multi-Line Chart | ConvNeXt-Tiny AP=0.862; Xception AP=0.846; EfficientNet-B0 AP=0.817; InceptionV3 AP=0.771 |
+Plot : Bi-LSTM Training Loss Curve | Type: Line Plot | Insights: Loss decreases from 2.8875 at epoch 1 to 0.7422 at epoch 10; accuracy improves from 0.3005 to 0.8007; convergence stabilises after epoch 8 with minor fluctuations indicating slight overfitting
 
-| Model | Accuracy | Precision (Weighted) | Recall (Weighted) | F1-Score (Weighted) | ROC-AUC (Micro) | Average Precision (AP) |
-|---|---|---|---|---|---|---|
-| InceptionV3 | 66.58% | 73.81% | 66.58% | 69.18% | 0.941 | 0.771 |
-| EfficientNet-B0 | 70.48% | 76.74% | 70.48% | 72.56% | 0.955 | 0.817 |
-| Xception | 74.17% | 78.17% | 74.17% | 75.47% | ~0.962 | 0.846 |
-| **ConvNeXt-Tiny ★** | **77.34%** | **79.89%** | **77.34%** | **78.29%** | **0.9665** | **0.862** |
+Plot : DistilBERT Fine-tuning Loss Curve | Type: Line Plot | Insights: Loss decreases rapidly from 3.1318 to 0.3452; accuracy improves from 0.0830 to 0.9285; performance stabilises after epoch 7 showing strong convergence and better generalisation than Bi-LSTM
 
-★ Best-performing model across all metrics.
+Plot : Confusion Matrix — Multinomial Naive Bayes | Type: Heatmap | Insights: Strong predictions for IT (24) and HR (20); significant misclassifications across Sales and Public Relations; explains low G-Mean 0.0792 indicating poor minority class recognition
+
+Plot : Confusion Matrix — Bi-LSTM | Type: Heatmap | Insights: Improved diagonal dominance with correct predictions in Engineering (24), IT (19), Sales (22); some misclassifications persist across similar categories consistent with G-Mean 0.0910
+
+Plot : Confusion Matrix — DistilBERT Baseline | Type: Heatmap | Insights: Strong diagonal dominance; high correct predictions in Finance (24), Engineering (23), IT (22); fewer misclassifications confirming accuracy 0.8189 and G-Mean 0.2990
+
+Plot : Confusion Matrix — DistilBERT Threshold-Tuned (Best Model) | Type: Heatmap | Insights: Strongest diagonal dominance across all models; accurate predictions in Finance (24), Engineering (23), IT (23); minimal misclassifications; G-Mean 0.7776 confirms improved minority class balance
+
+Plot : Model Comparison — Grouped Bar Chart | Type: Grouped Bar Chart | Insights: Will be taken from results table
+
+Plot : Radar / Spider Chart | Type: Polar/Radar Chart | Insights: DistilBERT dominates all five metrics (accuracy 0.819, precision 0.793, recall 0.769, F1 0.771); Bi-LSTM shows moderate performance 0.63–0.70; Naive Bayes lowest; G-Mean gap (0.299 vs 0.091 vs 0.079) visible
+
+Plot : Macro F1-Score Comparison | Type: Horizontal Bar Chart | Insights: Will be taken from results table
+
+Plot : G-Mean Before vs After Imbalance Correction | Type: Grouped Bar Chart | Insights: DistilBERT improves from 29.9% to 77.8%; MNB improves from 7.9% to 20.9%; Bi-LSTM degrades from 9.1% to 1.6% confirming weighting instability in LSTM
+
+Plot : Model Variants — Metric Heatmap | Type: Heatmap | Insights: DistilBERT weighted/threshold variants consistently highest across all metrics; accuracy 0.8350 and G-Mean ~0.776; Bi-LSTM weighted degrades; MNB shows moderate improvement to ~0.55 F1
+
+Plot : ROC / AUC Curves | Type: Multi-class ROC Curve | Insights: Will be taken from results table
+
+
+### Performance Table
+Model | Accuracy | Precision (Macro) | Recall (Macro) | F1-Score (Macro) | G-Mean | Notes
+--- | --- | --- | --- | --- | --- | ---
+Multinomial Naive Bayes (Baseline) | 0.5775 | 0.5428 | 0.5320 | 0.5147 | 0.0792 | 
+Weighted MNB | 0.5915 | — | — | 0.5571 | 0.2091 | 
+SMOTE MNB | 0.5815 | — | — | 0.5410 | 0.2025 | 
+Bi-LSTM (Baseline) | 0.7042 | 0.6592 | 0.6434 | 0.6320 | 0.0910 | 
+Weighted Bi-LSTM | 0.6881 | — | — | 0.6116 | 0.0158 | Degraded
+DistilBERT (Baseline) | 0.8189 | 0.7934 | 0.7691 | 0.7708 | 0.2990 | 
+Weighted DistilBERT | 0.8350 | — | 0.8078 | 0.8027 | 0.7754 | ★ Best
+Threshold-Tuned DistilBERT | 0.8350 | — | 0.8088 | ~0.8027 | 0.7776 | ★ Best

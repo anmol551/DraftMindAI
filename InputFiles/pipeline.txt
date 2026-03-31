@@ -1,1 +1,36 @@
-1. **Environment Setup:** Import core libraries (NumPy, Pandas, PyTorch, torchvision, timm, OpenCV, scikit-learn, Matplotlib, Seaborn, tqdm). Set global seeds (SEED=42) for reproducibility. Detect device (CUDA GPU or CPU). 2. **Data Loading:** Load HAM10000 metadata CSV. Map image IDs to file paths across HAM10000_images_part_1 and part_2 directories. Apply class name mapping for seven diagnostic categories. 3. **Exploratory Data Analysis (EDA):** Analyse class distribution, binary melanoma vs. non-melanoma split, lesion-wise image counts, image resolutions (scatter plots), RGB channel histograms, per-class brightness, colour distributions, and edge detection demonstrations using Canny filters. 4. **Preprocessing Pipeline:** Apply DullRazor algorithm (morphological blackhat + inpainting) for hair removal. Apply channel-level colour normalisation (per-channel mean normalisation). Apply CLAHE (Contrast-Limited Adaptive Histogram Equalisation on LAB L-channel). Resize all images to 224×224 and normalise to [0,1]. Visualise preprocessing effects per class. 5. **Train-Validation-Test Split:** Split by unique lesion_id (70% train, 15% val, 15% test) to prevent patient-level data leakage. Confirm class distribution in each split. 6. **Data Augmentation and Sampling:** Training transforms: RandomHorizontalFlip, RandomVerticalFlip, RandomRotation(20°), ColorJitter, ToTensor, ImageNet normalisation. Val/Test transforms: Resize, ToTensor, ImageNet normalisation. Compute class weights using inverse frequency. Apply PyTorch WeightedRandomSampler to address class imbalance. 7. **Dataset and DataLoader Creation:** Implement custom SkinDataset (PyTorch Dataset) loading images on-the-fly with preprocessing and transforms. Create DataLoaders: batch_size=32, sampler for train, num_workers=2, pin_memory=True. 8. **Model 1 — InceptionV3:** Load pretrained InceptionV3 (ImageNet weights). Freeze backbone layers. Replace final FC layer with custom head (7-class output). Train with CrossEntropyLoss, Adam (lr=0.001, weight_decay=1e-4), StepLR scheduler. Save best checkpoint. Evaluate: accuracy 66.58%, weighted F1 69.18%, micro AUC 0.941. Generate confusion matrix, per-class precision/recall/F1 bar charts, training/validation loss curves, ROC curves. 9. **Model 2 — EfficientNet-B0:** Same pipeline with EfficientNetB0 backbone. Custom classification head replaces top FC. Best accuracy 70.48%, weighted F1 72.56%, micro AUC 0.955. Same evaluation plots generated. 10. **Model 3 — Xception:** Implemented via timm library. Frozen backbone with custom head. Best accuracy 74.17%, weighted F1 75.47%, micro AUC ~0.962. Same evaluation suite. 11. **Model 4 — ConvNeXt-Tiny:** Load pretrained ConvNeXt-Tiny. Replace classifier with custom Sequential head: Flatten → LayerNorm(768) → Linear(768→512) → ReLU → Dropout(0.5) → Linear(512→7). Train with same protocol. Best accuracy 77.34%, weighted F1 78.29%, micro AUC 0.9665. 12. **Model Comparison:** Compare all four models on Accuracy, Precision, Recall, F1-Score, ROC-AUC (Micro) using bar charts, grouped metric comparison charts, Precision-Recall curves (AP scores), training time dot plot, and Cohen's Kappa. ConvNeXt-Tiny ranked best on all metrics. 13. **Results Export:** Save comparison DataFrame to CSV. Display styled performance table with green highlighting on best values. 14. **Web Application Deployment:** Flask app (app.py) loads saved ConvNeXt-Tiny checkpoint at startup. User uploads a dermoscopic image via HTML form. Image preprocessed (OpenCV BGR→RGB, Resize 224×224, ToTensor, ImageNet normalise). Inference with torch.no_grad(). Softmax probabilities computed. Predicted class displayed with all class probabilities. High-risk melanoma alert triggered if mel probability ≥ 0.60.
+1. DATA LOADING: Resume dataset loaded from Kaggle (snehaanbhawal/resume-dataset) using KaggleHub into a Pandas DataFrame containing 2,484 resumes across four columns.
+
+2. EXPLORATORY DATA ANALYSIS: Statistical profiling (shape, dtypes, nulls, duplicates), category distribution bar chart, text length histogram, HTML length histogram, word cloud visualisation, top-10 frequent word bar chart, and average resume length per category bar chart.
+
+3. DATA PREPROCESSING:
+   a. Column Dropping: ID and Resume_html removed.
+   b. Contraction Expansion: Using the 'contractions' library to expand abbreviated forms.
+   c. Text Cleaning: Lowercasing, URL/email/phone removal via regex, special character removal, whitespace normalisation.
+   d. Tokenisation and Stopword Removal: NLTK word_tokenize with custom stopword set preserving 10 domain-critical resume keywords.
+   e. Lemmatisation: WordNetLemmatizer applied to all tokens.
+
+4. FEATURE ENGINEERING:
+   a. TF-IDF Vectorisation: TfidfVectorizer with unigrams + bigrams (ngram_range=(1,2)), max 5,000 features, sublinear_tf=True, min_df=2.
+   b. Label Encoding: LabelEncoder applied to 24 job categories.
+   c. NER (Named Entity Recognition): spaCy en_core_web_sm model with custom PhraseMatcher for SKILL (31 terms), EDUCATION (17 terms), and ROLE (15 terms) vocabularies; numeric features skill_count, education_count, role_count derived.
+
+5. TRAIN-TEST SPLIT: Stratified 80/20 split (random_state=42) — 1,987 training samples, 497 test samples.
+
+6. MODEL 1 — MULTINOMIAL NAIVE BAYES: TF-IDF features, alpha=0.1. Baseline accuracy: 0.5775, F1: 0.5147, G-Mean: 0.0792.
+
+7. MODEL 2 — BIDIRECTIONAL LSTM: Custom vocabulary built from preprocessed text. Architecture: Embedding(vocab_size, 128) → BiLSTM(128 hidden, 2 layers, bidirectional, dropout=0.4) → Linear(256, 24). Trained for 10 epochs with Adam (lr=1e-3) and StepLR scheduler. Baseline accuracy: 0.7042, F1: 0.6320, G-Mean: 0.0910.
+
+8. MODEL 3 — DISTILBERT: Fine-tuned distilbert-base-uncased for sequence classification (24 labels). Max sequence length 256, batch size 16, 10 epochs. AdamW optimizer (lr=2e-5, weight_decay=0.01) with linear warmup scheduler (10% warmup). Baseline accuracy: 0.8189, F1: 0.7708, G-Mean: 0.2990.
+
+9. CLASS IMBALANCE CORRECTION:
+   a. Weighted MNB: Sample weights inversely proportional to class frequency — accuracy 0.5915, G-Mean 0.2091.
+   b. SMOTE MNB: Synthetic oversampling (k_neighbors=3) — accuracy 0.5815, G-Mean 0.2025.
+   c. Weighted Bi-LSTM: CrossEntropyLoss with class weight tensor — accuracy 0.6881, G-Mean 0.0158 (degraded).
+   d. Weighted DistilBERT: Custom weighted CrossEntropyLoss — accuracy 0.8350, F1: 0.8027, G-Mean: 0.7754.
+   e. Per-Class Threshold Tuning on Weighted DistilBERT: Softmax probabilities extracted; per-class thresholds optimised by maximising F1 per class over range 0.05–0.90; scaled probabilities used for final prediction — accuracy 0.8350, G-Mean: 0.7776.
+
+10. EVALUATION: accuracy_score, precision_score, recall_score, f1_score (macro), geometric_mean (custom), confusion_matrix, classification_report. Visualisations include grouped bar chart, radar/spider chart, F1 comparison bar, G-Mean before/after bar, metric heatmap.
+
+11. MODEL SAVING: Weighted DistilBERT saved using save_pretrained(); tokenizer, label_encoder (joblib), and best_thresholds (numpy) saved to ./bert_resume_model.
+
+12. FLASK WEB APP: app.py loads saved DistilBERT model and tokenizer on startup; accepts PDF uploads via /predict endpoint; extracts text using PyMuPDF (fitz); applies full preprocessing pipeline; classifies using DistilBERT; extracts entities using spaCy PhraseMatcher; returns JSON with category, confidence, all class probabilities, skills, education, roles, organisations, and text preview.

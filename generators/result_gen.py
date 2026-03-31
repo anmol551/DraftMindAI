@@ -16,19 +16,23 @@ import pandas as pd
 
 FIGURE_RULE = """
 
-FIGURE PLACEHOLDERS RULE (Apply to ALL sections that discuss plots, charts, or visual outputs):
-Must start from new line
-Every plot, chart, graph, or screenshot MUST have a placeholder using
-this exact 3-block structure placed INLINE immediately after the sentence
-that describes the figure:
+FIGURE PLACEHOLDERS RULE (CRITICAL - Apply to ALL formats and sections):
+1. You are provided with a list of plots in the "Result Plot Titles" input. 
+   You MUST create a figure placeholder for EVERY SINGLE PLOT LISTED. 
+   Do not skip, summarize, or group them. If there are 5 plots listed, you must 
+   generate exactly 5 distinct placeholders.
+
+2. Must start from new line. Every plot, chart, graph, or screenshot MUST have a 
+   placeholder using this exact 3-block structure placed INLINE immediately after 
+   the sentence that describes the figure:
 
 [Figure 5.X: short caption]
 Caption: Figure 5.X — full caption sentence
 Description: one paragraph of 60-80 words explaining what the figure
           reveals, key values, patterns, and conclusions
 
-X increments globally across the entire results section.
-Never reset between subsections. Use ONLY [Figure 5.X: caption] format.
+3. X increments globally across the entire results section.
+   Never reset between subsections. Use ONLY [Figure 5.X: caption] format.
 """
 
 COMMON_GUIDELINES = """

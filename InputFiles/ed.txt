@@ -1,5 +1,11 @@
 Data Details:
-The dataset used is the Skin Diseases Image Dataset from Kaggle (https://www.kaggle.com/datasets/ismailpromus/skin-diseases-image-dataset). It contains 10 dermoscopic skin disease classes: Eczema (1,677 images), Melanoma (15,750 images), Atopic Dermatitis (1,257 images), Basal Cell Carcinoma (3,323 images), Melanocytic Nevi (7,970 images), Benign Keratosis-like Lesion (2,079 images), Psoriasis/Lichen Planus (2,055 images), Seborrheic Keratoses and Benign Tumors (1,847 images), Tinea/Ringworm/Candidiasis/Fungal Infections (1,702 images), and Warts/Molluscum/Viral Infections (2,103 images). For the binary classification task, Eczema is assigned label 1 and all other classes are merged into a Non-Eczema class (label 0). The raw binary distribution is severely imbalanced: 25,476 non-eczema vs 1,677 eczema images (imbalance ratio 15.19:1). Downsampling was applied to the majority class to achieve a 3:1 ratio (5,031 non-eczema : 1,677 eczema), followed by upsampling the minority class in the training set to achieve a perfectly balanced 1:1 ratio (3,521 each). The final stratified split is: Train 70% (3,521 eczema + 3,521 non-eczema after upsampling), Validation 15%, Test 15%.
+Dataset: Resume Dataset from Kaggle (snehaanbhawal/resume-dataset), originally sourced from livecareer.com.
+Size: 2,484 resumes across 4 columns — ID, Resume_str, Resume_html, and Category.
+Format: CSV with accompanying PDFs stored in category-labelled folders.
+Categories (24): HR, Designer, Information-Technology, Teacher, Advocate, Business-Development, Healthcare, Fitness, Agriculture, BPO, Sales, Consultant, Digital-Media, Automobile, Chef, Finance, Apparel, Engineering, Accountant, Construction, Public-Relations, Banking, Arts, Aviation.
+Class Distribution: Heavily imbalanced — IT and Business Development lead at 120 each; BPO is lowest at 22.
+Quality: No missing values, no duplicates.
+Preprocessing: ID and Resume_html columns dropped; Resume_str used as primary text source.
 
 Attached files to analyse [ZIP], it will contain:
 Proposal
@@ -27,6 +33,9 @@ Instructions:
 5. What is the novel or unique element in the research
 6. What are the future recommendations of the research paper?
 All in 500 words. Provide reference in Harvard style.
+
+## CODE PIPELINE
+Analyze the code notebook and webapp code and write the pipeline by using all the tech used from start to end
 
 ## CODE SUMMARY
 Summarize the following code into 2-3 concise paragraphs while preserving all essential technical details. Summary must include: Overview, Key Components, Execution Flow, Core Logic, Web App Elements (if any). Format: Paragraph-based, 15-20% of original length. Word count: 300 words.
@@ -66,6 +75,7 @@ From the research pipeline/code, write approx 15 important keywords. For each ke
   'best_accuracy': <acc_value>,
   'base_paper_summary': <summary>,
   'base_paper_reference': <reference>,
+  'code_pipeline': <code pipeline>,
   'code_summary': <code summary>,
   'code_summary_with_values': <code summary with values>,
   'web_app_summary': <web app summary>,

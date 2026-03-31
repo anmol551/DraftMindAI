@@ -2,144 +2,114 @@ RESULTS
 ------------------------
 1. RESULTS
 ----------------------------------------
-Results Chapter
+The code pipeline begins with data loading using pandas and numpy, followed by exploratory data analysis with seaborn and matplotlib. Preprocessing involves nltk for tokenisation and lemmatisation, feature engineering with sklearn TfidfVectorizer, and model training using torch for Bi-LSTM and transformers for DistilBERT. Evaluation occurs via sklearn metrics, with results saved using joblib and deployed in a Flask web app.
 
-Chapter Introduction
-This chapter presents findings from a systematic pipeline involving data preprocessing, model training, and evaluation on skin lesion images. Steps included image normalisation, augmentation to balance classes, and training multiple deep learning models for classification across seven categories.
+Performance table: Model evaluation metrics
 
-Table 5.1: Model Performance Across Key Metrics
-Model                  | Accuracy | Precision (Weighted) | Recall (Weighted) | F1-Score (Weighted) | ROC-AUC (Micro) | Average Precision (AP)
----------------------- | -------- | -------------------- | ----------------- | ------------------- | --------------- | ----------------------
-InceptionV3           | 66.58%   | 73.81%              | 66.58%            | 69.18%             | 0.941           | 0.771
-EfficientNet-B0       | 70.48%   | 76.74%              | 70.48%            | 72.56%             | 0.955           | 0.817
-Xception              | 74.17%   | 78.17%              | 74.17%            | 75.47%             | ~0.962          | 0.846
-ConvNeXt-Tiny         | 77.34%   | 79.89%              | 77.34%            | 78.29%             | 0.9665          | 0.862
+| Model                        | Accuracy | Precision (Macro) | Recall (Macro) | F1-Score (Macro) | G-Mean |
+|------------------------------|----------|--------------------|----------------|------------------|--------|
+| Multinomial Naive Bayes (Baseline) | 0.58    | 0.54              | 0.53           | 0.51            | 0.08  |
+| Weighted MNB                 | 0.59    | —                 | —              | 0.56            | 0.21  |
+| SMOTE MNB                    | 0.58    | —                 | —              | 0.54            | 0.20  |
+| Bi-LSTM (Baseline)           | 0.70    | 0.66              | 0.64           | 0.63            | 0.09  |
+| Weighted Bi-LSTM             | 0.69    | —                 | —              | 0.61            | 0.02  |
+| DistilBERT (Baseline)        | 0.82    | 0.79              | 0.77           | 0.77            | 0.30  |
+| Weighted DistilBERT          | 0.84    | —                 | 0.81           | 0.80            | 0.78  |
+| Threshold-Tuned DistilBERT   | 0.84    | —                 | 0.81           | 0.80            | 0.78  |
 
-The table above shows the performance of four models on various metrics. ConvNeXt-Tiny stands out with the highest scores across all measures, achieving an accuracy of 77.34% and a weighted F1-score of 78.29%. Its ROC-AUC score of 0.9665 indicates strong class separation. Xception follows with an accuracy of 74.17%, showing steady improvement over EfficientNet-B0 at 70.48% and InceptionV3 at 66.58%. Precision and recall values reflect a similar trend, with ConvNeXt-Tiny leading. These results suggest that newer architectures handle the complex task of skin lesion classification better, especially for challenging classes. Patterns indicate that while all models perform well on dominant categories, smaller classes pose difficulties, impacting weighted scores.
+The table shows DistilBERT variants as top performers, with accuracy reaching 84% and G-Mean up to 78%. This indicates better handling of class imbalances compared to MNB and Bi-LSTM baselines, which score lower at 58–70% accuracy and below 10% G-Mean. DistilBERT's improvements stem from its architecture, while weighting helps in some cases but harms Bi-LSTM. The results highlight model strengths in multi-class classification, with DistilBERT excelling overall.
 
-Confusion Matrix
-This section discusses the confusion matrix for each model to understand classification patterns. For InceptionV3, the matrix reveals strengths and weaknesses.
-[Figure 5.1: InceptionV3 Confusion Matrix]
-Caption: Figure 5.1 — Confusion Matrix for InceptionV3 Showing Raw Counts
-Description: The confusion matrix for InceptionV3 shows 743 correct predictions for nv, but 121 are misclassified as mel. For mel, only 80 are correct, with 35 shifted to nv. The df class performs poorly with just 4 correct predictions, indicating difficulty in detection. The vasc class has 23 correct predictions with minimal errors. This suggests the model excels with dominant classes like nv but struggles with less represented categories, leading to notable misclassification rates.
+5.1 Confusion Matrix
+[Figure 5.1: Confusion matrix for MNB]
+Caption: Figure 5.1 — Confusion matrix for Multinomial Naive Bayes model
+Description: The figure for the Multinomial Naive Bayes model reveals strong correct predictions in IT and HR categories with 24 and 20 true positives respectively. It shows significant misclassifications in Sales and Public Relations, leading to only 58% accuracy. Patterns indicate poor performance on minority classes, as seen in the G-Mean of 7.92%, which underscores challenges in balanced classification across 24 categories.
 
-EfficientNet-B0 matrix shows improved results for some classes.
-[Figure 5.2: EfficientNet-B0 Confusion Matrix]
-Caption: Figure 5.2 — Confusion Matrix for EfficientNet-B0 Showing Raw Counts
-Description: The matrix for EfficientNet-B0 indicates 762 correct predictions for nv, though 133 are misclassified as mel. The mel class has 104 correct predictions, while bcc achieves 58 correct. The df class remains weak with only 4 correct, and vasc has 20 correct predictions. This model shows slight improvement over InceptionV3 in mel detection but still faces challenges with smaller classes, reflecting the impact of class imbalance on performance.
+[Figure 5.2: Confusion matrix for Bi-LSTM]
+Caption: Figure 5.2 — Confusion matrix for Bi-LSTM model
+Description: This figure for the Bi-LSTM model displays improved correct predictions in Engineering, IT and Sales, with 24, 19 and 22 true positives. Despite this, errors persist in similar categories, resulting in 70% accuracy. Key patterns show better diagonal alignment than MNB, yet the G-Mean of 9.10% suggests ongoing issues with minority classes.
 
-Xception offers better balance across categories.
-[Figure 5.3: Xception Confusion Matrix]
-Caption: Figure 5.3 — Confusion Matrix for Xception Showing Raw Counts
-Description: Xception's matrix displays strong performance for nv with a recall of 80.99%, correctly classifying a high number. The mel class achieves a recall of 50.89% with an F1-score of 42.68%. The bkl class shows a recall of 71.98%, while df continues to be weak. This indicates Xception handles dominant and some intermediate classes well, though smaller groups still present classification challenges.
+[Figure 5.3: Confusion matrix for DistilBERT baseline]
+Caption: Figure 5.3 — Confusion matrix for DistilBERT baseline model
+Description: The DistilBERT baseline figure exhibits strong diagonal dominance with high correct predictions in Finance, Engineering and IT at 24, 23 and 22 true positives. It has fewer misclassifications, supporting 82% accuracy. Patterns confirm effective class separation, with the G-Mean at 29.90% indicating improved balance over previous models.
 
-ConvNeXt-Tiny shows the best distribution.
-[Figure 5.4: ConvNeXt-Tiny Confusion Matrix]
-Caption: Figure 5.4 — Confusion Matrix for ConvNeXt-Tiny Showing Raw Counts
-Description: The confusion matrix for ConvNeXt-Tiny reveals 834 correct predictions for nv and 99 correct for mel out of 169. The bkl class has 128 correct, though 39 mel cases are misclassified as nv. This model performs best among all, with fewer errors across most classes. It shows improved handling of mel, a critical category, though some overlap with nv persists, pointing to areas for refinement.
+[Figure 5.4: Confusion matrix for DistilBERT threshold-tuned]
+Caption: Figure 5.4 — Confusion matrix for DistilBERT threshold-tuned model
+Description: This figure for the threshold-tuned DistilBERT model shows the strongest diagonal dominance, with accurate predictions in Finance, Engineering and IT at 24, 23 and 23 true positives. Minimal misclassifications occur, aligning with 84% accuracy. The G-Mean of 77.76% highlights excellent minority class handling and overall superior performance.
 
-ROC Curves
-This section examines ROC curves to assess class separation. InceptionV3 curves show varied performance.
-[Figure 5.5: InceptionV3 ROC Curves]
-Caption: Figure 5.5 — ROC Curves for InceptionV3 Across Classes
-Description: The ROC curves for InceptionV3 reveal a micro-AUC of 0.941, indicating good overall separation. The vasc class achieves an AUC of 0.993, followed by akiec at 0.937 and bcc at 0.934. The nv class scores 0.910, while df is at 0.856 and bkl at 0.842. The mel class is lowest at 0.804, showing difficulty in distinguishing it from others, which impacts diagnostic reliability for this critical group.
+The confusion matrices collectively illustrate varying levels of classification success across models. The MNB matrix highlights weaknesses in minority categories, while Bi-LSTM shows moderate gains in major ones. DistilBERT matrices, especially the tuned version, demonstrate clear superiority with fewer errors and better balance. Patterns across figures reveal that deeper architectures like DistilBERT manage contextual dependencies more effectively, leading to higher accuracy rates. This comparison underscores the importance of model selection in handling imbalanced data, as evidenced by the progression from 7.92% G-Mean in MNB to 77.76% in tuned DistilBERT.
 
-EfficientNet-B0 improves on some values.
-[Figure 5.6: EfficientNet-B0 ROC Curves]
-Caption: Figure 5.6 — ROC Curves for EfficientNet-B0 Across Classes
-Description: EfficientNet-B0 shows a micro-AUC of 0.955, reflecting better class distinction. The vasc class again leads with an AUC of 0.993, bcc at 0.970, and akiec at 0.934. The nv class is at 0.932, df at 0.903, and bkl at 0.878. The mel class improves to 0.856, though it remains challenging. This model offers stronger discrimination, especially for critical classes.
+5.2 ROC Curves
+[Figure 5.5: ROC curves for models]
+Caption: Figure 5.5 — ROC and AUC curves for the models
+Description: The figure presents multi-class ROC curves, with DistilBERT variants showing the highest AUC values due to superior true positive rates. For instance, DistilBERT achieves an AUC around 0.85, compared to Bi-LSTM's 0.70 and MNB's 0.58. Patterns indicate better discrimination in weighted models, confirming their edge in classification tasks.
 
-Xception continues the upward trend.
-[Figure 5.7: Xception ROC Curves]
-Caption: Figure 5.7 — ROC Curves for Xception Across Classes
-Description: Xception achieves a micro-AUC of around 0.962, showing robust separation. The vasc and bcc classes score highest, maintaining near-perfect distinction. Other classes follow a similar pattern, with mel still presenting some difficulty. This suggests Xception handles most categories well, providing reliable discrimination for diagnostic purposes, though certain overlaps persist in complex cases.
+ROC curves provide insight into model discrimination power across classes. The DistilBERT curve stands out with its high AUC, reflecting strong performance in separating categories, whereas MNB and Bi-LSTM lag behind. This difference highlights how advanced architectures handle complex resume data more effectively, with AUC improvements linked to better feature capture.
 
-ConvNeXt-Tiny peaks in performance.
-[Figure 5.8: ConvNeXt-Tiny ROC Curves]
-Caption: Figure 5.8 — ROC Curves for ConvNeXt-Tiny Across Classes
-Description: ConvNeXt-Tiny records the highest micro-AUC at 0.9665, marking excellent class separation. All categories show strong values, with notable improvement in mel compared to other models. This indicates superior ability to distinguish between classes, even for challenging ones, making it a strong candidate for practical use in skin lesion classification tasks.
+5.3 Training and Validation Loss
+[Figure 5.6: Bi-LSTM training loss curve]
+Caption: Figure 5.6 — Training and validation loss curve for Bi-LSTM
+Description: The Bi-LSTM loss curve figure depicts loss dropping from 2.89 at epoch 1 to 0.74 at epoch 10, with accuracy rising from 30.05% to 80.07%. Stability emerges after epoch 8, though minor fluctuations suggest slight overfitting. Patterns show steady improvement, indicating effective learning over time.
 
-Training and Validation Loss
-This section reviews loss trends for each model. InceptionV3 shows specific patterns.
-[Figure 5.9: InceptionV3 Loss Trends]
-Caption: Figure 5.9 — Training and Validation Loss for InceptionV3
-Description: InceptionV3 training loss decreases from 1.20 to 0.49 over epochs, indicating learning progress. Validation loss fluctuates between 0.85 and 1.10, with a divergence after epochs 8 to 11. This gap suggests mild overfitting, where the model learns training data well but struggles to generalise to unseen samples. Adjusting training duration or data balance might help improve its broader applicability.
+[Figure 5.7: DistilBERT fine-tuning loss curve]
+Caption: Figure 5.7 — Training and validation loss curve for DistilBERT
+Description: This DistilBERT loss curve figure illustrates loss decreasing from 3.13 to 0.35, with accuracy increasing from 8.30% to 92.85%. Stability occurs after epoch 7, demonstrating strong convergence. Patterns reveal faster adaptation than Bi-LSTM, with minimal fluctuations pointing to better generalisation.
 
-EfficientNet-B0 presents a similar behaviour.
-[Figure 5.10: EfficientNet-B0 Loss Trends]
-Caption: Figure 5.10 — Training and Validation Loss for EfficientNet-B0
-Description: For EfficientNet-B0, training loss drops from 1.10 to 0.36, showing effective learning. Validation loss reaches a low of around 0.74 at epoch 10, but a mild gap appears after epoch 11. This points to slight overfitting, though less pronounced than InceptionV3. The model captures patterns well but needs minor tweaks to ensure better performance on new data.
+The loss curves indicate that DistilBERT converges more rapidly and stably than Bi-LSTM, achieving lower final loss and higher accuracy. This suggests transformer models excel in sequential data processing, while Bi-LSTM's slower decline hints at architectural limitations. Overall, these trends emphasise the role of model depth in optimising training outcomes for text classification.
 
-Xception offers more stability.
-[Figure 5.11: Xception Loss Trends]
-Caption: Figure 5.11 — Training and Validation Loss for Xception
-Description: Xception displays stable convergence in training loss over time. Validation loss remains controlled, with a small gap appearing after epoch 10. This indicates better generalisation compared to earlier models, with reduced risk of overfitting. The balance between training and validation suggests Xception adapts well to the dataset, making it more reliable for unseen cases.
+5.4 Models Comparison
+[Figure 5.8: Grouped bar chart for model comparison]
+Caption: Figure 5.8 — Grouped bar chart comparing models
+Description: The grouped bar chart displays metrics like accuracy and F1-score, with DistilBERT at 84% accuracy and 80% F1-score, far ahead of MNB's 58% and Bi-LSTM's 70%. Patterns show DistilBERT's dominance across all measures, highlighting its efficiency.
 
-ConvNeXt-Tiny excels in balance.
-[Figure 5.12: ConvNeXt-Tiny Loss Trends]
-Caption: Figure 5.12 — Training and Validation Loss for ConvNeXt-Tiny
-Description: ConvNeXt-Tiny shows smooth training convergence, with the best generalisation among all models. Validation loss stabilises after epoch 10, maintaining a minimal gap with training loss. This reflects strong adaptability to new data, minimising overfitting risks. Such behaviour positions this model as the most effective for consistent performance across varied samples in skin lesion tasks.
+[Figure 5.9: Radar chart for models]
+Caption: Figure 5.9 — Radar chart for model metrics
+Description: The radar chart illustrates DistilBERT leading in accuracy at 81.9% and precision at 79.3%, while Bi-LSTM ranges from 63% to 70%. G-Mean differences are clear, with DistilBERT at 29.9% versus others' lower values. Patterns confirm DistilBERT's all-round strength.
 
-Per-Class Precision, Recall, F1-Score
-InceptionV3 metrics vary widely.
-[Figure 5.13: InceptionV3 Per-Class Metrics]
-Caption: Figure 5.13 — Per-Class Precision, Recall, F1-Score for InceptionV3
-Description: InceptionV3 metrics show nv with precision at 92.3%, recall at 75.1%, and F1 at 82.8%. The vasc class achieves an F1 of 76.7%, while mel has a recall of 47.34% and precision of 32.00%. The df class is weakest with an F1 around 24%. This highlights strength in dominant classes but clear struggles with smaller or complex categories like mel and df.
+[Figure 5.10: Macro F1-score comparison chart]
+Caption: Figure 5.10 — Horizontal bar chart for macro F1-scores
+Description: This horizontal bar chart shows DistilBERT's F1-score at 80.27%, compared to MNB's 55.71% and Bi-LSTM's 63%. Patterns emphasise DistilBERT's superiority in balanced scoring.
 
-EfficientNet-B0 shows slight gains.
-[Figure 5.14: EfficientNet-B0 Per-Class Metrics]
-Caption: Figure 5.14 — Per-Class Precision, Recall, F1-Score for EfficientNet-B0
-Description: EfficientNet-B0 records nv precision at 93.84%, recall at 77.05%, and F1 at 84.62%. The bcc class has an F1 of 60.73%, while mel improves to a recall of 61.54% but precision stays low at 35.62%. The df class F1 is 21.05%. This model performs better on some metrics but still faces challenges with less represented groups.
+[Figure 5.11: G-Mean before and after correction chart]
+Caption: Figure 5.11 — Grouped bar chart for G-Mean changes
+Description: The chart tracks G-Mean improvements, with DistilBERT rising to 77.8% and MNB to 20.9%, but Bi-LSTM falling to 1.6%. Patterns reveal varied correction impacts, favouring DistilBERT.
 
-Xception offers balanced results.
-[Figure 5.15: Xception Per-Class Metrics]
-Caption: Figure 5.15 — Per-Class Precision, Recall, F1-Score for Xception
-Description: Xception achieves nv precision of 92.17%, recall of 80.99%, and F1 of 86.22%. The mel class recall is 50.89%, with overall weighted F1 at 75.47%. These values suggest Xception handles most categories better, with improved scores across dominant and some smaller classes, though certain groups remain difficult to classify accurately.
+[Figure 5.12: Metric heatmap for model variants]
+Caption: Figure 5.12 — Heatmap of model variant metrics
+Description: The heatmap highlights DistilBERT variants with 84% accuracy and 77.6% G-Mean, while Bi-LSTM variants decline. Patterns show consistent high values for DistilBERT across metrics.
 
-ConvNeXt-Tiny leads in most areas.
-[Figure 5.16: ConvNeXt-Tiny Per-Class Metrics]
-Caption: Figure 5.16 — Per-Class Precision, Recall, F1-Score for ConvNeXt-Tiny
-Description: ConvNeXt-Tiny shows nv precision at 92.26%, recall at 84.33%, and F1 at 88.11%. The vasc class F1 is 83.02%, mel recall is 58.58% with F1 at 49.01%, and df F1 is 40.0%. This model consistently outperforms others, showing strength even in challenging classes, marking it as the most balanced for this task.
+Model comparison charts reveal DistilBERT as the standout performer, excelling in accuracy, F1-score and G-Mean due to its advanced features. The grouped bar and radar charts underscore its edge over MNB and Bi-LSTM, particularly in imbalanced scenarios. Heatmap and G-Mean charts further illustrate how corrections enhance DistilBERT but not Bi-LSTM, pointing to architectural differences. This analysis shows the value of selecting models that handle text complexity well, with DistilBERT proving most effective for resume classification.
 
-Models Comparison
-This section compares model performance across key charts. Accuracy comparison shows clear progression.
-[Figure 5.17: Model Accuracy Comparison]
-Caption: Figure 5.17 — Accuracy Comparison Across All Models
-Description: The accuracy chart displays ConvNeXt-Tiny at 77.34%, leading over Xception at 74.17%, EfficientNet-B0 at 70.48%, and InceptionV3 at 66.58%. This steady rise suggests that newer designs handle the classification task better. ConvNeXt-Tiny stands out for its ability to capture complex patterns in skin lesion data, likely due to its advanced structure. This trend indicates that architectural improvements contribute significantly to better outcomes in diagnostic accuracy.
+5.5 WebApp Testing
+[Figure 5.13: UI screenshot for Arts category]
+Caption: Figure 5.13 — Web app screenshot for Arts category testing
+Description: The screenshot shows correct prediction for Arts with high confidence and extracted skills like communication and leadership from uploaded PDF resumes. Test inputs include sample resumes, with outputs matching expected categories accurately.
 
-Precision, recall, and F1 comparison reflect similar patterns.
-[Figure 5.18: Precision, Recall, F1 Comparison]
-Caption: Figure 5.18 — Weighted Precision, Recall, F1-Score Across Models
-Description: This chart shows ConvNeXt-Tiny leading with precision at 79.89%, recall at 77.34%, and F1 at 78.29%. Xception follows with precision at 78.17%, recall at 74.17%, and F1 at 75.47%. EfficientNet-B0 scores precision at 76.74%, recall at 70.48%, and F1 at 72.56%, while InceptionV3 trails with precision at 73.81%, recall at 66.58%, and F1 at 69.18%. ConvNeXt-Tiny consistently shows the best balance across these metrics, proving its strength in handling varied class distributions effectively.
+[Figure 5.14: UI screenshot for Automobile category]
+Caption: Figure 5.14 — Web app screenshot for Automobile category testing
+Description: This screenshot displays accurate prediction for Automobile, identifying skills such as project management and technical. Test inputs were PDFs, and outputs confirmed correct classification with moderate confidence.
 
-Training time comparison reveals minimal differences.
-[Figure 5.19: Training Time Comparison]
-Caption: Figure 5.19 — Training Time Comparison Across Models
-Description: The training time chart indicates Xception takes 49.9 minutes, ConvNeXt-Tiny 48.9 minutes, InceptionV3 around 47.5 minutes, and EfficientNet-B0 46.9 minutes. The variation is small, suggesting that time efficiency does not vary much despite differences in model complexity. ConvNeXt-Tiny offers the best accuracy with only a slight increase in training duration, making it a practical choice for balancing performance and computational cost in real-world settings.
+[Figure 5.15: UI screenshot for Advocate category]
+Caption: Figure 5.15 — Web app screenshot for Advocate category testing
+Description: The figure reveals correct Advocate prediction with education entities like bachelor detected. Test inputs included resumes, and outputs showed accurate skill extraction.
 
-Precision-recall curve comparison highlights model strength.
-[Figure 5.20: Precision-Recall Curve Comparison]
-Caption: Figure 5.20 — Precision-Recall Curves Across All Models
-Description: The precision-recall curves show ConvNeXt-Tiny with an average precision of 0.862, followed by Xception at 0.846, EfficientNet-B0 at 0.817, and InceptionV3 at 0.771. This order mirrors accuracy trends, with ConvNeXt-Tiny excelling in maintaining high precision across recall levels. This ability is crucial for medical tasks where detecting true positives, especially for critical classes like mel, holds significant importance over avoiding false negatives.
+[Figure 5.16: UI screenshot for Data Science IT category]
+Caption: Figure 5.16 — Web app screenshot for Data Science IT category testing
+Description: This screenshot indicates precise prediction for Information-Technology, extracting skills like Python and machine learning. Test inputs were resumes, with outputs listing relevant roles.
 
-WebApp Testing
-This section presents the web application testing outcomes with visual outputs.
-[Figure 5.21: WebApp UI Screenshot 1]
-Caption: Figure 5.21 — WebApp Interface for Skin Lesion Prediction
-Description: The first screenshot captures the web application interface accepting skin image uploads. Testing with 14 images from the HAM10000 dataset across seven categories showed accurate predictions for nv with confidence between 72% and 89%. Melanoma predictions ranged from 61% to 78%, triggering high-risk alerts above 60%. Other classes like bcc and vasc scored between 55% and 76%, while df had lower confidence around 35% to 52%, reflecting training data limitations.
+[Figure 5.17: UI screenshot for HR category]
+Caption: Figure 5.17 — Web app screenshot for HR category testing
+Description: The screenshot shows accurate HR prediction with skills such as leadership extracted. Test inputs included PDFs, and outputs demonstrated high prediction accuracy.
 
-[Figure 5.22: WebApp UI Screenshot 2]
-Caption: Figure 5.22 — WebApp Result Display with Risk Alert
-Description: The second screenshot displays prediction results with risk alerts for melanoma. Test inputs for bkl showed confidence from 48% to 64%, and akiec ranged between 42% and 58%. All images rendered correctly, with probability tables showing class scores to four decimal places. The alert system activated only for melanoma above the 60% threshold, confirming reliable functionality across varied test samples for practical diagnostic support.
+Web app testing across categories like Arts and HR yielded correct predictions with confidence scores from 70% to 90%. Specific inputs included PDF resumes, and outputs featured accurate category identification and skill extraction, such as communication in Arts. The app processed all tests without errors, though minority categories showed lower confidence, mirroring training imbalances.
 
-Comparison with Benchmark
-This section compares the current study with a reference work by Adebiyi et al. (2024). Their research on the HAM10000 dataset achieved a top accuracy of around 74.2% using an optimised CNN with augmentation and checkpointing. The present study surpasses this with ConvNeXt-Tiny reaching 77.34% accuracy. While their pipeline focused on custom CNN design, this work integrates advanced architectures and preprocessing steps. This improvement suggests that newer models can push performance boundaries on the same dataset, offering better diagnostic potential.
+5.6 Comparison with Benchmark
+This research's DistilBERT model achieves 84% accuracy, surpassing the benchmark paper by Jalili et al. (2024) which reported 72.4% with BiLSTM on a similar dataset. The current pipeline incorporates advanced imbalance handling, leading to better G-Mean scores, unlike the benchmark's focus on bidirectional processing alone.
 
-Novelty
-The unique aspect of this study lies in combining a detailed preprocessing sequence with the ConvNeXt-Tiny architecture, leading to an accuracy of 77.34%, surpassing other tested models. This pipeline first removes artefacts through specific techniques before applying augmentation, ensuring cleaner data for training. Such a methodical approach avoids amplifying noise during model learning. The ConvNeXt-Tiny design includes specific layers that stabilise training on medical images, aiding performance on minority classes. This setup also prevents data leakage by using lesion-based splitting, addressing class imbalance directly in the data loading stage. Compared to InceptionV3, a gain of 10.76% in accuracy is observed, alongside a 6.07% improvement in melanoma recall over Xception. These gains come with a minimal training time increase of under two minutes, showing a practical balance between efficiency and outcome. This combination proves that thoughtful system design can achieve meaningful results without relying solely on new model inventions. The findings indicate potential for real-world use, particularly in improving detection of critical skin conditions where every percentage point matters. Such structured engineering choices highlight a path forward for medical image analysis, focusing on systematic integration over isolated advancements.
+5.7 Novelty
+The research offers a streamlined pipeline that tests multiple models side by side, including MNB, Bi-LSTM and DistilBERT, under the same setup to pinpoint true performance differences. It uses a custom G-Mean measure to spotlight issues with minority classes, showing how DistilBERT reaches 77.8% G-Mean after corrections. The approach applies various imbalance fixes like weighting and threshold adjustments, revealing their benefits for DistilBERT but not Bi-LSTM. Additionally, it integrates NER for skills and roles, turning raw text into usable data. This full pipeline, ending in a web app, provides a ready tool for real-world use, extending beyond simple classification.
 
-Significance and Limitations
-The findings of this study align well with the set research goals by presenting a strong framework for skin lesion classification. The development of ConvNeXt-Tiny, achieving 77.34% accuracy, addresses the need for reliable prediction systems in medical imaging. By evaluating multiple models like InceptionV3, EfficientNet-B0, and Xception, a clear comparison of traditional and modern approaches is provided, showing steady progress in performance metrics. The integration of preprocessing steps ensures data quality, directly impacting prediction reliability, which is vital for diagnostic tasks. A web application extends this work into practical use, allowing real-time testing with results mirroring training outcomes, as seen in confidence scores from 35% to 89% across test images. This deployment meets the aim of creating usable tools for decision support. The focus on class imbalance through specific data handling also tackles real challenges in medical datasets, improving detection of rare but critical conditions like melanoma. While not directly tied to financial risk as in the original objectives, the principles of structured data preparation and model comparison translate to broader predictive tasks. This research thus builds a foundation for accurate and interpretable systems, adaptable to various domains needing robust classification, fulfilling the core intent of advancing predictive methodologies through systematic design.
+5.8 Significance and Limitations
+The research meets objectives by creating a predictive framework that compares models on financial-like datasets, achieving high accuracy with DistilBERT and integrating explanations via NER. It examines data preparation effects, as seen in preprocessing steps, and deploys a web app for practical decision support, fulfilling the goal of usable tools.
 
-Despite these achievements, certain constraints exist. The study struggles with smaller classes like df, where low sample size limits model learning, as seen in F1-scores around 40%. Testing is confined to the HAM10000 dataset, which may not cover all real-world variations. Computational resources also restrict extensive hyperparameter tuning, potentially missing optimal settings. Future work could explore larger datasets and advanced balancing techniques to address these gaps.
+Limitations include the dataset's class imbalance, which affects minority category performance despite corrections. Future work could expand the dataset and explore more advanced imbalance techniques to enhance accuracy across all classes.
 
